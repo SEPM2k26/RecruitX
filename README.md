@@ -94,6 +94,17 @@ npm run dev
 # Portal runs on: http://localhost:5174
 ```
 
-### 3. Default Demo Credentials
+### 3. Start Student Portal Frontend
+```bash
+cd student-portal
+npm install
+Copy-Item .env.example .env.local
+npm run dev
+# Portal runs on: http://localhost:5173
+```
+
+The Student Portal includes the Person 1 UI for authentication, dashboard, profile, resume, training, placement drives, applications, interviews, and notifications. Its API contract and the student endpoints still needed in the backend are documented in `student-portal/README.md`.
+
+### 4. Default Demo Credentials
 - **Admin Email**: `admin@recruitx.com`
 - **Password**: `password`

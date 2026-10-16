@@ -1,0 +1,14 @@
+import { useEffect, useState } from 'react';
+import { ArrowUpRight, BriefcaseBusiness, CalendarDays, FileText } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { applicationApi, asList } from '../api/student.js';
+import { errorMessage } from '../api/client.js';
+import { EmptyState, ErrorNotice, Loading } from '../components/Feedback.jsx';
+import { PageHeading, Pill } from '../components/UI.jsx';
+
+const tone=(value='')=>{const v=value.toLowerCase();if(v.includes('select')||v.includes('shortlist')||v.includes('pass'))return 'green';if(v.includes('reject'))return 'red';if(v.includes('interview')||v.includes('aptitude'))return 'blue';return 'yellow';};
+export default function ApplicationsPage(){const [items,setItems]=useState([]);const [loading,setLoading]=useState(true);const [error,setError]=useState('');
+ const load=async()=>{setLoading(true);setError('');try{setItems(asList(await applicationApi.mine()));}catch(err){setError(errorMessage(err,'Could not load your applications.'));}finally{setLoading(false);}};useEffect(()=>{load();},[]);
+ return <div><PageHeading eyebrow="Stay in the loop" title="My applications" description="Follow each opportunity from application to decision." action={<span className="rounded-xl bg-brand-soft px-3 py-2 text-xs font-bold text-brand">{items.length} total</span>}/>{error&&<div className="mb-5"><ErrorNotice message={error} onRetry={load}/></div>}{loading?<Loading label="Loading applications…"/>:items.length===0?<EmptyState title="No applications yet" detail="When you apply to a placement drive, it will show up here."/>:<div className="space-y-3">{items.map((item)=><article key={item.id} className="card flex flex-wrap items-center gap-4 p-4 md:p-5"><span className="grid h-11 w-11 place-items-center rounded-xl bg-brand-soft text-brand"><BriefcaseBusiness size={19}/></span><div className="min-w-[160px] flex-1"><h2 className="font-extrabold">{item.drive?.jobRole||item.jobRole||'Placement application'}</h2><p className="mt-1 text-xs text-muted">{item.drive?.company?.name||item.company?.name||item.companyName||'Company'}</p></div><div className="flex items-center gap-2 text-xs text-muted"><CalendarDays size={14}/>{item.appliedAt?new Date(item.appliedAt).toLocaleDateString():'Date pending'}</div><Pill tone={tone(item.status)}>{item.status||'Applied'}</Pill><Link to={item.driveId?`/drives/${item.driveId}`:'/drives'} title="View drive" className="rounded-lg p-2 text-muted hover:bg-paper hover:text-brand"><ArrowUpRight size={17}/></Link></article>)}</div>}
+  {items.length>0&&<div className="mt-5 rounded-xl bg-white p-4 text-xs leading-5 text-muted"><FileText size={15} className="mr-2 inline text-brand"/>Status updates from your placement team will appear here. If you have a question about an application, contact your TPO.</div>}</div>;
+}

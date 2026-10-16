@@ -1,0 +1,13 @@
+import { useEffect, useState } from 'react';
+import { Bell, CheckCheck, Circle } from 'lucide-react';
+import { asList, notificationApi } from '../api/student.js';
+import { errorMessage } from '../api/client.js';
+import { EmptyState, ErrorNotice, Loading } from '../components/Feedback.jsx';
+import { PageHeading } from '../components/UI.jsx';
+
+export default function NotificationsPage(){const [items,setItems]=useState([]);const [loading,setLoading]=useState(true);const [error,setError]=useState('');const [busy,setBusy]=useState({});
+ const load=async()=>{setLoading(true);setError('');try{setItems(asList(await notificationApi.mine()).sort((a,b)=>new Date(b.createdAt||0)-new Date(a.createdAt||0)));}catch(err){setError(errorMessage(err,'Could not load notifications.'));}finally{setLoading(false);}};useEffect(()=>{load();},[]);
+ const markRead=async(item)=>{setBusy(b=>({...b,[item.id]:true}));try{await notificationApi.markRead(item.id);setItems(list=>list.map(n=>n.id===item.id?{...n,read:true}:n));}catch(err){setError(errorMessage(err,'Could not update this notification.'));}finally{setBusy(b=>({...b,[item.id]:false}));}};
+ const unread=items.filter(item=>!item.read).length;
+ return <div><PageHeading eyebrow="Updates for you" title="Notifications" description="Important updates about your applications and placement activity." action={<span className="rounded-xl bg-brand-soft px-3 py-2 text-xs font-bold text-brand">{unread} unread</span>}/>{error&&<div className="mb-5"><ErrorNotice message={error} onRetry={load}/></div>}{loading?<Loading label="Loading notifications…"/>:items.length===0?<EmptyState title="You’re all caught up" detail="New placement updates will appear here."/>:<div className="space-y-2">{items.map(item=><article key={item.id} className={`flex items-start gap-3 rounded-2xl border p-4 ${item.read?'border-line bg-white':'border-[#dce9dc] bg-[#f6faf5]'}`}><span className={`mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl ${item.read?'bg-paper text-muted':'bg-brand-soft text-brand'}`}><Bell size={16}/></span><div className="min-w-0 flex-1"><p className="text-sm leading-6 text-ink">{item.message||item.title||'You have a new placement update.'}</p><p className="mt-1 text-[10px] font-semibold text-muted">{item.createdAt?new Date(item.createdAt).toLocaleString():'Recently'}{item.type?` · ${item.type.replaceAll('_',' ')}`:''}</p></div>{!item.read?<button disabled={busy[item.id]} onClick={()=>markRead(item)} className="inline-flex shrink-0 items-center gap-1 rounded-lg px-2 py-1 text-[10px] font-bold text-brand hover:bg-white"><CheckCheck size={14}/> Mark read</button>:<span title="Read" className="p-2 text-[#a5aea7]"><Circle size={8} fill="currentColor"/></span>}</article>)}</div>}</div>;
+}
