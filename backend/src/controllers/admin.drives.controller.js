@@ -1,6 +1,7 @@
 const { body } = require('express-validator');
 const { validate } = require('../middleware/validate.middleware');
 const { placementDrives, companies, students, generateId } = require('../config/db');
+const { checkStudentEligibility } = require('../services/student-eligibility.service');
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 const enrichDrive = (drive) => {
@@ -121,15 +122,8 @@ const checkEligibility = (req, res) => {
   const student = students.find((s) => s.id === req.user.id);
   if (!student) return res.status(404).json({ success: false, message: 'Student not found' });
 
-  const checks = {
-    cgpa: student.cgpa >= drive.minCGPA,
-    backlogs: student.backlogs <= drive.maxBacklogs,
-    branch: drive.eligibleBranches.includes(student.branch),
-    graduationYear: student.graduationYear === drive.graduationYear,
-  };
-
-  const eligible = Object.values(checks).every(Boolean);
-  res.json({ success: true, eligible, checks });
+  const result = checkStudentEligibility(student, drive);
+  res.json({ success: true, ...result });
 };
 
 module.exports = { getAllDrives, getDriveById, createDrive, updateDrive, deleteDrive, checkEligibility };

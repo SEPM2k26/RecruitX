@@ -4,7 +4,7 @@ const { students, generateId } = require('../config/db');
 const bcrypt = require('bcryptjs');
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
-const safeStudent = ({ password, ...rest }) => rest;
+const safeStudent = ({ password, resumeStoragePath, resumeMimeType, resumeSize, ...rest }) => rest;
 
 // ── Controllers ───────────────────────────────────────────────────────────────
 

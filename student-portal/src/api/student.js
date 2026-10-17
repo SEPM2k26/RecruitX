@@ -14,6 +14,7 @@ export const profileApi = {
     return unwrap(await api.post('/students/me/resume', form, { headers: { 'Content-Type': 'multipart/form-data' } }));
   },
   deleteResume: async () => unwrap(await api.delete('/students/me/resume')),
+  downloadResume: async () => (await api.get('/students/me/resume/file', { responseType: 'blob' })).data,
 };
 export const driveApi = {
   list: async (params) => unwrap(await api.get('/drives', { params })),

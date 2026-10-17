@@ -10,8 +10,9 @@ const notifications = require('../controllers/admin.notifications.controller');
 // ── Shared / Student-facing routes ────────────────────────────────────────────
 
 // Trainings (public read, enroll requires auth)
-router.get('/trainings', trainings.getAllTrainings);
-router.get('/trainings/:id', trainings.getTrainingById);
+router.get('/trainings', trainings.getPublicTrainings);
+router.get('/trainings/student', authenticate, authorize('student'), trainings.getMyTrainings);
+router.get('/trainings/:id', trainings.getPublicTrainingById);
 router.post('/trainings/:id/enroll', authenticate, authorize('student'), trainings.enrollStudent);
 
 // Placement Drives
@@ -27,7 +28,7 @@ router.get('/applications/student', authenticate, authorize('student'), applicat
 router.get('/interviews/student', authenticate, authorize('student'), interviews.getMyInterviews);
 
 // Student notifications
-router.get('/notifications/me', authenticate, notifications.getMyNotifications);
-router.patch('/notifications/:id/read', authenticate, notifications.markAsRead);
+router.get('/notifications/me', authenticate, authorize('student'), notifications.getMyNotifications);
+router.patch('/notifications/:id/read', authenticate, authorize('student'), notifications.markAsRead);
 
 module.exports = router;

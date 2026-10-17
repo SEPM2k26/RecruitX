@@ -10,6 +10,8 @@ const { errorHandler, notFound } = require('./src/middleware/error.middleware');
 
 // Routes
 const adminAuthRoutes = require('./src/routes/admin.auth.routes');
+const studentAuthRoutes = require('./src/routes/student.auth.routes');
+const studentRoutes = require('./src/routes/student.routes');
 const adminRoutes = require('./src/routes/admin.routes');
 const sharedRoutes = require('./src/routes/shared.routes');
 
@@ -22,14 +24,14 @@ app.use(morgan(config.nodeEnv === 'production' ? 'combined' : 'dev'));
 // ── CORS ──────────────────────────────────────────────────────────────────────
 app.use(
   cors({
-    origin: [config.clientUrl, config.adminClientUrl, 'http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175'],
+    origin: [config.clientUrl, config.adminClientUrl, config.studentClientUrl, config.recruiterClientUrl],
     credentials: true,
   })
 );
 
 // ── Body Parsers ──────────────────────────────────────────────────────────────
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 
 // ── Health Check ──────────────────────────────────────────────────────────────
 app.get('/api/health', (req, res) => {
@@ -38,12 +40,15 @@ app.get('/api/health', (req, res) => {
     message: 'RecruitX API is running',
     timestamp: new Date().toISOString(),
     environment: config.nodeEnv,
+    dataMode: config.dataMode,
   });
 });
 
 // ── API Routes ────────────────────────────────────────────────────────────────
 app.use('/api/auth/admin', adminAuthRoutes);
+app.use('/api/auth/student', studentAuthRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/students', studentRoutes);
 app.use('/api', sharedRoutes);  // shared: /api/drives, /api/trainings, etc.
 
 // ── Error Handling ────────────────────────────────────────────────────────────

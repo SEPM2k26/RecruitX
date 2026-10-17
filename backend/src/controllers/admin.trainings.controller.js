@@ -14,6 +14,17 @@ const getAllTrainings = (req, res) => {
   res.json({ success: true, total: result.length, data: result });
 };
 
+const getPublicTrainings = (req, res) => {
+  const { status } = req.query;
+  let result = [...trainings];
+  if (status) result = result.filter((training) => training.status === status);
+  const data = result.map(({ enrolledStudents, ...training }) => ({
+    ...training,
+    enrolledCount: enrolledStudents.length,
+  }));
+  res.json({ success: true, total: data.length, data });
+};
+
 /**
  * GET /api/admin/trainings/:id
  */
@@ -21,6 +32,27 @@ const getTrainingById = (req, res) => {
   const training = trainings.find((t) => t.id === req.params.id);
   if (!training) return res.status(404).json({ success: false, message: 'Training not found' });
   res.json({ success: true, data: training });
+};
+
+const getPublicTrainingById = (req, res) => {
+  const training = trainings.find((item) => item.id === req.params.id);
+  if (!training) return res.status(404).json({ success: false, message: 'Training not found' });
+  const { enrolledStudents, ...data } = training;
+  return res.json({ success: true, data: { ...data, enrolledCount: enrolledStudents.length } });
+};
+
+/**
+ * GET /api/trainings/student — current student's enrolled programs
+ */
+const getMyTrainings = (req, res) => {
+  const result = trainings
+    .filter((training) => training.enrolledStudents.includes(req.user.id))
+    .map(({ enrolledStudents, ...training }) => ({
+      ...training,
+      enrolledCount: enrolledStudents.length,
+      enrollmentStatus: 'Enrolled',
+    }));
+  res.json({ success: true, total: result.length, data: result });
 };
 
 /**
@@ -104,6 +136,9 @@ const getEnrollments = (req, res) => {
 const enrollStudent = (req, res) => {
   const training = trainings.find((t) => t.id === req.params.id);
   if (!training) return res.status(404).json({ success: false, message: 'Training not found' });
+  if (['completed', 'cancelled'].includes(training.status)) {
+    return res.status(400).json({ success: false, message: 'This training is no longer accepting enrollments.' });
+  }
 
   const studentId = req.user.id;
 
@@ -115,12 +150,20 @@ const enrollStudent = (req, res) => {
   }
 
   training.enrolledStudents.push(studentId);
-  res.json({ success: true, message: 'Enrolled successfully', data: training });
+  const { enrolledStudents, ...safeTraining } = training;
+  res.json({
+    success: true,
+    message: 'Enrolled successfully',
+    data: { ...safeTraining, enrolled: true, enrolledCount: enrolledStudents.length },
+  });
 };
 
 module.exports = {
   getAllTrainings,
+  getPublicTrainings,
   getTrainingById,
+  getPublicTrainingById,
+  getMyTrainings,
   createTraining,
   updateTraining,
   deleteTraining,

@@ -1,6 +1,7 @@
 const { body } = require('express-validator');
 const { validate } = require('../middleware/validate.middleware');
 const { applications, placementDrives, students, notifications, generateId } = require('../config/db');
+const { checkStudentEligibility } = require('../services/student-eligibility.service');
 
 // Application status flow
 const STATUS_FLOW = ['Applied', 'Shortlisted', 'Aptitude', 'Technical Interview', 'HR Interview', 'Selected', 'Rejected'];
@@ -55,17 +56,36 @@ const applyForDrive = [
     if (!drive) return res.status(404).json({ success: false, message: 'Drive not found' });
     if (drive.status !== 'active') return res.status(400).json({ success: false, message: 'Drive is not accepting applications' });
 
+    const student = students.find((s) => s.id === studentId);
+    if (!student || student.isActive === false) return res.status(404).json({ success: false, message: 'Student account not found' });
+
     const duplicate = applications.find((a) => a.driveId === driveId && a.studentId === studentId);
     if (duplicate) return res.status(409).json({ success: false, message: 'Already applied for this drive' });
 
-    const deadline = new Date(drive.applicationDeadline);
-    if (new Date() > deadline) return res.status(400).json({ success: false, message: 'Application deadline has passed' });
+    const deadlineValue = /^\d{4}-\d{2}-\d{2}$/.test(drive.applicationDeadline)
+      ? `${drive.applicationDeadline}T23:59:59.999Z`
+      : drive.applicationDeadline;
+    const deadline = new Date(deadlineValue);
+    if (Number.isNaN(deadline.getTime()) || new Date() > deadline) {
+      return res.status(400).json({ success: false, message: 'Application deadline has passed' });
+    }
+
+    const eligibility = checkStudentEligibility(student, drive);
+    if (!eligibility.eligible) {
+      return res.status(403).json({
+        success: false,
+        message: 'You do not meet the eligibility criteria for this drive.',
+        eligible: false,
+        checks: eligibility.checks,
+      });
+    }
 
     const newApp = {
       id: generateId('app'),
       studentId,
       driveId,
       status: 'Applied',
+      resumeUrl: student.resumeUrl || null,
       appliedAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
