@@ -4,7 +4,6 @@ const { body } = require('express-validator');
 const { validate } = require('../middleware/validate.middleware');
 const { admins } = require('../config/db');
 const config = require('../config/config');
-const { generateId } = require('../config/db');
 
 // ── Validation rules ──────────────────────────────────────────────────────────
 const loginRules = [
@@ -39,7 +38,7 @@ const login = [
   async (req, res, next) => {
     try {
       const { email, password } = req.body;
-      const admin = admins.find((a) => a.email === email);
+      const admin = await admins.findByEmail(email);
 
       if (!admin) {
         return res.status(401).json({ success: false, message: 'Invalid credentials' });
@@ -73,20 +72,18 @@ const registerAdmin = [
   async (req, res, next) => {
     try {
       const { name, email, password } = req.body;
-      if (admins.find((a) => a.email === email)) {
+      const existing = await admins.findByEmail(email);
+      if (existing) {
         return res.status(409).json({ success: false, message: 'Email already in use' });
       }
 
       const hashed = await bcrypt.hash(password, 10);
-      const newAdmin = {
-        id: generateId('admin'),
+      const newAdmin = await admins.create({
         name,
         email,
         password: hashed,
         role: 'admin',
-        createdAt: new Date().toISOString(),
-      };
-      admins.push(newAdmin);
+      });
 
       const token = signToken(newAdmin);
       res.status(201).json({
@@ -104,10 +101,14 @@ const registerAdmin = [
 /**
  * GET /api/auth/admin/me  (protected)
  */
-const getMe = (req, res) => {
-  const admin = admins.find((a) => a.id === req.user.id);
-  if (!admin) return res.status(404).json({ success: false, message: 'Admin not found' });
-  res.json({ success: true, user: safeAdmin(admin) });
+const getMe = async (req, res, next) => {
+  try {
+    const admin = await admins.findById(req.user.id);
+    if (!admin) return res.status(404).json({ success: false, message: 'Admin not found' });
+    res.json({ success: true, user: safeAdmin(admin) });
+  } catch (err) {
+    next(err);
+  }
 };
 
 module.exports = { login, registerAdmin, getMe };

@@ -1,235 +1,878 @@
-const { randomUUID } = require('crypto');
+const { Pool } = require('pg');
+const { v4: uuidv4 } = require('uuid');
+const config = require('./config');
 
-// In-memory store — Person 3 will replace with real DB queries
-// Seed data for development
-const admins = [
-  {
-    id: 'admin-1',
-    name: 'Super Admin',
-    email: 'admin@recruitx.com',
-    // bcrypt hash of 'password'
-    password: '$2b$10$ZMmMzS.uOZkXWQWq5avGC.KvId3W8z2fRQxHZkEjYqgIgmRnxhnce',
-    role: 'admin',
-    createdAt: new Date().toISOString(),
-  },
-];
+const poolConfig = config.db.url
+  ? { connectionString: config.db.url, ssl: config.db.ssl }
+  : {
+    host: config.db.host,
+    port: config.db.port,
+    database: config.db.name,
+    user: config.db.user,
+    password: config.db.password,
+    ssl: config.db.ssl,
+  };
 
-const students = [
-  {
-    id: 'stu-1',
-    name: 'Alice Johnson',
-    email: 'alice@example.com',
-    password: '$2b$10$ZMmMzS.uOZkXWQWq5avGC.KvId3W8z2fRQxHZkEjYqgIgmRnxhnce',
-    role: 'student',
-    registrationNumber: 'DEMO001',
-    cgpa: 8.5,
-    branch: 'CSE',
-    graduationYear: 2027,
-    backlogs: 0,
-    phone: '9876543210',
-    skills: ['React', 'Node.js', 'Python'],
-    resumeUrl: null,
-    resumeFileName: null,
-    resumeStoragePath: null,
-    resumeMimeType: null,
-    resumeSize: null,
-    resumeUploadedAt: null,
-    linkedinUrl: '',
-    portfolioUrl: '',
-    isActive: true,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: 'stu-2',
-    name: 'Bob Smith',
-    email: 'bob@example.com',
-    password: '$2b$10$ZMmMzS.uOZkXWQWq5avGC.KvId3W8z2fRQxHZkEjYqgIgmRnxhnce',
-    role: 'student',
-    registrationNumber: 'DEMO002',
-    cgpa: 7.2,
-    branch: 'ECE',
-    graduationYear: 2027,
-    backlogs: 1,
-    phone: '9876543211',
-    skills: ['C++', 'Embedded Systems'],
-    resumeUrl: null,
-    resumeFileName: null,
-    resumeStoragePath: null,
-    resumeMimeType: null,
-    resumeSize: null,
-    resumeUploadedAt: null,
-    linkedinUrl: '',
-    portfolioUrl: '',
-    isActive: true,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: 'stu-3',
-    name: 'Carol White',
-    email: 'carol@example.com',
-    password: '$2b$10$ZMmMzS.uOZkXWQWq5avGC.KvId3W8z2fRQxHZkEjYqgIgmRnxhnce',
-    role: 'student',
-    registrationNumber: 'DEMO003',
-    cgpa: 9.1,
-    branch: 'CSE',
-    graduationYear: 2027,
-    backlogs: 0,
-    phone: '9876543212',
-    skills: ['Java', 'Spring Boot', 'SQL'],
-    resumeUrl: null,
-    resumeFileName: null,
-    resumeStoragePath: null,
-    resumeMimeType: null,
-    resumeSize: null,
-    resumeUploadedAt: null,
-    linkedinUrl: '',
-    portfolioUrl: '',
-    isActive: true,
-    createdAt: new Date().toISOString(),
-  },
-];
+const pool = new Pool(poolConfig);
 
-const companies = [
-  {
-    id: 'comp-1',
-    name: 'TechCorp India',
-    industry: 'IT Services',
-    website: 'https://techcorp.com',
-    description: 'Leading IT services company',
-    contactEmail: 'hr@techcorp.com',
-    contactPhone: '0222345678',
-    location: 'Mumbai',
-    logoUrl: null,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: 'comp-2',
-    name: 'FinSolve',
-    industry: 'Fintech',
-    website: 'https://finsolve.com',
-    description: 'Modern fintech solutions provider',
-    contactEmail: 'careers@finsolve.com',
-    contactPhone: '0224567890',
-    location: 'Pune',
-    logoUrl: null,
-    createdAt: new Date().toISOString(),
-  },
-];
+pool.on('error', (err) => {
+  console.error('Unexpected error on idle PostgreSQL client:', err);
+});
 
-const trainings = [
-  {
-    id: 'train-1',
-    title: 'Full Stack Web Development',
-    description: 'Comprehensive full-stack course covering React and Node.js',
-    instructor: 'Mr. Sharma',
-    startDate: '2027-01-15',
-    endDate: '2027-03-15',
-    duration: '8 weeks',
-    mode: 'online',
-    maxStudents: 30,
-    status: 'active',
-    enrolledStudents: ['stu-1'],
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: 'train-2',
-    title: 'Data Structures & Algorithms',
-    description: 'DSA preparation for placement interviews',
-    instructor: 'Ms. Verma',
-    startDate: '2027-02-01',
-    endDate: '2027-04-01',
-    duration: '8 weeks',
-    mode: 'offline',
-    maxStudents: 40,
-    status: 'upcoming',
-    enrolledStudents: [],
-    createdAt: new Date().toISOString(),
-  },
-];
+const generateId = (prefix) => `${prefix}-${uuidv4().split('-')[0]}`;
 
-const placementDrives = [
-  {
-    id: 'drive-1',
-    companyId: 'comp-1',
-    jobRole: 'Software Engineer',
-    package: '8 LPA',
-    location: 'Mumbai',
-    applicationDeadline: '2027-02-28',
-    eligibleBranches: ['CSE', 'IT'],
-    minCGPA: 7.0,
-    maxBacklogs: 0,
-    graduationYear: 2027,
-    description: 'Full-stack development role',
-    status: 'active',
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: 'drive-2',
-    companyId: 'comp-2',
-    jobRole: 'Backend Developer',
-    package: '6 LPA',
-    location: 'Pune',
-    applicationDeadline: '2027-03-10',
-    eligibleBranches: ['CSE', 'ECE', 'IT'],
-    minCGPA: 6.5,
-    maxBacklogs: 1,
-    graduationYear: 2027,
-    description: 'Java backend development role',
-    status: 'active',
-    createdAt: new Date().toISOString(),
-  },
-];
+// ── Models ────────────────────────────────────────────────────────────────────
 
-const applications = [
-  {
-    id: 'app-1',
-    studentId: 'stu-1',
-    driveId: 'drive-1',
-    status: 'Shortlisted',
-    appliedAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+const admins = {
+  async findByEmail(email) {
+    const res = await pool.query(
+      'SELECT id, name, email, password, role, created_at AS "createdAt" FROM admins WHERE LOWER(email) = LOWER($1)',
+      [email]
+    );
+    return res.rows[0] || null;
   },
-  {
-    id: 'app-2',
-    studentId: 'stu-3',
-    driveId: 'drive-1',
-    status: 'Applied',
-    appliedAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  },
-  {
-    id: 'app-3',
-    studentId: 'stu-2',
-    driveId: 'drive-2',
-    status: 'Applied',
-    appliedAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  },
-];
 
-const interviews = [
-  {
-    id: 'int-1',
-    studentId: 'stu-1',
-    driveId: 'drive-1',
-    applicationId: 'app-1',
-    round: 'Technical Interview',
-    scheduledAt: '2027-03-05T10:00:00Z',
-    mode: 'online',
-    meetingLink: 'https://meet.google.com/abc-xyz',
-    status: 'scheduled',
-    result: null,
-    feedback: null,
-    createdAt: new Date().toISOString(),
+  async findById(id) {
+    const res = await pool.query(
+      'SELECT id, name, email, password, role, created_at AS "createdAt" FROM admins WHERE id = $1',
+      [id]
+    );
+    return res.rows[0] || null;
   },
-];
 
-const notifications = [];
+  async create({ name, email, password, role = 'admin' }) {
+    const id = generateId('admin');
+    const res = await pool.query(
+      `INSERT INTO admins (id, name, email, password, role)
+       VALUES ($1, $2, $3, $4, $5)
+       RETURNING id, name, email, password, role, created_at AS "createdAt"`,
+      [id, name, email, password, role]
+    );
+    return res.rows[0];
+  },
+};
 
-// Helper to generate IDs
-const generateId = (prefix) => `${prefix}-${randomUUID()}`;
+const students = {
+  async findAll({ search, branch, graduationYear, isActive } = {}) {
+    let query = `
+      SELECT id, name, email, password, role, cgpa::float AS cgpa, branch,
+             graduation_year AS "graduationYear", backlogs, phone, skills,
+             resume_url AS "resumeUrl", is_active AS "isActive",
+             created_at AS "createdAt", updated_at AS "updatedAt"
+      FROM students
+      WHERE 1=1
+    `;
+    const params = [];
+
+    if (search) {
+      params.push(`%${search.toLowerCase()}%`);
+      query += ` AND (LOWER(name) LIKE $${params.length} OR LOWER(email) LIKE $${params.length})`;
+    }
+    if (branch) {
+      params.push(branch);
+      query += ` AND branch = $${params.length}`;
+    }
+    if (graduationYear) {
+      params.push(parseInt(graduationYear, 10));
+      query += ` AND graduation_year = $${params.length}`;
+    }
+    if (isActive !== undefined) {
+      params.push(isActive === 'true' || isActive === true);
+      query += ` AND is_active = $${params.length}`;
+    }
+
+    query += ' ORDER BY created_at DESC';
+    const res = await pool.query(query, params);
+    return res.rows;
+  },
+
+  async findById(id) {
+    const res = await pool.query(
+      `SELECT id, name, email, password, role, cgpa::float AS cgpa, branch,
+              graduation_year AS "graduationYear", backlogs, phone, skills,
+              resume_url AS "resumeUrl", is_active AS "isActive",
+              created_at AS "createdAt", updated_at AS "updatedAt"
+       FROM students WHERE id = $1`,
+      [id]
+    );
+    return res.rows[0] || null;
+  },
+
+  async findByEmail(email) {
+    const res = await pool.query(
+      `SELECT id, name, email, password, role, cgpa::float AS cgpa, branch,
+              graduation_year AS "graduationYear", backlogs, phone, skills,
+              resume_url AS "resumeUrl", is_active AS "isActive",
+              created_at AS "createdAt", updated_at AS "updatedAt"
+       FROM students WHERE LOWER(email) = LOWER($1)`,
+      [email]
+    );
+    return res.rows[0] || null;
+  },
+
+  async create(data) {
+    const id = data.id || generateId('stu');
+    const res = await pool.query(
+      `INSERT INTO students (id, name, email, password, role, cgpa, branch, graduation_year, backlogs, phone, skills, resume_url, is_active)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+       RETURNING id, name, email, password, role, cgpa::float AS cgpa, branch,
+                 graduation_year AS "graduationYear", backlogs, phone, skills,
+                 resume_url AS "resumeUrl", is_active AS "isActive",
+                 created_at AS "createdAt", updated_at AS "updatedAt"`,
+      [
+        id,
+        data.name,
+        data.email,
+        data.password,
+        data.role || 'student',
+        data.cgpa || 0.0,
+        data.branch || null,
+        data.graduationYear || null,
+        data.backlogs || 0,
+        data.phone || null,
+        JSON.stringify(data.skills || []),
+        data.resumeUrl || null,
+        data.isActive !== undefined ? data.isActive : true,
+      ]
+    );
+    return res.rows[0];
+  },
+
+  async update(id, updates) {
+    const fields = [];
+    const values = [];
+
+    const fieldMap = {
+      name: 'name',
+      phone: 'phone',
+      cgpa: 'cgpa',
+      branch: 'branch',
+      graduationYear: 'graduation_year',
+      backlogs: 'backlogs',
+      skills: 'skills',
+      resumeUrl: 'resume_url',
+      isActive: 'is_active',
+    };
+
+    Object.keys(updates).forEach((key) => {
+      if (fieldMap[key] && updates[key] !== undefined) {
+        values.push(key === 'skills' ? JSON.stringify(updates[key]) : updates[key]);
+        fields.push(`${fieldMap[key]} = $${values.length}`);
+      }
+    });
+
+    if (fields.length === 0) return this.findById(id);
+
+    fields.push(`updated_at = NOW()`);
+    values.push(id);
+
+    const res = await pool.query(
+      `UPDATE students
+       SET ${fields.join(', ')}
+       WHERE id = $${values.length}
+       RETURNING id, name, email, password, role, cgpa::float AS cgpa, branch,
+                 graduation_year AS "graduationYear", backlogs, phone, skills,
+                 resume_url AS "resumeUrl", is_active AS "isActive",
+                 created_at AS "createdAt", updated_at AS "updatedAt"`,
+      values
+    );
+    return res.rows[0] || null;
+  },
+
+  async delete(id) {
+    const res = await pool.query('DELETE FROM students WHERE id = $1 RETURNING id', [id]);
+    return res.rowCount > 0;
+  },
+};
+
+const companies = {
+  async findAll({ search, industry } = {}) {
+    let query = `
+      SELECT id, name, industry, website, description,
+             contact_email AS "contactEmail", contact_phone AS "contactPhone",
+             location, logo_url AS "logoUrl",
+             created_at AS "createdAt", updated_at AS "updatedAt"
+      FROM companies
+      WHERE 1=1
+    `;
+    const params = [];
+
+    if (search) {
+      params.push(`%${search.toLowerCase()}%`);
+      query += ` AND LOWER(name) LIKE $${params.length}`;
+    }
+    if (industry) {
+      params.push(industry);
+      query += ` AND industry = $${params.length}`;
+    }
+
+    query += ' ORDER BY created_at DESC';
+    const res = await pool.query(query, params);
+    return res.rows;
+  },
+
+  async findById(id) {
+    const res = await pool.query(
+      `SELECT id, name, industry, website, description,
+              contact_email AS "contactEmail", contact_phone AS "contactPhone",
+              location, logo_url AS "logoUrl",
+              created_at AS "createdAt", updated_at AS "updatedAt"
+       FROM companies WHERE id = $1`,
+      [id]
+    );
+    return res.rows[0] || null;
+  },
+
+  async findByName(name) {
+    const res = await pool.query(
+      `SELECT id, name FROM companies WHERE LOWER(name) = LOWER($1)`,
+      [name]
+    );
+    return res.rows[0] || null;
+  },
+
+  async create(data) {
+    const id = generateId('comp');
+    const res = await pool.query(
+      `INSERT INTO companies (id, name, industry, website, description, contact_email, contact_phone, location, logo_url)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+       RETURNING id, name, industry, website, description,
+                 contact_email AS "contactEmail", contact_phone AS "contactPhone",
+                 location, logo_url AS "logoUrl",
+                 created_at AS "createdAt", updated_at AS "updatedAt"`,
+      [
+        id,
+        data.name,
+        data.industry,
+        data.website || null,
+        data.description || null,
+        data.contactEmail || null,
+        data.contactPhone || null,
+        data.location || null,
+        data.logoUrl || null,
+      ]
+    );
+    return res.rows[0];
+  },
+
+  async update(id, updates) {
+    const fields = [];
+    const values = [];
+
+    const fieldMap = {
+      name: 'name',
+      industry: 'industry',
+      website: 'website',
+      description: 'description',
+      contactEmail: 'contact_email',
+      contactPhone: 'contact_phone',
+      location: 'location',
+      logoUrl: 'logo_url',
+    };
+
+    Object.keys(updates).forEach((key) => {
+      if (fieldMap[key] && updates[key] !== undefined) {
+        values.push(updates[key]);
+        fields.push(`${fieldMap[key]} = $${values.length}`);
+      }
+    });
+
+    if (fields.length === 0) return this.findById(id);
+
+    fields.push(`updated_at = NOW()`);
+    values.push(id);
+
+    const res = await pool.query(
+      `UPDATE companies
+       SET ${fields.join(', ')}
+       WHERE id = $${values.length}
+       RETURNING id, name, industry, website, description,
+                 contact_email AS "contactEmail", contact_phone AS "contactPhone",
+                 location, logo_url AS "logoUrl",
+                 created_at AS "createdAt", updated_at AS "updatedAt"`,
+      values
+    );
+    return res.rows[0] || null;
+  },
+
+  async delete(id) {
+    const res = await pool.query('DELETE FROM companies WHERE id = $1 RETURNING id', [id]);
+    return res.rowCount > 0;
+  },
+};
+
+const trainings = {
+  async findAll({ status } = {}) {
+    let query = `
+      SELECT id, title, description, instructor,
+             start_date AS "startDate", end_date AS "endDate",
+             duration, mode, max_students AS "maxStudents",
+             status, enrolled_students AS "enrolledStudents",
+             created_at AS "createdAt", updated_at AS "updatedAt"
+      FROM trainings
+      WHERE 1=1
+    `;
+    const params = [];
+
+    if (status) {
+      params.push(status);
+      query += ` AND status = $${params.length}`;
+    }
+
+    query += ' ORDER BY created_at DESC';
+    const res = await pool.query(query, params);
+    return res.rows;
+  },
+
+  async findById(id) {
+    const res = await pool.query(
+      `SELECT id, title, description, instructor,
+              start_date AS "startDate", end_date AS "endDate",
+              duration, mode, max_students AS "maxStudents",
+              status, enrolled_students AS "enrolledStudents",
+              created_at AS "createdAt", updated_at AS "updatedAt"
+       FROM trainings WHERE id = $1`,
+      [id]
+    );
+    return res.rows[0] || null;
+  },
+
+  async create(data) {
+    const id = generateId('train');
+    const res = await pool.query(
+      `INSERT INTO trainings (id, title, description, instructor, start_date, end_date, duration, mode, max_students, status, enrolled_students)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+       RETURNING id, title, description, instructor,
+                 start_date AS "startDate", end_date AS "endDate",
+                 duration, mode, max_students AS "maxStudents",
+                 status, enrolled_students AS "enrolledStudents",
+                 created_at AS "createdAt", updated_at AS "updatedAt"`,
+      [
+        id,
+        data.title,
+        data.description || '',
+        data.instructor,
+        data.startDate,
+        data.endDate,
+        data.duration || null,
+        data.mode || 'online',
+        data.maxStudents || 50,
+        data.status || 'upcoming',
+        JSON.stringify(data.enrolledStudents || []),
+      ]
+    );
+    return res.rows[0];
+  },
+
+  async update(id, updates) {
+    const fields = [];
+    const values = [];
+
+    const fieldMap = {
+      title: 'title',
+      description: 'description',
+      instructor: 'instructor',
+      startDate: 'start_date',
+      endDate: 'end_date',
+      duration: 'duration',
+      mode: 'mode',
+      maxStudents: 'max_students',
+      status: 'status',
+      enrolledStudents: 'enrolled_students',
+    };
+
+    Object.keys(updates).forEach((key) => {
+      if (fieldMap[key] && updates[key] !== undefined) {
+        values.push(key === 'enrolledStudents' ? JSON.stringify(updates[key]) : updates[key]);
+        fields.push(`${fieldMap[key]} = $${values.length}`);
+      }
+    });
+
+    if (fields.length === 0) return this.findById(id);
+
+    fields.push(`updated_at = NOW()`);
+    values.push(id);
+
+    const res = await pool.query(
+      `UPDATE trainings
+       SET ${fields.join(', ')}
+       WHERE id = $${values.length}
+       RETURNING id, title, description, instructor,
+                 start_date AS "startDate", end_date AS "endDate",
+                 duration, mode, max_students AS "maxStudents",
+                 status, enrolled_students AS "enrolledStudents",
+                 created_at AS "createdAt", updated_at AS "updatedAt"`,
+      values
+    );
+    return res.rows[0] || null;
+  },
+
+  async delete(id) {
+    const res = await pool.query('DELETE FROM trainings WHERE id = $1 RETURNING id', [id]);
+    return res.rowCount > 0;
+  },
+
+  async enroll(id, studentId) {
+    const training = await this.findById(id);
+    if (!training) return { error: 'Training not found', code: 404 };
+
+    const enrolled = training.enrolledStudents || [];
+    if (enrolled.includes(studentId)) {
+      return { error: 'Already enrolled', code: 409 };
+    }
+    if (enrolled.length >= training.maxStudents) {
+      return { error: 'Training is full', code: 400 };
+    }
+
+    enrolled.push(studentId);
+    const updated = await this.update(id, { enrolledStudents: enrolled });
+    return { data: updated };
+  },
+};
+
+const placementDrives = {
+  async findAll({ status, branch, companyId } = {}) {
+    let query = `
+      SELECT d.id, d.company_id AS "companyId", d.job_role AS "jobRole", d.package,
+             d.location, d.application_deadline AS "applicationDeadline",
+             d.eligible_branches AS "eligibleBranches", d.min_cgpa::float AS "minCGPA",
+             d.max_backlogs AS "maxBacklogs", d.graduation_year AS "graduationYear",
+             d.description, d.status, d.created_at AS "createdAt", d.updated_at AS "updatedAt",
+             json_build_object(
+               'id', c.id,
+               'name', c.name,
+               'industry', c.industry,
+               'location', c.location,
+               'contactEmail', c.contact_email
+             ) AS company
+      FROM placement_drives d
+      LEFT JOIN companies c ON d.company_id = c.id
+      WHERE 1=1
+    `;
+    const params = [];
+
+    if (status) {
+      params.push(status);
+      query += ` AND d.status = $${params.length}`;
+    }
+    if (companyId) {
+      params.push(companyId);
+      query += ` AND d.company_id = $${params.length}`;
+    }
+    if (branch) {
+      params.push(branch);
+      query += ` AND d.eligible_branches ? $${params.length}`;
+    }
+
+    query += ' ORDER BY d.created_at DESC';
+    const res = await pool.query(query, params);
+    return res.rows;
+  },
+
+  async findById(id) {
+    const res = await pool.query(
+      `SELECT d.id, d.company_id AS "companyId", d.job_role AS "jobRole", d.package,
+              d.location, d.application_deadline AS "applicationDeadline",
+              d.eligible_branches AS "eligibleBranches", d.min_cgpa::float AS "minCGPA",
+              d.max_backlogs AS "maxBacklogs", d.graduation_year AS "graduationYear",
+              d.description, d.status, d.created_at AS "createdAt", d.updated_at AS "updatedAt",
+              json_build_object(
+                'id', c.id,
+                'name', c.name,
+                'industry', c.industry,
+                'location', c.location,
+                'contactEmail', c.contact_email
+              ) AS company
+       FROM placement_drives d
+       LEFT JOIN companies c ON d.company_id = c.id
+       WHERE d.id = $1`,
+      [id]
+    );
+    return res.rows[0] || null;
+  },
+
+  async create(data) {
+    const id = generateId('drive');
+    const res = await pool.query(
+      `INSERT INTO placement_drives (id, company_id, job_role, package, location, application_deadline, eligible_branches, min_cgpa, max_backlogs, graduation_year, description, status)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+       RETURNING id, company_id AS "companyId", job_role AS "jobRole", package,
+                 location, application_deadline AS "applicationDeadline",
+                 eligible_branches AS "eligibleBranches", min_cgpa::float AS "minCGPA",
+                 max_backlogs AS "maxBacklogs", graduation_year AS "graduationYear",
+                 description, status, created_at AS "createdAt", updated_at AS "updatedAt"`,
+      [
+        id,
+        data.companyId,
+        data.jobRole,
+        data.package,
+        data.location,
+        data.applicationDeadline,
+        JSON.stringify(data.eligibleBranches || []),
+        parseFloat(data.minCGPA) || 0.0,
+        parseInt(data.maxBacklogs, 10) || 0,
+        parseInt(data.graduationYear, 10),
+        data.description || '',
+        data.status || 'active',
+      ]
+    );
+    return this.findById(res.rows[0].id);
+  },
+
+  async update(id, updates) {
+    const fields = [];
+    const values = [];
+
+    const fieldMap = {
+      jobRole: 'job_role',
+      package: 'package',
+      location: 'location',
+      applicationDeadline: 'application_deadline',
+      eligibleBranches: 'eligible_branches',
+      minCGPA: 'min_cgpa',
+      maxBacklogs: 'max_backlogs',
+      graduationYear: 'graduation_year',
+      description: 'description',
+      status: 'status',
+    };
+
+    Object.keys(updates).forEach((key) => {
+      if (fieldMap[key] && updates[key] !== undefined) {
+        values.push(key === 'eligibleBranches' ? JSON.stringify(updates[key]) : updates[key]);
+        fields.push(`${fieldMap[key]} = $${values.length}`);
+      }
+    });
+
+    if (fields.length === 0) return this.findById(id);
+
+    fields.push(`updated_at = NOW()`);
+    values.push(id);
+
+    await pool.query(
+      `UPDATE placement_drives
+       SET ${fields.join(', ')}
+       WHERE id = $${values.length}`,
+      values
+    );
+    return this.findById(id);
+  },
+
+  async delete(id) {
+    const res = await pool.query('DELETE FROM placement_drives WHERE id = $1 RETURNING id', [id]);
+    return res.rowCount > 0;
+  },
+};
+
+const applications = {
+  async findAll({ driveId, status, studentId } = {}) {
+    let query = `
+      SELECT a.id, a.student_id AS "studentId", a.drive_id AS "driveId",
+             a.status, a.applied_at AS "appliedAt", a.updated_at AS "updatedAt",
+             json_build_object(
+               'id', s.id,
+               'name', s.name,
+               'email', s.email,
+               'cgpa', s.cgpa::float,
+               'branch', s.branch
+             ) AS student,
+             json_build_object(
+               'id', d.id,
+               'jobRole', d.job_role,
+               'package', d.package
+             ) AS drive
+      FROM applications a
+      LEFT JOIN students s ON a.student_id = s.id
+      LEFT JOIN placement_drives d ON a.drive_id = d.id
+      WHERE 1=1
+    `;
+    const params = [];
+
+    if (driveId) {
+      params.push(driveId);
+      query += ` AND a.drive_id = $${params.length}`;
+    }
+    if (status) {
+      params.push(status);
+      query += ` AND a.status = $${params.length}`;
+    }
+    if (studentId) {
+      params.push(studentId);
+      query += ` AND a.student_id = $${params.length}`;
+    }
+
+    query += ' ORDER BY a.applied_at DESC';
+    const res = await pool.query(query, params);
+    return res.rows;
+  },
+
+  async findById(id) {
+    const res = await pool.query(
+      `SELECT a.id, a.student_id AS "studentId", a.drive_id AS "driveId",
+              a.status, a.applied_at AS "appliedAt", a.updated_at AS "updatedAt",
+              json_build_object(
+                'id', s.id,
+                'name', s.name,
+                'email', s.email,
+                'cgpa', s.cgpa::float,
+                'branch', s.branch
+              ) AS student,
+              json_build_object(
+                'id', d.id,
+                'jobRole', d.job_role,
+                'package', d.package
+              ) AS drive
+       FROM applications a
+       LEFT JOIN students s ON a.student_id = s.id
+       LEFT JOIN placement_drives d ON a.drive_id = d.id
+       WHERE a.id = $1`,
+      [id]
+    );
+    return res.rows[0] || null;
+  },
+
+  async findByStudentAndDrive(studentId, driveId) {
+    const res = await pool.query(
+      `SELECT id FROM applications WHERE student_id = $1 AND drive_id = $2`,
+      [studentId, driveId]
+    );
+    return res.rows[0] || null;
+  },
+
+  async create({ studentId, driveId, status = 'Applied' }) {
+    const id = generateId('app');
+    await pool.query(
+      `INSERT INTO applications (id, student_id, drive_id, status)
+       VALUES ($1, $2, $3, $4)`,
+      [id, studentId, driveId, status]
+    );
+    return this.findById(id);
+  },
+
+  async updateStatus(id, status) {
+    const res = await pool.query(
+      `UPDATE applications
+       SET status = $1, updated_at = NOW()
+       WHERE id = $2
+       RETURNING id, student_id AS "studentId"`,
+      [status, id]
+    );
+    if (res.rowCount === 0) return null;
+    return this.findById(id);
+  },
+};
+
+const interviews = {
+  async findAll({ driveId, studentId, round, status } = {}) {
+    let query = `
+      SELECT i.id, i.student_id AS "studentId", i.drive_id AS "driveId",
+             i.application_id AS "applicationId", i.round,
+             i.scheduled_at AS "scheduledAt", i.mode,
+             i.meeting_link AS "meetingLink", i.venue,
+             i.status, i.result, i.feedback,
+             i.created_at AS "createdAt", i.updated_at AS "updatedAt",
+             json_build_object(
+               'id', s.id,
+               'name', s.name,
+               'email', s.email
+             ) AS student,
+             json_build_object(
+               'id', d.id,
+               'jobRole', d.job_role
+             ) AS drive
+      FROM interviews i
+      LEFT JOIN students s ON i.student_id = s.id
+      LEFT JOIN placement_drives d ON i.drive_id = d.id
+      WHERE 1=1
+    `;
+    const params = [];
+
+    if (driveId) {
+      params.push(driveId);
+      query += ` AND i.drive_id = $${params.length}`;
+    }
+    if (studentId) {
+      params.push(studentId);
+      query += ` AND i.student_id = $${params.length}`;
+    }
+    if (round) {
+      params.push(round);
+      query += ` AND i.round = $${params.length}`;
+    }
+    if (status) {
+      params.push(status);
+      query += ` AND i.status = $${params.length}`;
+    }
+
+    query += ' ORDER BY i.scheduled_at ASC NULLS LAST';
+    const res = await pool.query(query, params);
+    return res.rows;
+  },
+
+  async findById(id) {
+    const res = await pool.query(
+      `SELECT i.id, i.student_id AS "studentId", i.drive_id AS "driveId",
+              i.application_id AS "applicationId", i.round,
+              i.scheduled_at AS "scheduledAt", i.mode,
+              i.meeting_link AS "meetingLink", i.venue,
+              i.status, i.result, i.feedback,
+              i.created_at AS "createdAt", i.updated_at AS "updatedAt",
+              json_build_object(
+                'id', s.id,
+                'name', s.name,
+                'email', s.email
+              ) AS student,
+              json_build_object(
+                'id', d.id,
+                'jobRole', d.job_role
+              ) AS drive
+       FROM interviews i
+       LEFT JOIN students s ON i.student_id = s.id
+       LEFT JOIN placement_drives d ON i.drive_id = d.id
+       WHERE i.id = $1`,
+      [id]
+    );
+    return res.rows[0] || null;
+  },
+
+  async create(data) {
+    const id = generateId('int');
+    await pool.query(
+      `INSERT INTO interviews (id, student_id, drive_id, application_id, round, scheduled_at, mode, meeting_link, venue, status)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+      [
+        id,
+        data.studentId,
+        data.driveId,
+        data.applicationId || null,
+        data.round,
+        data.scheduledAt,
+        data.mode || 'online',
+        data.meetingLink || null,
+        data.venue || null,
+        data.status || 'scheduled',
+      ]
+    );
+    return this.findById(id);
+  },
+
+  async update(id, updates) {
+    const fields = [];
+    const values = [];
+
+    const fieldMap = {
+      round: 'round',
+      scheduledAt: 'scheduled_at',
+      mode: 'mode',
+      meetingLink: 'meeting_link',
+      venue: 'venue',
+      status: 'status',
+      result: 'result',
+      feedback: 'feedback',
+    };
+
+    Object.keys(updates).forEach((key) => {
+      if (fieldMap[key] && updates[key] !== undefined) {
+        values.push(updates[key]);
+        fields.push(`${fieldMap[key]} = $${values.length}`);
+      }
+    });
+
+    if (fields.length === 0) return this.findById(id);
+
+    fields.push(`updated_at = NOW()`);
+    values.push(id);
+
+    await pool.query(
+      `UPDATE interviews
+       SET ${fields.join(', ')}
+       WHERE id = $${values.length}`,
+      values
+    );
+    return this.findById(id);
+  },
+
+  async delete(id) {
+    const res = await pool.query('DELETE FROM interviews WHERE id = $1 RETURNING id', [id]);
+    return res.rowCount > 0;
+  },
+
+  async updateResult(id, result, feedback) {
+    const res = await pool.query(
+      `UPDATE interviews
+       SET result = $1, feedback = $2, status = 'completed', updated_at = NOW()
+       WHERE id = $3
+       RETURNING id, student_id AS "studentId", round`,
+      [result, feedback || null, id]
+    );
+    if (res.rowCount === 0) return null;
+    return this.findById(id);
+  },
+};
+
+const notifications = {
+  async findAll({ userId, type, read } = {}) {
+    let query = `
+      SELECT id, user_id AS "userId", type, message, read, created_at AS "createdAt"
+      FROM notifications
+      WHERE 1=1
+    `;
+    const params = [];
+
+    if (userId) {
+      params.push(userId);
+      query += ` AND user_id = $${params.length}`;
+    }
+    if (type) {
+      params.push(type);
+      query += ` AND type = $${params.length}`;
+    }
+    if (read !== undefined) {
+      params.push(read === 'true' || read === true);
+      query += ` AND read = $${params.length}`;
+    }
+
+    query += ' ORDER BY created_at DESC';
+    const res = await pool.query(query, params);
+    return res.rows;
+  },
+
+  async findByUserId(userId) {
+    const res = await pool.query(
+      `SELECT id, user_id AS "userId", type, message, read, created_at AS "createdAt"
+       FROM notifications
+       WHERE user_id = $1
+       ORDER BY created_at DESC`,
+      [userId]
+    );
+    return res.rows;
+  },
+
+  async create({ userId, type = 'general', message }) {
+    const id = generateId('notif');
+    const res = await pool.query(
+      `INSERT INTO notifications (id, user_id, type, message, read)
+       VALUES ($1, $2, $3, $4, FALSE)
+       RETURNING id, user_id AS "userId", type, message, read, created_at AS "createdAt"`,
+      [id, userId, type, message]
+    );
+    return res.rows[0];
+  },
+
+  async markAsRead(id, userId) {
+    const res = await pool.query(
+      `UPDATE notifications
+       SET read = TRUE
+       WHERE id = $1 AND user_id = $2
+       RETURNING id, user_id AS "userId", type, message, read, created_at AS "createdAt"`,
+      [id, userId]
+    );
+    return res.rows[0] || null;
+  },
+};
 
 module.exports = {
+  pool,
+  query: (text, params) => pool.query(text, params),
   admins,
   students,
   companies,

@@ -14,6 +14,17 @@ module.exports = {
     secret: jwtSecret,
     expiresIn: process.env.JWT_EXPIRES_IN || '7d',
   },
+  db: {
+    url: process.env.DATABASE_URL,
+    host: process.env.DB_HOST || 'localhost',
+    port: parseInt(process.env.DB_PORT, 10) || 5432,
+    name: process.env.DB_NAME || 'postgres',
+    user: process.env.DB_USER || 'postgres',
+    password: process.env.DB_PASSWORD || '',
+    ssl: process.env.DB_SSL === 'true' || process.env.DATABASE_URL?.includes('supabase')
+      ? { rejectUnauthorized: false }
+      : false,
+  },
   clientUrl: process.env.CLIENT_URL || 'http://localhost:5173',
   adminClientUrl: process.env.ADMIN_CLIENT_URL || 'http://localhost:5174',
   studentClientUrl: process.env.STUDENT_CLIENT_URL || 'http://localhost:5173',
