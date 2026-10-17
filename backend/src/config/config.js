@@ -29,5 +29,12 @@ module.exports = {
   adminClientUrl: process.env.ADMIN_CLIENT_URL || 'http://localhost:5174',
   studentClientUrl: process.env.STUDENT_CLIENT_URL || 'http://localhost:5173',
   recruiterClientUrl: process.env.RECRUITER_CLIENT_URL || 'http://localhost:5175',
-  dataMode: 'in-memory',
+  supabase: {
+    url: process.env.SUPABASE_URL || '',
+    publishableKey: process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_ANON_KEY || '',
+    serviceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SECRET_KEY || '',
+    resumeBucket: process.env.SUPABASE_RESUME_BUCKET || 'student-resumes',
+  },
+  databaseUrl: process.env.DATABASE_URL || '',
+  dataMode: process.env.DATABASE_URL ? 'supabase-postgres' : 'database-not-configured',
 };

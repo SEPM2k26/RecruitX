@@ -1,18 +1,18 @@
 # RecruitX Backend
 
-Express 5 API using JavaScript, JWT, bcrypt, and request validation. The database is not configured yet. Until Supabase is ready, API records use the seeded in-memory store in `src/config/db.js`; changes to users, training enrollment, applications, and notifications reset when the backend restarts.
-
-Resume files are temporarily written to `backend/uploads/resumes/`. The folder is ignored by Git. The API authorizes resume downloads and does not expose the folder as a public static directory. Move file storage to Supabase Storage when that service is configured.
+Express 5 API. Student registration, login, sessions, and password recovery use Supabase Auth. Student business data uses direct PostgreSQL queries through `pg` (there is no ORM). Admin auth and admin controllers remain on their existing implementation and are outside Person 1's scope.
 
 ## Run locally
 
-```bash
+```powershell
 npm install
 Copy-Item .env.example .env
 npm run dev
 ```
 
-The API listens on `http://localhost:5000`. `GET /api/health` returns service status and the current `dataMode`. For local development, the JWT secret has a development-only fallback. Set a strong `JWT_SECRET` before deployment; production startup fails without it.
+Configure `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY` for Auth token verification, `DATABASE_URL` for the Supabase PostgreSQL connection, and `SUPABASE_SERVICE_ROLE_KEY` plus `SUPABASE_RESUME_BUCKET` for server-side resume uploads. The service role key must stay in the backend environment and must never be exposed to the browser. Create a **private** Storage bucket named `student-resumes` (or set the bucket name in the backend environment). The Express API authorizes a student's resume and transfers it through the service role; no public file URL is generated.
+
+Use the Supabase Dashboard's **Connect** panel to copy the database connection string. For a hosted long-running backend, use the Session Pooler where direct IPv6 connectivity is unavailable. Keep `sslmode=require` in the connection URL. `GET /api/health` reports `dataMode`; it will be `database-not-configured` until `DATABASE_URL` is set.
 
 ## Student API routes
 
@@ -20,31 +20,28 @@ All routes are mounted below `/api`.
 
 | Method | Route | Access |
 | --- | --- | --- |
-| `POST` | `/auth/student/register` | Public; creates a student and returns a JWT |
-| `POST` | `/auth/student/login` | Public |
-| `GET` | `/auth/student/me` | Student JWT |
-| `POST` | `/auth/student/forgot-password` | Returns `501` until an email recovery provider is configured |
-| `GET`, `PUT` | `/students/me/profile` | Student JWT; reads or updates the signed-in student's profile |
-| `GET`, `PUT` | `/students/me/skills` | Student JWT |
-| `POST` | `/students/me/resume` | Student JWT; multipart field `resume`, PDF/DOC/DOCX up to 5 MB |
-| `GET` | `/students/me/resume/file` | Student JWT; downloads only the signed-in student's resume |
-| `DELETE` | `/students/me/resume` | Student JWT |
-| `GET` | `/trainings`, `/trainings/:id` | Public read; excludes the list of enrolled student IDs |
-| `GET` | `/trainings/student` | Student JWT |
-| `POST` | `/trainings/:id/enroll` | Student JWT |
+| `GET` | `/auth/student/me` | Supabase Auth access token; returns the linked student profile |
+| `GET`, `PUT` | `/students/me/profile` | Student access token; own profile |
+| `GET`, `PUT` | `/students/me/skills` | Student access token; own skills |
+| `POST` | `/students/me/resume` | Student access token; multipart field `resume`, PDF/DOC/DOCX up to 5 MB |
+| `GET` | `/students/me/resume/file` | Student access token; streams the signed-in student's private resume |
+| `DELETE` | `/students/me/resume` | Student access token; deletes own resume |
+| `GET` | `/trainings`, `/trainings/:id` | Public read |
+| `GET` | `/trainings/student` | Student access token; own enrollments |
+| `POST` | `/trainings/:id/enroll` | Student access token; enrollment is serialized to protect capacity |
 | `GET` | `/drives`, `/drives/:id` | Public read |
-| `GET` | `/drives/:id/eligibility` | Student JWT |
-| `POST` | `/drives/:id/apply` | Student JWT; server checks eligibility, deadline, and duplicate applications |
-| `GET` | `/applications/student`, `/interviews/student` | Student JWT |
-| `GET` | `/notifications/me` | Student JWT |
-| `PATCH` | `/notifications/:id/read` | Student JWT; updates only the signed-in student's notification |
+| `GET` | `/drives/:id/eligibility` | Student access token; checks the linked profile |
+| `POST` | `/drives/:id/apply` | Student access token; checks active drive, deadline, eligibility, and duplicate applications |
+| `GET` | `/applications/student`, `/interviews/student` | Student access token; own records |
+| `GET` | `/notifications/me` | Student access token; own notifications |
+| `PATCH` | `/notifications/:id/read` | Student access token; updates only the signed-in student's notification |
 
-Student-only routes derive the student ID from the verified JWT. Do not pass an ID from the browser as proof of ownership. Student registration requires `name`, `email`, `registrationNumber`, and a password of at least eight characters. Passwords are hashed with bcrypt.
+## Supabase database handoff
 
-## Supabase handoff
+The direct SQL migration is [`supabase-auth-students.sql`](./supabase-auth-students.sql). Apply the full script in Supabase SQL Editor after schema review. It links `students.auth_user_id` to `auth.users`, makes the legacy password nullable, links existing accounts by matching email, and adds `applications.resume_url` for the uploaded resume object-key snapshot. On new student signup, its trigger links a roster row by Auth ID, email, or registration number; if no row matches, it creates a student profile. The trigger expects signup metadata keys `name` and `registration_number`; registration number may be blank during signup if no roster match is required.
 
-No database connection is made by this version. When Supabase is set up, replace the array-backed methods in `src/repositories/student.repository.js` and migrate controllers that still read the arrays in `src/config/db.js` to the agreed direct Supabase/PostgreSQL access method. Keep API response shapes stable so the student portal does not need to change with the storage implementation. Resume uploads should move to a private Supabase Storage bucket and continue to use an authenticated download or short-lived signed URL.
+The API expects the supplied schema's existing column names. `students.id` and the business-table IDs remain strings, while `auth_user_id` is UUID. Configure the Auth site URL and redirect allow list to include the student portal's local and deployed URLs. Apply the migration before signing up or using student APIs. The backend uses the PostgreSQL role from `DATABASE_URL`; Auth-linked profile RLS policies still protect direct browser access.
 
-## Demo student accounts
+## Environment values
 
-The seed store contains `alice@example.com`, `bob@example.com`, and `carol@example.com`. Each has the development password `password`. These accounts and all seed data are for local demonstration only.
+See [`.env.example`](./.env.example). Keep database passwords and the Supabase service role key out of Git and out of all `VITE_` frontend variables. The student frontend only needs `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`, and the API base URL.
