@@ -52,13 +52,20 @@ const admins = {
   },
 };
 
+const STUDENT_SELECT = `
+  id, name, email, registration_number AS "registrationNumber", password, role,
+  cgpa::float AS cgpa, branch, graduation_year AS "graduationYear", backlogs, phone,
+  skills, linkedin_url AS "linkedinUrl", portfolio_url AS "portfolioUrl",
+  resume_url AS "resumeUrl", resume_file_name AS "resumeFileName",
+  resume_storage_path AS "resumeStoragePath", resume_mime_type AS "resumeMimeType",
+  resume_size AS "resumeSize", resume_uploaded_at AS "resumeUploadedAt",
+  is_active AS "isActive", created_at AS "createdAt", updated_at AS "updatedAt"
+`;
+
 const students = {
   async findAll({ search, branch, graduationYear, isActive } = {}) {
     let query = `
-      SELECT id, name, email, password, role, cgpa::float AS cgpa, branch,
-             graduation_year AS "graduationYear", backlogs, phone, skills,
-             resume_url AS "resumeUrl", is_active AS "isActive",
-             created_at AS "createdAt", updated_at AS "updatedAt"
+      SELECT ${STUDENT_SELECT}
       FROM students
       WHERE 1=1
     `;
@@ -88,11 +95,7 @@ const students = {
 
   async findById(id) {
     const res = await pool.query(
-      `SELECT id, name, email, password, role, cgpa::float AS cgpa, branch,
-              graduation_year AS "graduationYear", backlogs, phone, skills,
-              resume_url AS "resumeUrl", is_active AS "isActive",
-              created_at AS "createdAt", updated_at AS "updatedAt"
-       FROM students WHERE id = $1`,
+      `SELECT ${STUDENT_SELECT} FROM students WHERE id = $1`,
       [id]
     );
     return res.rows[0] || null;
@@ -100,12 +103,16 @@ const students = {
 
   async findByEmail(email) {
     const res = await pool.query(
-      `SELECT id, name, email, password, role, cgpa::float AS cgpa, branch,
-              graduation_year AS "graduationYear", backlogs, phone, skills,
-              resume_url AS "resumeUrl", is_active AS "isActive",
-              created_at AS "createdAt", updated_at AS "updatedAt"
-       FROM students WHERE LOWER(email) = LOWER($1)`,
+      `SELECT ${STUDENT_SELECT} FROM students WHERE LOWER(email) = LOWER($1)`,
       [email]
+    );
+    return res.rows[0] || null;
+  },
+
+  async findByRegistrationNumber(registrationNumber) {
+    const res = await pool.query(
+      `SELECT ${STUDENT_SELECT} FROM students WHERE UPPER(registration_number) = UPPER($1)`,
+      [registrationNumber]
     );
     return res.rows[0] || null;
   },
@@ -113,16 +120,19 @@ const students = {
   async create(data) {
     const id = data.id || generateId('stu');
     const res = await pool.query(
-      `INSERT INTO students (id, name, email, password, role, cgpa, branch, graduation_year, backlogs, phone, skills, resume_url, is_active)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
-       RETURNING id, name, email, password, role, cgpa::float AS cgpa, branch,
-                 graduation_year AS "graduationYear", backlogs, phone, skills,
-                 resume_url AS "resumeUrl", is_active AS "isActive",
-                 created_at AS "createdAt", updated_at AS "updatedAt"`,
+      `INSERT INTO students (
+         id, name, email, registration_number, password, role, cgpa, branch,
+         graduation_year, backlogs, phone, skills, linkedin_url, portfolio_url,
+         resume_url, resume_file_name, resume_storage_path, resume_mime_type,
+         resume_size, resume_uploaded_at, is_active
+       )
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21)
+       RETURNING ${STUDENT_SELECT}`,
       [
         id,
         data.name,
         data.email,
+        data.registrationNumber || null,
         data.password,
         data.role || 'student',
         data.cgpa || 0.0,
@@ -131,7 +141,14 @@ const students = {
         data.backlogs || 0,
         data.phone || null,
         JSON.stringify(data.skills || []),
+        data.linkedinUrl || null,
+        data.portfolioUrl || null,
         data.resumeUrl || null,
+        data.resumeFileName || null,
+        data.resumeStoragePath || null,
+        data.resumeMimeType || null,
+        data.resumeSize || null,
+        data.resumeUploadedAt || null,
         data.isActive !== undefined ? data.isActive : true,
       ]
     );
@@ -150,7 +167,15 @@ const students = {
       graduationYear: 'graduation_year',
       backlogs: 'backlogs',
       skills: 'skills',
+      registrationNumber: 'registration_number',
+      linkedinUrl: 'linkedin_url',
+      portfolioUrl: 'portfolio_url',
       resumeUrl: 'resume_url',
+      resumeFileName: 'resume_file_name',
+      resumeStoragePath: 'resume_storage_path',
+      resumeMimeType: 'resume_mime_type',
+      resumeSize: 'resume_size',
+      resumeUploadedAt: 'resume_uploaded_at',
       isActive: 'is_active',
     };
 
@@ -170,10 +195,7 @@ const students = {
       `UPDATE students
        SET ${fields.join(', ')}
        WHERE id = $${values.length}
-       RETURNING id, name, email, password, role, cgpa::float AS cgpa, branch,
-                 graduation_year AS "graduationYear", backlogs, phone, skills,
-                 resume_url AS "resumeUrl", is_active AS "isActive",
-                 created_at AS "createdAt", updated_at AS "updatedAt"`,
+       RETURNING ${STUDENT_SELECT}`,
       values
     );
     return res.rows[0] || null;
