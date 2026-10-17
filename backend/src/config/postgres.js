@@ -12,6 +12,7 @@ const getPool = () => {
   if (!pool) {
     pool = new Pool({
       connectionString: config.databaseUrl,
+      ssl: config.db?.ssl || { rejectUnauthorized: false },
       max: Number(process.env.PG_POOL_MAX) || 5,
       idleTimeoutMillis: 30_000,
       connectionTimeoutMillis: 10_000,

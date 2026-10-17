@@ -3,36 +3,31 @@ const config = require('../config/config');
 
 const verifySupabaseAccessToken = async (token) => {
   if (!config.supabase.url || !config.supabase.publishableKey) {
-    const error = new Error('Supabase Auth is not configured on the backend.');
-    error.statusCode = 503;
-    throw error;
+    return null;
   }
 
-  let response;
   try {
-    response = await fetch(`${config.supabase.url.replace(/\/$/, '')}/auth/v1/user`, {
+    const response = await fetch(`${config.supabase.url.replace(/\/$/, '')}/auth/v1/user`, {
       headers: {
         apikey: config.supabase.publishableKey,
         Authorization: `Bearer ${token}`,
       },
     });
-  } catch {
-    const error = new Error('Supabase Auth could not be reached.');
-    error.statusCode = 503;
-    throw error;
-  }
 
-  if (!response.ok) return null;
-  const authUser = await response.json();
-  const metadata = authUser.user_metadata || {};
-  return {
-    id: authUser.id,
-    sub: authUser.id,
-    email: authUser.email,
-    name: metadata.name || metadata.full_name || authUser.email,
-    registrationNumber: metadata.registration_number || '',
-    role: 'student',
-  };
+    if (!response.ok) return null;
+    const authUser = await response.json();
+    const metadata = authUser.user_metadata || {};
+    return {
+      id: authUser.id,
+      sub: authUser.id,
+      email: authUser.email,
+      name: metadata.name || metadata.full_name || authUser.email,
+      registrationNumber: metadata.registration_number || '',
+      role: 'student',
+    };
+  } catch {
+    return null;
+  }
 };
 
 /**
@@ -50,29 +45,27 @@ const authenticate = async (req, res, next) => {
 
   const token = authHeader.split(' ')[1];
 
+  // 1. Try local JWT verification (for both admin and student tokens)
   try {
     const decoded = jwt.verify(token, config.jwt.secret);
-    if (decoded.role === 'student') {
-      return res.status(401).json({ success: false, message: 'Use a Supabase Auth access token.' });
-    }
     req.user = { ...decoded, id: decoded.id || decoded.sub };
-    next();
-  } catch (err) {
-    if (err.statusCode) {
-      return res.status(err.statusCode).json({ success: false, message: err.message });
-    }
-
+    return next();
+  } catch {
+    // 2. If not a local token, try Supabase Auth token
     try {
       const user = await verifySupabaseAccessToken(token);
-      if (!user) return res.status(401).json({ success: false, message: 'Invalid or expired access token.' });
-      req.user = user;
-      return next();
-    } catch (verificationError) {
-      return res.status(verificationError.statusCode || 503).json({
-        success: false,
-        message: verificationError.message || 'Could not verify access token.',
-      });
+      if (user) {
+        req.user = user;
+        return next();
+      }
+    } catch {
+      // Ignored - fall through to 401
     }
+
+    return res.status(401).json({
+      success: false,
+      message: 'Invalid or expired access token. Please sign in.',
+    });
   }
 };
 
