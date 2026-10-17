@@ -170,8 +170,6 @@ const checkEligibility = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-  const result = checkStudentEligibility(student, drive);
-  res.json({ success: true, ...result });
 };
 
 module.exports = { getAllDrives, getDriveById, createDrive, updateDrive, deleteDrive, checkEligibility };

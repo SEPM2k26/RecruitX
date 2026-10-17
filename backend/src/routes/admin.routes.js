@@ -18,6 +18,7 @@ router.get('/students', students.getAllStudents);
 router.get('/students/:id', students.getStudentById);
 router.put('/students/:id', students.updateStudent);
 router.patch('/students/:id/status', students.toggleStudentStatus);
+router.patch('/students/:id/toggle-status', students.toggleStudentStatus);
 router.delete('/students/:id', students.deleteStudent);
 
 // ── Companies ────────────────────────────────────────────────────────────────
@@ -32,6 +33,7 @@ router.get('/trainings', trainings.getAllTrainings);
 router.get('/trainings/:id', trainings.getTrainingById);
 router.post('/trainings', trainings.createTraining);
 router.put('/trainings/:id', trainings.updateTraining);
+router.patch('/trainings/:id/status', trainings.updateTraining);
 router.delete('/trainings/:id', trainings.deleteTraining);
 router.get('/trainings/:id/enrollments', trainings.getEnrollments);
 
