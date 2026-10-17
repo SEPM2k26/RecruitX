@@ -10,7 +10,7 @@ Copy-Item .env.example .env.local
 npm run dev
 ```
 
-Vite serves the student portal at `http://localhost:5173`. The API defaults to `http://localhost:5000/api`; set `VITE_API_URL` in `.env.local` if your backend is running elsewhere. Restart Vite after changing environment values.
+Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` in `.env.local` from your Supabase project. These are browser-safe project settings; never put a secret or service-role key in the portal. Vite serves the student portal at `http://localhost:5173`. The API defaults to `http://localhost:5000/api`; set `VITE_API_URL` in `.env.local` if your backend is running elsewhere. Restart Vite after changing environment values.
 
 ## Included student pages
 
@@ -29,10 +29,7 @@ Vite serves the student portal at `http://localhost:5173`. The API defaults to `
 The UI calls the following student endpoints under `/api`:
 
 ```text
-POST   /auth/student/login
-POST   /auth/student/register
 GET    /auth/student/me
-POST   /auth/student/forgot-password
 GET    /students/me/profile
 PUT    /students/me/profile
 GET    /students/me/skills
@@ -53,10 +50,10 @@ GET    /notifications/me
 PATCH  /notifications/:id/read
 ```
 
-The current backend already implements the shared training, drive, enrollment, eligibility, application, interview, and notification read routes using in-memory sample data. Student authentication, profile/skills/resume, password recovery, and “my trainings” routes still need backend implementation and shared Supabase/Prisma persistence before those screens can work end to end. The portal stores the JWT in local storage under `recruitx_student_token` and sends it as a bearer token. Resume upload uses a multipart `resume` field; the backend should store the file in Supabase Storage and return safe metadata or a signed URL.
+Student sign-up, login, session refresh, and password recovery use Supabase Auth. Authenticated API calls send the current Supabase access token as a bearer token. The backend verifies that token against Supabase Auth. Student profiles and the other student features still use in-memory sample data until Person 3 links `students` to `auth.users` and the backend data access is connected to Supabase. Resume upload uses a multipart `resume` field; the backend should store the file in a private Supabase Storage bucket and return safe metadata or a short-lived signed URL.
 
 ## Security notes
 
 - Do not put Supabase service-role keys or private storage credentials in this frontend.
-- Student-owned data endpoints should use the authenticated user ID from the JWT, not a student ID supplied by the browser.
-- Add `.env.local` for local configuration; it is ignored by Git. `.env.example` contains only a local API URL.
+- Student-owned data endpoints should use the authenticated Supabase user ID, not a student ID supplied by the browser.
+- Add `.env.local` for local configuration; it is ignored by Git. `.env.example` lists the required variable names with placeholders.

@@ -2,6 +2,8 @@ const safeStudent = (student) => {
   if (!student) return null;
   const {
     password,
+    authUserId,
+    auth_user_id,
     resumeStoragePath,
     resumeMimeType,
     resumeSize,

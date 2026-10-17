@@ -19,14 +19,37 @@ export function LoginPage() {
 export function RegisterPage() {
   const { register } = useAuth(); const navigate = useNavigate();
   const [form, setForm] = useState({ name: '', email: '', password: '', registrationNumber: '' }); const [busy, setBusy] = useState(false); const [error, setError] = useState(''); const [notice, setNotice] = useState('');
-  const submit = async (event) => { event.preventDefault(); setError(''); setNotice(''); setBusy(true); try { const data = await register(form); if (data.token) navigate('/dashboard', { replace: true }); else setNotice(data.message || 'Account request submitted. You can sign in after it is approved.'); } catch (err) { setError(errorMessage(err, 'Could not create your account.')); } finally { setBusy(false); } };
+  const submit = async (event) => { event.preventDefault(); setError(''); setNotice(''); setBusy(true); try { const data = await register(form); if (data.session) navigate('/dashboard', { replace: true }); else setNotice('Account created. Check your email to confirm your address, then sign in.'); } catch (err) { setError(errorMessage(err, 'Could not create your account.')); } finally { setBusy(false); } };
   return <AuthShell tagline><Link to="/login" className="mb-7 inline-flex items-center gap-1 text-xs font-bold text-muted hover:text-brand"><ArrowLeft size={14}/> Back to sign in</Link><div className="mb-6"><p className="text-xs font-bold uppercase tracking-[.15em] text-brand">Get started</p><h2 className="mt-2 text-3xl font-extrabold">Create your account</h2><p className="mt-2 text-sm text-muted">Use your college details to join the portal.</p></div>{error&&<div role="alert" className="mb-4 rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</div>}{notice&&<div role="status" className="mb-4 rounded-xl bg-green-50 p-3 text-sm text-green-800">{notice}</div>}<form className="space-y-3.5" onSubmit={submit}><Field label="Full name" icon={UserRound} autoComplete="name" required value={form.name} onChange={e=>setForm({...form,name:e.target.value})} placeholder="Your name"/><Field label="College email" icon={Mail} type="email" autoComplete="email" required value={form.email} onChange={e=>setForm({...form,email:e.target.value})} placeholder="you@college.edu"/><Field label="Registration number" icon={GraduationCap} required value={form.registrationNumber} onChange={e=>setForm({...form,registrationNumber:e.target.value})} placeholder="e.g. 24CS001"/><Field label="Password" icon={LockKeyhole} type="password" autoComplete="new-password" minLength={8} required value={form.password} onChange={e=>setForm({...form,password:e.target.value})} placeholder="At least 8 characters"/><button disabled={busy} className="btn btn-primary mt-2 w-full py-3">{busy?'Creating account':<>Create account <ArrowRight size={16}/></>}</button></form><p className="mt-6 text-center text-sm text-muted">Already have an account? <Link className="font-bold text-brand" to="/login">Sign in</Link></p></AuthShell>;
 }
 
 export function ForgotPasswordPage() {
   const [email,setEmail]=useState(''); const [notice,setNotice]=useState(''); const [error,setError]=useState(''); const [busy,setBusy]=useState(false);
-  const submit=async(e)=>{e.preventDefault();setBusy(true);setError('');setNotice('');try{const {data}=await authApi.forgotPassword(email);setNotice(data.message||'If an account exists for that email, recovery instructions will be sent.');}catch(err){setError(errorMessage(err,'Password recovery is not available yet.'));}finally{setBusy(false);}};
+  const submit=async(e)=>{e.preventDefault();setBusy(true);setError('');setNotice('');try{const {error:resetError}=await authApi.forgotPassword(email);if(resetError)throw resetError;setNotice('If an account exists for that email, password recovery instructions will be sent.');}catch(err){setError(errorMessage(err,'Password recovery is not available yet.'));}finally{setBusy(false);}};
   return <AuthShell tagline><Link to="/login" className="mb-8 inline-flex items-center gap-1 text-xs font-bold text-muted"><ArrowLeft size={14}/> Back to sign in</Link><h2 className="text-3xl font-extrabold">Reset your password</h2><p className="mb-6 mt-2 text-sm text-muted">Enter your college email and we’ll send recovery instructions.</p>{error&&<div className="mb-4 rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</div>}{notice&&<div role="status" className="mb-4 rounded-xl bg-green-50 p-3 text-sm text-green-800">{notice}</div>}<form onSubmit={submit}><Field label="College email" type="email" autoComplete="email" required value={email} onChange={e=>setEmail(e.target.value)} placeholder="you@college.edu"/><button disabled={busy} className="btn btn-primary mt-5 w-full">{busy?'Sending…':'Send recovery link'}</button></form></AuthShell>;
+}
+
+export function ResetPasswordPage() {
+  const navigate = useNavigate();
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  const [notice, setNotice] = useState('');
+  const submit = async (event) => {
+    event.preventDefault(); setError(''); setNotice('');
+    if (password !== confirmPassword) { setError('Passwords do not match.'); return; }
+    setBusy(true);
+    try {
+      const { error: updateError } = await authApi.updatePassword(password);
+      if (updateError) throw updateError;
+      setNotice('Password updated. You can now sign in with your new password.');
+      await authApi.signOut();
+      window.setTimeout(() => navigate('/login', { replace: true }), 900);
+    } catch (err) { setError(errorMessage(err, 'Could not update your password. Request a new recovery link.')); }
+    finally { setBusy(false); }
+  };
+  return <AuthShell tagline><Link to="/login" className="mb-8 inline-flex items-center gap-1 text-xs font-bold text-muted"><ArrowLeft size={14}/> Back to sign in</Link><h2 className="text-3xl font-extrabold">Choose a new password</h2><p className="mb-6 mt-2 text-sm text-muted">Use at least 8 characters.</p>{error&&<div role="alert" className="mb-4 rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</div>}{notice&&<div role="status" className="mb-4 rounded-xl bg-green-50 p-3 text-sm text-green-800">{notice}</div>}<form className="space-y-4" onSubmit={submit}><Field label="New password" type="password" autoComplete="new-password" minLength={8} required value={password} onChange={e=>setPassword(e.target.value)}/><Field label="Confirm new password" type="password" autoComplete="new-password" minLength={8} required value={confirmPassword} onChange={e=>setConfirmPassword(e.target.value)}/><button disabled={busy} className="btn btn-primary w-full">{busy?'Updating…':'Update password'}</button></form></AuthShell>;
 }
 
 function Field({label,icon:Icon,type='text',...props}) { return <label className="block text-xs font-bold">{label}<span className="relative mt-2 block">{Icon&&<Icon size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#9ba79e]"/>}<input type={type} className={`field ${Icon?'pl-10':''}`} {...props}/></span></label>; }

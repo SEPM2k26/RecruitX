@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import RequireAuth from './components/RequireAuth.jsx';
 import StudentLayout from './components/StudentLayout.jsx';
 import { useAuth } from './context/AuthContext.jsx';
-import { ForgotPasswordPage, LoginPage, RegisterPage } from './pages/AuthPages.jsx';
+import { ForgotPasswordPage, LoginPage, RegisterPage, ResetPasswordPage } from './pages/AuthPages.jsx';
 import DashboardPage from './pages/DashboardPage.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
 import ResumePage from './pages/ResumePage.jsx';
@@ -23,6 +23,7 @@ export default function App(){
     <Route path="/login" element={<LoginPage/>}/>
     <Route path="/register" element={<RegisterPage/>}/>
     <Route path="/forgot-password" element={<ForgotPasswordPage/>}/>
+    <Route path="/reset-password" element={<ResetPasswordPage/>}/>
     <Route element={<RequireAuth/>}>
       <Route element={<StudentLayout/>}>
         <Route path="/dashboard" element={<DashboardPage/>}/>

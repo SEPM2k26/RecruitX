@@ -1,8 +1,13 @@
 import api from './client.js';
+import { supabase } from '../supabaseClient.js';
 
 const unwrap = (response) => response.data?.data ?? response.data;
 export const authApi = {
-  forgotPassword: (email) => api.post('/auth/student/forgot-password', { email }),
+  forgotPassword: (email) => supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${window.location.origin}/reset-password`,
+  }),
+  updatePassword: (password) => supabase.auth.updateUser({ password }),
+  signOut: () => supabase.auth.signOut(),
 };
 export const profileApi = {
   get: async () => unwrap(await api.get('/students/me/profile')),
