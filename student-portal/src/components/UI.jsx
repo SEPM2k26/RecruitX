@@ -1,11 +1,11 @@
 import { ArrowRight, Check, CircleHelp } from 'lucide-react';
 
 export function PageHeading({ eyebrow, title, description, action }) {
-  return <div className="mb-7 flex flex-wrap items-end justify-between gap-4"><div><p className="mb-2 text-[10px] font-extrabold uppercase tracking-[.17em] text-brand">{eyebrow}</p><h1 className="text-2xl font-extrabold text-ink md:text-[30px]">{title}</h1>{description && <p className="mt-1.5 max-w-2xl text-sm text-muted">{description}</p>}</div>{action}</div>;
+  return <div className="mb-7 flex flex-wrap items-end justify-between gap-4"><div><p className="mb-2 text-[10px] font-extrabold uppercase tracking-[.17em] text-brand">{eyebrow}</p><h1 className="page-title text-2xl font-extrabold text-ink md:text-[30px]">{title}</h1>{description && <p className="mt-1.5 max-w-2xl text-sm text-muted">{description}</p>}</div>{action}</div>;
 }
 export function Pill({ children, tone = 'gray' }) {
-  const style = { green: 'bg-[#e8f4eb] text-[#37734f]', yellow: 'bg-[#fbf3dc] text-[#987229]', red: 'bg-[#fbe9e5] text-[#ad5845]', blue: 'bg-[#e9f0f8] text-[#4c6e9a]', gray: 'bg-[#f0f2ef] text-[#6d7971]' }[tone] || 'bg-[#f0f2ef] text-[#6d7971]';
-  return <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-bold ${style}`}>{children}</span>;
+  const style = { green: 'bg-highlighter-green text-[#166534]', yellow: 'bg-postit text-[#854d0e]', red: 'bg-[#fee2e2] text-[#991b1b]', blue: 'bg-[#dbeafe] text-[#2d5da1]', gray: 'bg-erased text-[#525252]' }[tone] || 'bg-erased text-[#525252]';
+  return <span className={`stamped-pill inline-flex items-center gap-1 rounded-full px-2.5 py-1 ${style}`}>{children}</span>;
 }
 export function StatCard({ label, value, hint, icon: Icon, tint = 'green' }) {
   const colors = { green: 'bg-[#eaf3eb] text-brand', yellow: 'bg-[#f9f1da] text-[#a27922]', blue: 'bg-[#eaf0f7] text-[#5c78a0]', coral: 'bg-[#f9eae3] text-[#c46d49]' };
