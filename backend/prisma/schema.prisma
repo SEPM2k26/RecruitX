@@ -7,3 +7,319 @@ datasource db {
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
+
+// ═════════════════════════════════════════════════════════════════════════════
+// RecruitX — Prisma schema (PostgreSQL / Supabase)
+// Person 3 deliverable: shared database design.
+//
+// Status semantics deliberately preserve the existing mock values documented
+// in backend/src/config/db.js and the controller status constants. Prisma
+// enums use SCREAMING_SNAKE; the compatibility mapping to the mock's
+// PascalCase strings is reported in the Phase 2 Task 1 audit output.
+// ═════════════════════════════════════════════════════════════════════════════
+
+// ───────────────────────────────────────────────────────────────────────────
+// Enums
+// ───────────────────────────────────────────────────────────────────────────
+
+enum UserRole {
+  ADMIN
+  STUDENT
+  RECRUITER
+}
+
+// Application pipeline flow (mock STATUS_FLOW) plus WAITLISTED, which the
+// existing results controller can assign as a terminal application status.
+enum ApplicationStatus {
+  APPLIED
+  SHORTLISTED
+  APTITUDE
+  TECHNICAL_INTERVIEW
+  HR_INTERVIEW
+  SELECTED
+  REJECTED
+  WAITLISTED
+}
+
+enum FinalResultStatus {
+  SELECTED
+  REJECTED
+  WAITLISTED
+}
+
+// DRAFT is new (supports recruiter publish flow). Existing mock drives are
+// ACTIVE / CLOSED / CANCELLED and map unchanged.
+enum DriveStatus {
+  DRAFT
+  ACTIVE
+  CLOSED
+  CANCELLED
+}
+
+enum InterviewStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+}
+
+enum InterviewResult {
+  PASSED
+  FAILED
+  PENDING
+}
+
+enum InterviewRound {
+  APTITUDE
+  TECHNICAL_INTERVIEW
+  HR_INTERVIEW
+  GROUP_DISCUSSION
+}
+
+enum InterviewMode {
+  ONLINE
+  OFFLINE
+}
+
+enum TrainingStatus {
+  UPCOMING
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum TrainingMode {
+  ONLINE
+  OFFLINE
+  HYBRID
+}
+
+enum NotificationType {
+  GENERAL
+  DRIVE_ANNOUNCEMENT
+  INTERVIEW_SCHEDULED
+  APPLICATION_STATUS
+  SHORTLISTED
+  REJECTED
+  INTERVIEW_RESULT
+}
+
+// ───────────────────────────────────────────────────────────────────────────
+// Models
+// ───────────────────────────────────────────────────────────────────────────
+
+model User {
+  id            String          @id @default(uuid())
+  email         String          @unique
+  passwordHash  String
+  name          String
+  role          UserRole        @default(STUDENT)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  studentProfile StudentProfile?
+  recruiterProfile RecruiterProfile?
+  notifications  Notification[]
+
+  @@index([email])
+  @@index([role])
+}
+
+model StudentProfile {
+  id             String         @id @default(uuid())
+  userId         String         @unique
+  user           User           @relation(fields: [userId], references: [id])
+  cgpa           Decimal
+  branch         String
+  graduationYear Int
+  backlogs       Int            @default(0)
+  phone          String?
+  skills         String[]
+  resumeUrl      String?
+  isActive       Boolean        @default(true)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  applications   Application[]
+  enrollments    Enrollment[]
+
+  @@index([userId])
+  @@index([branch])
+  @@index([graduationYear])
+  @@index([isActive])
+}
+
+model Company {
+  id                String          @id @default(uuid())
+  name              String
+  industry          String?
+  website           String?
+  description       String?
+  contactEmail      String?
+  contactPhone      String?
+  location          String?
+  logoUrl           String?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  drives              PlacementDrive[]
+  recruiterProfiles   RecruiterProfile[]
+
+  @@index([name])
+  @@index([industry])
+}
+
+model RecruiterProfile {
+  id                String   @id @default(uuid())
+  userId            String   @unique
+  user              User     @relation(fields: [userId], references: [id])
+  companyId         String
+  company           Company  @relation(fields: [companyId], references: [id])
+  jobTitle          String?
+  isPrimaryContact  Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([userId])
+  @@index([companyId])
+}
+
+model PlacementDrive {
+  id                String         @id @default(uuid())
+  companyId         String
+  company           Company        @relation(fields: [companyId], references: [id])
+  jobRole           String
+  package           String
+  location          String
+  applicationDeadline DateTime
+  eligibleBranches  String[]
+  minCGPA           Decimal
+  maxBacklogs       Int            @default(0)
+  graduationYear    Int
+  description       String?
+  status            DriveStatus    @default(ACTIVE)
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+
+  applications Application[]
+
+  @@index([companyId])
+  @@index([status])
+  @@index([graduationYear])
+}
+
+model Application {
+  id          String           @id @default(uuid())
+  studentId   String
+  driveId     String
+  status      ApplicationStatus @default(APPLIED)
+  resumeUrl   String?
+  appliedAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  student     StudentProfile  @relation(fields: [studentId], references: [id])
+  drive       PlacementDrive   @relation(fields: [driveId], references: [id])
+  interviews  Interview[]
+  result      Result?
+
+  // One application per student per drive.
+  @@unique([studentId, driveId])
+  // Composite unique target enabling Interview's consistency FK below.
+  @@unique([id, studentId, driveId])
+  @@index([studentId])
+  @@index([driveId])
+  @@index([status])
+}
+
+model Result {
+  id            String         @id @default(uuid())
+  applicationId String         @unique
+  application   Application    @relation(fields: [applicationId], references: [id])
+  status        FinalResultStatus
+  feedback      String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([applicationId])
+  @@index([status])
+}
+
+model Interview {
+  id            String          @id @default(uuid())
+  applicationId String
+  studentId     String
+  driveId       String
+  round         InterviewRound
+  scheduledAt   DateTime
+  mode          InterviewMode
+  meetingLink   String?
+  venue         String?
+  status        InterviewStatus @default(SCHEDULED)
+  result        InterviewResult?
+  feedback      String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  // Composite foreign key to Application(id, studentId, driveId). This binds an
+  // interview to exactly one application AND guarantees the interview's student
+  // and drive can never silently disagree with that application (the tuple is
+  // unique on Application and enforced by the DB). studentId/driveId are kept
+  // as indexed scalars so "interviews for student/drive" queries can run
+  // directly without joining through Application.
+  application   Application @relation(fields: [applicationId, studentId, driveId], references: [id, studentId, driveId])
+
+  @@index([applicationId])
+  @@index([studentId])
+  @@index([driveId])
+  @@index([status])
+  @@index([round])
+}
+
+model Training {
+  id          String       @id @default(uuid())
+  title       String
+  description String?      @default("")
+  instructor  String
+  startDate   DateTime
+  endDate     DateTime
+  duration    String?
+  mode        TrainingMode
+  maxStudents Int
+  status      TrainingStatus @default(UPCOMING)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  enrollments Enrollment[]
+
+  @@index([status])
+  @@index([mode])
+}
+
+model Enrollment {
+  id          String   @id @default(uuid())
+  studentId   String
+  trainingId  String
+  enrolledAt  DateTime @default(now())
+
+  student StudentProfile @relation(fields: [studentId], references: [id])
+  training Training     @relation(fields: [trainingId], references: [id])
+
+  // One enrollment per student per training.
+  @@unique([studentId, trainingId])
+  @@index([studentId])
+  @@index([trainingId])
+}
+
+model Notification {
+  id        String      @id @default(uuid())
+  userId    String
+  user      User        @relation(fields: [userId], references: [id])
+  type      NotificationType
+  message   String
+  read      Boolean     @default(false)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  @@index([userId])
+  @@index([read])
+  @@index([type])
+}
