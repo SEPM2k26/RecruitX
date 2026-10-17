@@ -57,7 +57,9 @@ app.use(errorHandler);
 
 // ── Start Server ──────────────────────────────────────────────────────────────
 const PORT = config.port;
-app.listen(PORT, () => {
+// Bind to IPv4 loopback so local browsers and PowerShell can reach localhost
+// consistently on Windows systems that resolve localhost to 127.0.0.1.
+app.listen(PORT, '127.0.0.1', () => {
   console.log(`
   ╔══════════════════════════════════════╗
   ║  RecruitX API Server                 ║
