@@ -57,9 +57,15 @@ const trainingFromRow = (row, extras = {}) => {
   };
 };
 
-async function getActiveStudent(authUserId) {
-  const student = await students.findByAuthUserId(authUserId);
-  if (!student) return { response: { status: 409, message: 'Your student profile is not linked yet. Contact the placement office.' } };
+async function getActiveStudent(authUserId, user = {}) {
+  let student = await students.findByAuthUserId(authUserId);
+  if (!student) {
+    student = await students.findById(authUserId);
+  }
+  if (!student && user.email) {
+    student = await students.findByEmail(user.email);
+  }
+  if (!student) return { response: { status: 404, message: 'Your student profile is not linked yet. Contact the placement office.' } };
   if (student.isActive === false) return { response: { status: 403, message: 'This student account is inactive.' } };
   return { student };
 }
@@ -83,7 +89,7 @@ const getPublicTrainingById = handler(async (req, res) => {
 });
 
 const getMyTrainings = handler(async (req, res) => {
-  const context = await getActiveStudent(req.user.id);
+  const context = await getActiveStudent(req.user.id, req.user);
   if (context.response) return res.status(context.response.status).json({ success: false, message: context.response.message });
   const { rows } = await database.query(
     `SELECT t.* FROM public.trainings t
@@ -95,7 +101,7 @@ const getMyTrainings = handler(async (req, res) => {
 });
 
 const enrollInTraining = handler(async (req, res) => {
-  const context = await getActiveStudent(req.user.id);
+  const context = await getActiveStudent(req.user.id, req.user);
   if (context.response) return res.status(context.response.status).json({ success: false, message: context.response.message });
   const result = await database.withTransaction(async (client) => {
     const { rows } = await client.query('SELECT * FROM public.trainings WHERE id = $1 FOR UPDATE', [req.params.id]);
@@ -139,7 +145,7 @@ const getDriveById = handler(async (req, res) => {
 });
 
 const checkEligibility = handler(async (req, res) => {
-  const context = await getActiveStudent(req.user.id);
+  const context = await getActiveStudent(req.user.id, req.user);
   if (context.response) return res.status(context.response.status).json({ success: false, message: context.response.message });
   const { rows } = await database.query(`${driveSelect} WHERE d.id = $1 LIMIT 1`, [req.params.id]);
   if (!rows[0]) return res.status(404).json({ success: false, message: 'Drive not found.' });
@@ -149,7 +155,7 @@ const checkEligibility = handler(async (req, res) => {
 });
 
 const applyForDrive = handler(async (req, res) => {
-  const context = await getActiveStudent(req.user.id);
+  const context = await getActiveStudent(req.user.id, req.user);
   if (context.response) return res.status(context.response.status).json({ success: false, message: context.response.message });
   const result = await database.withTransaction(async (client) => {
     const { rows } = await client.query(`${driveSelect} WHERE d.id = $1 FOR SHARE OF d`, [req.params.id]);
@@ -176,7 +182,7 @@ const applyForDrive = handler(async (req, res) => {
 });
 
 const getMyApplications = handler(async (req, res) => {
-  const context = await getActiveStudent(req.user.id);
+  const context = await getActiveStudent(req.user.id, req.user);
   if (context.response) return res.status(context.response.status).json({ success: false, message: context.response.message });
   const { rows } = await database.query(
     `SELECT a.*, d.job_role, d.package, d.location, d.application_deadline, d.status AS drive_status,
@@ -201,7 +207,7 @@ function applicationFromRow(row, drive) {
 }
 
 const getMyInterviews = handler(async (req, res) => {
-  const context = await getActiveStudent(req.user.id);
+  const context = await getActiveStudent(req.user.id, req.user);
   if (context.response) return res.status(context.response.status).json({ success: false, message: context.response.message });
   const { rows } = await database.query(
     `SELECT i.*, d.job_role, c.name AS company_name
@@ -220,14 +226,14 @@ const getMyInterviews = handler(async (req, res) => {
 });
 
 const getMyNotifications = handler(async (req, res) => {
-  const context = await getActiveStudent(req.user.id);
+  const context = await getActiveStudent(req.user.id, req.user);
   if (context.response) return res.status(context.response.status).json({ success: false, message: context.response.message });
   const { rows } = await database.query('SELECT * FROM public.notifications WHERE user_id = $1 ORDER BY created_at DESC', [context.student.id]);
   return res.json({ success: true, total: rows.length, data: rows.map(notificationFromRow) });
 });
 
 const markNotificationRead = handler(async (req, res) => {
-  const context = await getActiveStudent(req.user.id);
+  const context = await getActiveStudent(req.user.id, req.user);
   if (context.response) return res.status(context.response.status).json({ success: false, message: context.response.message });
   const { rows } = await database.query(
     'UPDATE public.notifications SET read = TRUE WHERE id = $1 AND user_id = $2 RETURNING *',
