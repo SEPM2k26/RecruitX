@@ -63,39 +63,76 @@ SET search_path = ''
 AS $$
 DECLARE
   linked_student_id character varying;
+  registration_number_value character varying := NULLIF(BTRIM(NEW.raw_user_meta_data ->> 'registration_number'), '');
 BEGIN
-  INSERT INTO public.students (
-    id,
-    auth_user_id,
-    name,
-    email,
-    password,
-    role,
-    registration_number,
-    cgpa,
-    backlogs,
-    skills,
-    is_active
-  ) VALUES (
-    NEW.id::text,
-    NEW.id,
-    COALESCE(NULLIF(BTRIM(NEW.raw_user_meta_data ->> 'name'), ''), NEW.email),
-    LOWER(NEW.email),
-    NULL,
-    'student',
-    NULLIF(BTRIM(NEW.raw_user_meta_data ->> 'registration_number'), ''),
-    0,
-    0,
-    '[]'::jsonb,
-    TRUE
-  )
-  ON CONFLICT (email) DO UPDATE
-    SET auth_user_id = COALESCE(public.students.auth_user_id, EXCLUDED.auth_user_id),
+  -- Prefer linking an existing roster row by Auth ID, email, or registration
+  -- number. This avoids creating a duplicate student when signup uses a
+  -- personal email instead of the email already stored by the placement team.
+  SELECT student.id INTO linked_student_id
+  FROM public.students AS student
+  WHERE (student.auth_user_id IS NULL OR student.auth_user_id = NEW.id)
+    AND (
+      student.auth_user_id = NEW.id
+      OR LOWER(student.email) = LOWER(NEW.email)
+      OR (
+        registration_number_value IS NOT NULL
+        AND LOWER(BTRIM(student.registration_number)) = LOWER(BTRIM(registration_number_value))
+      )
+    )
+  ORDER BY CASE
+    WHEN student.auth_user_id = NEW.id THEN 1
+    WHEN LOWER(student.email) = LOWER(NEW.email) THEN 2
+    ELSE 3
+  END
+  LIMIT 1
+  FOR UPDATE;
+
+  IF linked_student_id IS NOT NULL THEN
+    UPDATE public.students
+    SET auth_user_id = NEW.id,
         password = NULL,
+        registration_number = COALESCE(registration_number, registration_number_value),
         updated_at = NOW()
-    WHERE public.students.auth_user_id IS NULL
-       OR public.students.auth_user_id = EXCLUDED.auth_user_id
-  RETURNING id INTO linked_student_id;
+    WHERE id = linked_student_id
+      AND (auth_user_id IS NULL OR auth_user_id = NEW.id);
+
+    IF NOT FOUND THEN
+      RAISE EXCEPTION 'The matching student profile is already linked to another Auth account.';
+    END IF;
+  ELSE
+    INSERT INTO public.students (
+      id,
+      auth_user_id,
+      name,
+      email,
+      password,
+      role,
+      registration_number,
+      cgpa,
+      backlogs,
+      skills,
+      is_active
+    ) VALUES (
+      NEW.id::text,
+      NEW.id,
+      COALESCE(NULLIF(BTRIM(NEW.raw_user_meta_data ->> 'name'), ''), NEW.email),
+      LOWER(NEW.email),
+      NULL,
+      'student',
+      registration_number_value,
+      0,
+      0,
+      '[]'::jsonb,
+      TRUE
+    )
+    ON CONFLICT (email) DO UPDATE
+      SET auth_user_id = COALESCE(public.students.auth_user_id, EXCLUDED.auth_user_id),
+          password = NULL,
+          updated_at = NOW()
+      WHERE public.students.auth_user_id IS NULL
+         OR public.students.auth_user_id = EXCLUDED.auth_user_id
+    RETURNING id INTO linked_student_id;
+  END IF;
 
   IF linked_student_id IS NULL THEN
     RAISE EXCEPTION 'This email is already linked to another student account.';

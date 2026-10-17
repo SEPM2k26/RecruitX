@@ -38,7 +38,7 @@ All routes are mounted below `/api`.
 
 ## Supabase database handoff
 
-The direct SQL migration is [`supabase-auth-students.sql`](./supabase-auth-students.sql). Person 3 should review and apply it in Supabase SQL Editor. It links `students.auth_user_id` to `auth.users`, makes the legacy password nullable, links existing accounts by matching email, creates a profile on student signup, and adds `applications.resume_url` for the uploaded resume object-key snapshot. The trigger expects signup metadata keys `name` and `registration_number`; registration number may be blank during signup and completed in the student profile afterward.
+The direct SQL migration is [`supabase-auth-students.sql`](./supabase-auth-students.sql). Apply the full script in Supabase SQL Editor after schema review. It links `students.auth_user_id` to `auth.users`, makes the legacy password nullable, links existing accounts by matching email, and adds `applications.resume_url` for the uploaded resume object-key snapshot. On new student signup, its trigger links a roster row by Auth ID, email, or registration number; if no row matches, it creates a student profile. The trigger expects signup metadata keys `name` and `registration_number`; registration number may be blank during signup if no roster match is required.
 
 The API expects the supplied schema's existing column names. `students.id` and the business-table IDs remain strings, while `auth_user_id` is UUID. Configure the Auth site URL and redirect allow list to include the student portal's local and deployed URLs. Apply the migration before signing up or using student APIs. The backend uses the PostgreSQL role from `DATABASE_URL`; Auth-linked profile RLS policies still protect direct browser access.
 
