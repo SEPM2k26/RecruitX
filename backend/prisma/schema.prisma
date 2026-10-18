@@ -67,6 +67,8 @@ model Student {
   @@index([branch])
   @@index([graduationYear])
   @@index([isActive])
+
+  @@map("students")
 }
 
 model Company {
@@ -86,6 +88,8 @@ model Company {
   recruiters Recruiter[]
 
   @@index([name])
+
+  @@map("companies")
 }
 model PlacementDrive {
   id        String  @id @db.VarChar(100)
@@ -112,6 +116,8 @@ model PlacementDrive {
   @@index([companyId])
   @@index([status])
   @@index([graduationYear])
+
+  @@map("placement_drives")
 }
 
 model Application {
@@ -137,6 +143,8 @@ model Application {
   @@index([status])
   // Composite index for recruiter hot queries: "my drive's applicants by status".
   @@index([driveId, status])
+
+  @@map("applications")
 }
 
 model Interview {
@@ -162,6 +170,8 @@ model Interview {
   @@index([studentId])
   @@index([driveId])
   @@index([status])
+
+  @@map("interviews")
 }
 model Notification {
   id      String @id @db.VarChar(100)
@@ -174,6 +184,8 @@ model Notification {
 
   @@index([userId])
   @@index([read])
+
+  @@map("notifications")
 }
 
 model Training {
@@ -192,6 +204,8 @@ model Training {
   enrolledStudents Json? @map("enrolled_students") @default("[]")
   createdAt DateTime? @default(now()) @map("created_at") @db.Timestamptz
   updatedAt DateTime? @default(now()) @map("updated_at") @db.Timestamptz
+
+  @@map("trainings")
 }
 
 // The ONLY new table (additive migration). Recruiters authenticate with
@@ -215,4 +229,6 @@ model Recruiter {
 
   @@index([companyId])
   @@index([isActive])
+
+  @@map("recruiters")
 }

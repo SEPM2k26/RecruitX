@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Hand-Drawn Design System Tokens (shared with admin/student portals) ──── */
+:root {
+  --bg-paper: #fdfbf7;
+  --color-pencil: #2d2d2d;
+  --color-marker-red: #ff4d4d;
+  --color-pen-blue: #2d5da1;
+  --color-postit: #fff9c4;
+  --hard-shadow: 4px 4px 0px 0px #2d2d2d;
+}
+
+@layer components {
+  .btn-hand {
+    @apply border-3 border-pencil rounded-wobbly-sm px-4 py-1.5 font-heading font-bold
+      shadow-hand hover:shadow-hand-hover active:translate-x-[2px] active:translate-y-[2px]
+      active:shadow-hand-sm transition-all;
+  }
+  .card-hand {
+    @apply bg-paper-light border-3 border-pencil rounded-wobbly shadow-hand p-5;
+  }
+  .input-hand {
+    @apply w-full border-3 border-pencil rounded-wobbly-sm px-3 py-1.5 bg-paper-light
+      focus:outline-none focus:shadow-hand-sm placeholder:text-pencil-faint;
+  }
+  .badge-hand {
+    @apply inline-block border-2 border-pencil rounded-wobbly-sm px-2 py-0.5 text-sm font-bold;
+  }
+}
