@@ -1,0 +1,779 @@
+﻿node : Γùç injected env (13) from .env
+At line:1 char:23
++ Set-Location backend; node diag_readonly.js 2>&1 | Out-File -FilePath ...
++                       ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Γùç injected env (13) from .env:String) [], 
+    RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+=== SESSION ===
+ΓöîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÉ
+Γöé (index) Γöé db         Γöé role       Γöé search_path Γöé
+Γö£ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöñ
+Γöé 0       Γöé 'postgres' Γöé 'postgres' Γöé 'recruitx'  Γöé
+ΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÿ
+
+=== SCHEMAS ===
+ΓöîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÉ
+Γöé (index) Γöé schema             Γöé
+Γö£ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöñ
+Γöé 0       Γöé 'auth'             Γöé
+Γöé 1       Γöé 'extensions'       Γöé
+Γöé 2       Γöé 'graphql'          Γöé
+Γöé 3       Γöé 'graphql_public'   Γöé
+Γöé 4       Γöé 'pg_temp_10'       Γöé
+Γöé 5       Γöé 'pg_temp_13'       Γöé
+Γöé 6       Γöé 'pg_temp_16'       Γöé
+Γöé 7       Γöé 'pg_temp_18'       Γöé
+Γöé 8       Γöé 'pg_temp_19'       Γöé
+Γöé 9       Γöé 'pg_temp_2'        Γöé
+Γöé 10      Γöé 'pg_temp_20'       Γöé
+Γöé 11      Γöé 'pg_temp_21'       Γöé
+Γöé 12      Γöé 'pg_temp_24'       Γöé
+Γöé 13      Γöé 'pg_temp_31'       Γöé
+Γöé 14      Γöé 'pg_temp_32'       Γöé
+Γöé 15      Γöé 'pg_temp_33'       Γöé
+Γöé 16      Γöé 'pg_temp_34'       Γöé
+Γöé 17      Γöé 'pg_temp_35'       Γöé
+Γöé 18      Γöé 'pg_temp_36'       Γöé
+Γöé 19      Γöé 'pg_temp_38'       Γöé
+Γöé 20      Γöé 'pg_temp_4'        Γöé
+Γöé 21      Γöé 'pg_temp_41'       Γöé
+Γöé 22      Γöé 'pg_temp_46'       Γöé
+Γöé 23      Γöé 'pg_temp_48'       Γöé
+Γöé 24      Γöé 'pg_temp_49'       Γöé
+Γöé 25      Γöé 'pg_temp_5'        Γöé
+Γöé 26      Γöé 'pg_temp_50'       Γöé
+Γöé 27      Γöé 'pg_temp_51'       Γöé
+Γöé 28      Γöé 'pg_temp_56'       Γöé
+Γöé 29      Γöé 'pg_temp_58'       Γöé
+Γöé 30      Γöé 'pg_temp_6'        Γöé
+Γöé 31      Γöé 'pg_temp_8'        Γöé
+Γöé 32      Γöé 'pg_toast_temp_10' Γöé
+Γöé 33      Γöé 'pg_toast_temp_13' Γöé
+Γöé 34      Γöé 'pg_toast_temp_16' Γöé
+Γöé 35      Γöé 'pg_toast_temp_18' Γöé
+Γöé 36      Γöé 'pg_toast_temp_19' Γöé
+Γöé 37      Γöé 'pg_toast_temp_2'  Γöé
+Γöé 38      Γöé 'pg_toast_temp_20' Γöé
+Γöé 39      Γöé 'pg_toast_temp_21' Γöé
+Γöé 40      Γöé 'pg_toast_temp_24' Γöé
+Γöé 41      Γöé 'pg_toast_temp_31' Γöé
+Γöé 42      Γöé 'pg_toast_temp_32' Γöé
+Γöé 43      Γöé 'pg_toast_temp_33' Γöé
+Γöé 44      Γöé 'pg_toast_temp_34' Γöé
+Γöé 45      Γöé 'pg_toast_temp_35' Γöé
+Γöé 46      Γöé 'pg_toast_temp_36' Γöé
+Γöé 47      Γöé 'pg_toast_temp_38' Γöé
+Γöé 48      Γöé 'pg_toast_temp_4'  Γöé
+Γöé 49      Γöé 'pg_toast_temp_41' Γöé
+Γöé 50      Γöé 'pg_toast_temp_46' Γöé
+Γöé 51      Γöé 'pg_toast_temp_48' Γöé
+Γöé 52      Γöé 'pg_toast_temp_49' Γöé
+Γöé 53      Γöé 'pg_toast_temp_5'  Γöé
+Γöé 54      Γöé 'pg_toast_temp_50' Γöé
+Γöé 55      Γöé 'pg_toast_temp_51' Γöé
+Γöé 56      Γöé 'pg_toast_temp_56' Γöé
+Γöé 57      Γöé 'pg_toast_temp_58' Γöé
+Γöé 58      Γöé 'pg_toast_temp_6'  Γöé
+Γöé 59      Γöé 'pg_toast_temp_8'  Γöé
+Γöé 60      Γöé 'pgbouncer'        Γöé
+Γöé 61      Γöé 'public'           Γöé
+Γöé 62      Γöé 'realtime'         Γöé
+Γöé 63      Γöé 'recruitx'         Γöé
+Γöé 64      Γöé 'storage'          Γöé
+Γöé 65      Γöé 'vault'            Γöé
+ΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÿ
+
+=== TABLES (all schemas, with row estimates) ===
+ΓöîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÉ
+Γöé (index) Γöé schema       Γöé relation                     Γöé kind          Γöé est_rows Γöé
+Γö£ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöñ
+Γöé 0       Γöé 'auth'       Γöé 'audit_log_entries'          Γöé 'table'       Γöé -1n      Γöé
+Γöé 1       Γöé 'auth'       Γöé 'custom_oauth_providers'     Γöé 'table'       Γöé -1n      Γöé
+Γöé 2       Γöé 'auth'       Γöé 'flow_state'                 Γöé 'table'       Γöé -1n      Γöé
+Γöé 3       Γöé 'auth'       Γöé 'identities'                 Γöé 'table'       Γöé -1n      Γöé
+Γöé 4       Γöé 'auth'       Γöé 'instances'                  Γöé 'table'       Γöé -1n      Γöé
+Γöé 5       Γöé 'auth'       Γöé 'mfa_amr_claims'             Γöé 'table'       Γöé -1n      Γöé
+Γöé 6       Γöé 'auth'       Γöé 'mfa_challenges'             Γöé 'table'       Γöé -1n      Γöé
+Γöé 7       Γöé 'auth'       Γöé 'mfa_factors'                Γöé 'table'       Γöé -1n      Γöé
+Γöé 8       Γöé 'auth'       Γöé 'mfa_recovery_code_sets'     Γöé 'table'       Γöé -1n      Γöé
+Γöé 9       Γöé 'auth'       Γöé 'mfa_recovery_codes'         Γöé 'table'       Γöé -1n      Γöé
+Γöé 10      Γöé 'auth'       Γöé 'oauth_authorizations'       Γöé 'table'       Γöé -1n      Γöé
+Γöé 11      Γöé 'auth'       Γöé 'oauth_client_states'        Γöé 'table'       Γöé -1n      Γöé
+Γöé 12      Γöé 'auth'       Γöé 'oauth_clients'              Γöé 'table'       Γöé -1n      Γöé
+Γöé 13      Γöé 'auth'       Γöé 'oauth_consents'             Γöé 'table'       Γöé -1n      Γöé
+Γöé 14      Γöé 'auth'       Γöé 'one_time_tokens'            Γöé 'table'       Γöé -1n      Γöé
+Γöé 15      Γöé 'auth'       Γöé 'refresh_tokens'             Γöé 'table'       Γöé -1n      Γöé
+Γöé 16      Γöé 'auth'       Γöé 'saml_providers'             Γöé 'table'       Γöé -1n      Γöé
+Γöé 17      Γöé 'auth'       Γöé 'saml_relay_states'          Γöé 'table'       Γöé -1n      Γöé
+Γöé 18      Γöé 'auth'       Γöé 'schema_migrations'          Γöé 'table'       Γöé 82n      Γöé
+Γöé 19      Γöé 'auth'       Γöé 'scim_tokens'                Γöé 'table'       Γöé -1n      Γöé
+Γöé 20      Γöé 'auth'       Γöé 'scim_users'                 Γöé 'table'       Γöé -1n      Γöé
+Γöé 21      Γöé 'auth'       Γöé 'sessions'                   Γöé 'table'       Γöé -1n      Γöé
+Γöé 22      Γöé 'auth'       Γöé 'sso_domains'                Γöé 'table'       Γöé -1n      Γöé
+Γöé 23      Γöé 'auth'       Γöé 'sso_providers'              Γöé 'table'       Γöé -1n      Γöé
+Γöé 24      Γöé 'auth'       Γöé 'users'                      Γöé 'table'       Γöé -1n      Γöé
+Γöé 25      Γöé 'auth'       Γöé 'webauthn_challenges'        Γöé 'table'       Γöé -1n      Γöé
+Γöé 26      Γöé 'auth'       Γöé 'webauthn_credentials'       Γöé 'table'       Γöé -1n      Γöé
+Γöé 27      Γöé 'extensions' Γöé 'pg_stat_statements'         Γöé 'view'        Γöé -1n      Γöé
+Γöé 28      Γöé 'extensions' Γöé 'pg_stat_statements_info'    Γöé 'view'        Γöé -1n      Γöé
+Γöé 29      Γöé 'public'     Γöé 'admins'                     Γöé 'table'       Γöé -1n      Γöé
+Γöé 30      Γöé 'public'     Γöé 'applications'               Γöé 'table'       Γöé -1n      Γöé
+Γöé 31      Γöé 'public'     Γöé 'companies'                  Γöé 'table'       Γöé -1n      Γöé
+Γöé 32      Γöé 'public'     Γöé 'interviews'                 Γöé 'table'       Γöé -1n      Γöé
+Γöé 33      Γöé 'public'     Γöé 'notifications'              Γöé 'table'       Γöé -1n      Γöé
+Γöé 34      Γöé 'public'     Γöé 'placement_drives'           Γöé 'table'       Γöé -1n      Γöé
+Γöé 35      Γöé 'public'     Γöé 'students'                   Γöé 'table'       Γöé 3n       Γöé
+Γöé 36      Γöé 'public'     Γöé 'trainings'                  Γöé 'table'       Γöé -1n      Γöé
+Γöé 37      Γöé 'realtime'   Γöé 'messages'                   Γöé 'partitioned' Γöé -1n      Γöé
+Γöé 38      Γöé 'realtime'   Γöé 'schema_migrations'          Γöé 'table'       Γöé 89n      Γöé
+Γöé 39      Γöé 'realtime'   Γöé 'subscription'               Γöé 'table'       Γöé -1n      Γöé
+Γöé 40      Γöé 'recruitx'   Γöé 'Application'                Γöé 'table'       Γöé -1n      Γöé
+Γöé 41      Γöé 'recruitx'   Γöé 'Company'                    Γöé 'table'       Γöé -1n      Γöé
+Γöé 42      Γöé 'recruitx'   Γöé 'Enrollment'                 Γöé 'table'       Γöé -1n      Γöé
+Γöé 43      Γöé 'recruitx'   Γöé 'Interview'                  Γöé 'table'       Γöé -1n      Γöé
+Γöé 44      Γöé 'recruitx'   Γöé 'Notification'               Γöé 'table'       Γöé -1n      Γöé
+Γöé 45      Γöé 'recruitx'   Γöé 'PlacementDrive'             Γöé 'table'       Γöé -1n      Γöé
+Γöé 46      Γöé 'recruitx'   Γöé 'RecruiterProfile'           Γöé 'table'       Γöé -1n      Γöé
+Γöé 47      Γöé 'recruitx'   Γöé 'Result'                     Γöé 'table'       Γöé -1n      Γöé
+Γöé 48      Γöé 'recruitx'   Γöé 'StudentProfile'             Γöé 'table'       Γöé -1n      Γöé
+Γöé 49      Γöé 'recruitx'   Γöé 'Training'                   Γöé 'table'       Γöé -1n      Γöé
+Γöé 50      Γöé 'recruitx'   Γöé 'User'                       Γöé 'table'       Γöé -1n      Γöé
+Γöé 51      Γöé 'recruitx'   Γöé '_prisma_migrations'         Γöé 'table'       Γöé -1n      Γöé
+Γöé 52      Γöé 'storage'    Γöé 'buckets'                    Γöé 'table'       Γöé -1n      Γöé
+Γöé 53      Γöé 'storage'    Γöé 'buckets_analytics'          Γöé 'table'       Γöé -1n      Γöé
+Γöé 54      Γöé 'storage'    Γöé 'buckets_vectors'            Γöé 'table'       Γöé -1n      Γöé
+Γöé 55      Γöé 'storage'    Γöé 'migrations'                 Γöé 'table'       Γöé 74n      Γöé
+Γöé 56      Γöé 'storage'    Γöé 'objects'                    Γöé 'table'       Γöé -1n      Γöé
+Γöé 57      Γöé 'storage'    Γöé 's3_multipart_uploads'       Γöé 'table'       Γöé -1n      Γöé
+Γöé 58      Γöé 'storage'    Γöé 's3_multipart_uploads_parts' Γöé 'table'       Γöé -1n      Γöé
+Γöé 59      Γöé 'storage'    Γöé 'vector_indexes'             Γöé 'table'       Γöé -1n      Γöé
+Γöé 60      Γöé 'vault'      Γöé 'decrypted_secrets'          Γöé 'view'        Γöé -1n      Γöé
+Γöé 61      Γöé 'vault'      Γöé 'secrets'                    Γöé 'table'       Γöé -1n      Γöé
+ΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÿ
+
+=== COLUMNS ΓÇö schema "public" ===
+ΓöîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÉ
+Γöé (index) Γöé table_name         Γöé pos Γöé column_name            Γöé data_type                  Γöé nullable Γöé column_default                   Γöé max_len Γöé
+Γö£ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöñ
+Γöé 0       Γöé 'admins'           Γöé 1   Γöé 'id'                   Γöé 'character varying'        Γöé 'NO'     Γöé null                             Γöé 100     Γöé
+Γöé 1       Γöé 'admins'           Γöé 2   Γöé 'name'                 Γöé 'character varying'        Γöé 'NO'     Γöé null                             Γöé 255     Γöé
+Γöé 2       Γöé 'admins'           Γöé 3   Γöé 'email'                Γöé 'character varying'        Γöé 'NO'     Γöé null                             Γöé 255     Γöé
+Γöé 3       Γöé 'admins'           Γöé 4   Γöé 'password'             Γöé 'character varying'        Γöé 'NO'     Γöé null                             Γöé 255     Γöé
+Γöé 4       Γöé 'admins'           Γöé 5   Γöé 'role'                 Γöé 'character varying'        Γöé 'YES'    Γöé "'admin'::character varying"     Γöé 50      Γöé
+Γöé 5       Γöé 'admins'           Γöé 6   Γöé 'created_at'           Γöé 'timestamp with time zone' Γöé 'YES'    Γöé 'now()'                          Γöé null    Γöé
+Γöé 6       Γöé 'applications'     Γöé 1   Γöé 'id'                   Γöé 'character varying'        Γöé 'NO'     Γöé null                             Γöé 100     Γöé
+Γöé 7       Γöé 'applications'     Γöé 2   Γöé 'student_id'           Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 100     Γöé
+Γöé 8       Γöé 'applications'     Γöé 3   Γöé 'drive_id'             Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 100     Γöé
+Γöé 9       Γöé 'applications'     Γöé 4   Γöé 'status'               Γöé 'character varying'        Γöé 'YES'    Γöé "'Applied'::character varying"   Γöé 50      Γöé
+Γöé 10      Γöé 'applications'     Γöé 5   Γöé 'applied_at'           Γöé 'timestamp with time zone' Γöé 'YES'    Γöé 'now()'                          Γöé null    Γöé
+Γöé 11      Γöé 'applications'     Γöé 6   Γöé 'updated_at'           Γöé 'timestamp with time zone' Γöé 'YES'    Γöé 'now()'                          Γöé null    Γöé
+Γöé 12      Γöé 'applications'     Γöé 7   Γöé 'resume_url'           Γöé 'text'                     Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 13      Γöé 'companies'        Γöé 1   Γöé 'id'                   Γöé 'character varying'        Γöé 'NO'     Γöé null                             Γöé 100     Γöé
+Γöé 14      Γöé 'companies'        Γöé 2   Γöé 'name'                 Γöé 'character varying'        Γöé 'NO'     Γöé null                             Γöé 255     Γöé
+Γöé 15      Γöé 'companies'        Γöé 3   Γöé 'industry'             Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 100     Γöé
+Γöé 16      Γöé 'companies'        Γöé 4   Γöé 'website'              Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 255     Γöé
+Γöé 17      Γöé 'companies'        Γöé 5   Γöé 'description'          Γöé 'text'                     Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 18      Γöé 'companies'        Γöé 6   Γöé 'contact_email'        Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 255     Γöé
+Γöé 19      Γöé 'companies'        Γöé 7   Γöé 'contact_phone'        Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 50      Γöé
+Γöé 20      Γöé 'companies'        Γöé 8   Γöé 'location'             Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 100     Γöé
+Γöé 21      Γöé 'companies'        Γöé 9   Γöé 'logo_url'             Γöé 'text'                     Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 22      Γöé 'companies'        Γöé 10  Γöé 'created_at'           Γöé 'timestamp with time zone' Γöé 'YES'    Γöé 'now()'                          Γöé null    Γöé
+Γöé 23      Γöé 'companies'        Γöé 11  Γöé 'updated_at'           Γöé 'timestamp with time zone' Γöé 'YES'    Γöé 'now()'                          Γöé null    Γöé
+Γöé 24      Γöé 'interviews'       Γöé 1   Γöé 'id'                   Γöé 'character varying'        Γöé 'NO'     Γöé null                             Γöé 100     Γöé
+Γöé 25      Γöé 'interviews'       Γöé 2   Γöé 'student_id'           Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 100     Γöé
+Γöé 26      Γöé 'interviews'       Γöé 3   Γöé 'drive_id'             Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 100     Γöé
+Γöé 27      Γöé 'interviews'       Γöé 4   Γöé 'application_id'       Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 100     Γöé
+Γöé 28      Γöé 'interviews'       Γöé 5   Γöé 'round'                Γöé 'character varying'        Γöé 'NO'     Γöé null                             Γöé 100     Γöé
+Γöé 29      Γöé 'interviews'       Γöé 6   Γöé 'scheduled_at'         Γöé 'timestamp with time zone' Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 30      Γöé 'interviews'       Γöé 7   Γöé 'mode'                 Γöé 'character varying'        Γöé 'YES'    Γöé "'online'::character varying"    Γöé 50      Γöé
+Γöé 31      Γöé 'interviews'       Γöé 8   Γöé 'meeting_link'         Γöé 'text'                     Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 32      Γöé 'interviews'       Γöé 9   Γöé 'venue'                Γöé 'text'                     Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 33      Γöé 'interviews'       Γöé 10  Γöé 'status'               Γöé 'character varying'        Γöé 'YES'    Γöé "'scheduled'::character varying" Γöé 50      Γöé
+Γöé 34      Γöé 'interviews'       Γöé 11  Γöé 'result'               Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 50      Γöé
+Γöé 35      Γöé 'interviews'       Γöé 12  Γöé 'feedback'             Γöé 'text'                     Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 36      Γöé 'interviews'       Γöé 13  Γöé 'created_at'           Γöé 'timestamp with time zone' Γöé 'YES'    Γöé 'now()'                          Γöé null    Γöé
+Γöé 37      Γöé 'interviews'       Γöé 14  Γöé 'updated_at'           Γöé 'timestamp with time zone' Γöé 'YES'    Γöé 'now()'                          Γöé null    Γöé
+Γöé 38      Γöé 'notifications'    Γöé 1   Γöé 'id'                   Γöé 'character varying'        Γöé 'NO'     Γöé null                             Γöé 100     Γöé
+Γöé 39      Γöé 'notifications'    Γöé 2   Γöé 'user_id'              Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 100     Γöé
+Γöé 40      Γöé 'notifications'    Γöé 3   Γöé 'type'                 Γöé 'character varying'        Γöé 'YES'    Γöé "'general'::character varying"   Γöé 100     Γöé
+Γöé 41      Γöé 'notifications'    Γöé 4   Γöé 'message'              Γöé 'text'                     Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 42      Γöé 'notifications'    Γöé 5   Γöé 'read'                 Γöé 'boolean'                  Γöé 'YES'    Γöé 'false'                          Γöé null    Γöé
+Γöé 43      Γöé 'notifications'    Γöé 6   Γöé 'created_at'           Γöé 'timestamp with time zone' Γöé 'YES'    Γöé 'now()'                          Γöé null    Γöé
+Γöé 44      Γöé 'placement_drives' Γöé 1   Γöé 'id'                   Γöé 'character varying'        Γöé 'NO'     Γöé null                             Γöé 100     Γöé
+Γöé 45      Γöé 'placement_drives' Γöé 2   Γöé 'company_id'           Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 100     Γöé
+Γöé 46      Γöé 'placement_drives' Γöé 3   Γöé 'job_role'             Γöé 'character varying'        Γöé 'NO'     Γöé null                             Γöé 255     Γöé
+Γöé 47      Γöé 'placement_drives' Γöé 4   Γöé 'package'              Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 100     Γöé
+Γöé 48      Γöé 'placement_drives' Γöé 5   Γöé 'location'             Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 100     Γöé
+Γöé 49      Γöé 'placement_drives' Γöé 6   Γöé 'application_deadline' Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 50      Γöé
+Γöé 50      Γöé 'placement_drives' Γöé 7   Γöé 'eligible_branches'    Γöé 'jsonb'                    Γöé 'YES'    Γöé "'[]'::jsonb"                    Γöé null    Γöé
+Γöé 51      Γöé 'placement_drives' Γöé 8   Γöé 'min_cgpa'             Γöé 'numeric'                  Γöé 'YES'    Γöé '0.0'                            Γöé null    Γöé
+Γöé 52      Γöé 'placement_drives' Γöé 9   Γöé 'max_backlogs'         Γöé 'integer'                  Γöé 'YES'    Γöé '0'                              Γöé null    Γöé
+Γöé 53      Γöé 'placement_drives' Γöé 10  Γöé 'graduation_year'      Γöé 'integer'                  Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 54      Γöé 'placement_drives' Γöé 11  Γöé 'description'          Γöé 'text'                     Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 55      Γöé 'placement_drives' Γöé 12  Γöé 'status'               Γöé 'character varying'        Γöé 'YES'    Γöé "'active'::character varying"    Γöé 50      Γöé
+Γöé 56      Γöé 'placement_drives' Γöé 13  Γöé 'created_at'           Γöé 'timestamp with time zone' Γöé 'YES'    Γöé 'now()'                          Γöé null    Γöé
+Γöé 57      Γöé 'placement_drives' Γöé 14  Γöé 'updated_at'           Γöé 'timestamp with time zone' Γöé 'YES'    Γöé 'now()'                          Γöé null    Γöé
+Γöé 58      Γöé 'students'         Γöé 1   Γöé 'id'                   Γöé 'character varying'        Γöé 'NO'     Γöé null                             Γöé 100     Γöé
+Γöé 59      Γöé 'students'         Γöé 2   Γöé 'name'                 Γöé 'character varying'        Γöé 'NO'     Γöé null                             Γöé 255     Γöé
+Γöé 60      Γöé 'students'         Γöé 3   Γöé 'email'                Γöé 'character varying'        Γöé 'NO'     Γöé null                             Γöé 255     Γöé
+Γöé 61      Γöé 'students'         Γöé 4   Γöé 'password'             Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 255     Γöé
+Γöé 62      Γöé 'students'         Γöé 5   Γöé 'role'                 Γöé 'character varying'        Γöé 'YES'    Γöé "'student'::character varying"   Γöé 50      Γöé
+Γöé 63      Γöé 'students'         Γöé 6   Γöé 'cgpa'                 Γöé 'numeric'                  Γöé 'YES'    Γöé '0.0'                            Γöé null    Γöé
+Γöé 64      Γöé 'students'         Γöé 7   Γöé 'branch'               Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 100     Γöé
+Γöé 65      Γöé 'students'         Γöé 8   Γöé 'graduation_year'      Γöé 'integer'                  Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 66      Γöé 'students'         Γöé 9   Γöé 'backlogs'             Γöé 'integer'                  Γöé 'YES'    Γöé '0'                              Γöé null    Γöé
+Γöé 67      Γöé 'students'         Γöé 10  Γöé 'phone'                Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 50      Γöé
+Γöé 68      Γöé 'students'         Γöé 11  Γöé 'skills'               Γöé 'jsonb'                    Γöé 'YES'    Γöé "'[]'::jsonb"                    Γöé null    Γöé
+Γöé 69      Γöé 'students'         Γöé 12  Γöé 'resume_url'           Γöé 'text'                     Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 70      Γöé 'students'         Γöé 13  Γöé 'is_active'            Γöé 'boolean'                  Γöé 'YES'    Γöé 'true'                           Γöé null    Γöé
+Γöé 71      Γöé 'students'         Γöé 14  Γöé 'created_at'           Γöé 'timestamp with time zone' Γöé 'YES'    Γöé 'now()'                          Γöé null    Γöé
+Γöé 72      Γöé 'students'         Γöé 15  Γöé 'updated_at'           Γöé 'timestamp with time zone' Γöé 'YES'    Γöé 'now()'                          Γöé null    Γöé
+Γöé 73      Γöé 'students'         Γöé 16  Γöé 'registration_number'  Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 100     Γöé
+Γöé 74      Γöé 'students'         Γöé 17  Γöé 'linkedin_url'         Γöé 'text'                     Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 75      Γöé 'students'         Γöé 18  Γöé 'portfolio_url'        Γöé 'text'                     Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 76      Γöé 'students'         Γöé 19  Γöé 'resume_file_name'     Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 255     Γöé
+Γöé 77      Γöé 'students'         Γöé 20  Γöé 'resume_storage_path'  Γöé 'text'                     Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 78      Γöé 'students'         Γöé 21  Γöé 'resume_mime_type'     Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 100     Γöé
+Γöé 79      Γöé 'students'         Γöé 22  Γöé 'resume_size'          Γöé 'bigint'                   Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 80      Γöé 'students'         Γöé 23  Γöé 'resume_uploaded_at'   Γöé 'timestamp with time zone' Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 81      Γöé 'students'         Γöé 24  Γöé 'auth_user_id'         Γöé 'uuid'                     Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 82      Γöé 'trainings'        Γöé 1   Γöé 'id'                   Γöé 'character varying'        Γöé 'NO'     Γöé null                             Γöé 100     Γöé
+Γöé 83      Γöé 'trainings'        Γöé 2   Γöé 'title'                Γöé 'character varying'        Γöé 'NO'     Γöé null                             Γöé 255     Γöé
+Γöé 84      Γöé 'trainings'        Γöé 3   Γöé 'description'          Γöé 'text'                     Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 85      Γöé 'trainings'        Γöé 4   Γöé 'instructor'           Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 255     Γöé
+Γöé 86      Γöé 'trainings'        Γöé 5   Γöé 'start_date'           Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 50      Γöé
+Γöé 87      Γöé 'trainings'        Γöé 6   Γöé 'end_date'             Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 50      Γöé
+Γöé 88      Γöé 'trainings'        Γöé 7   Γöé 'duration'             Γöé 'character varying'        Γöé 'YES'    Γöé null                             Γöé 100     Γöé
+Γöé 89      Γöé 'trainings'        Γöé 8   Γöé 'mode'                 Γöé 'character varying'        Γöé 'YES'    Γöé "'online'::character varying"    Γöé 50      Γöé
+Γöé 90      Γöé 'trainings'        Γöé 9   Γöé 'max_students'         Γöé 'integer'                  Γöé 'YES'    Γöé '50'                             Γöé null    Γöé
+Γöé 91      Γöé 'trainings'        Γöé 10  Γöé 'status'               Γöé 'character varying'        Γöé 'YES'    Γöé "'upcoming'::character varying"  Γöé 50      Γöé
+Γöé 92      Γöé 'trainings'        Γöé 11  Γöé 'enrolled_students'    Γöé 'jsonb'                    Γöé 'YES'    Γöé "'[]'::jsonb"                    Γöé null    Γöé
+Γöé 93      Γöé 'trainings'        Γöé 12  Γöé 'created_at'           Γöé 'timestamp with time zone' Γöé 'YES'    Γöé 'now()'                          Γöé null    Γöé
+Γöé 94      Γöé 'trainings'        Γöé 13  Γöé 'updated_at'           Γöé 'timestamp with time zone' Γöé 'YES'    Γöé 'now()'                          Γöé null    Γöé
+ΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÿ
+
+=== COLUMNS ΓÇö schema "recruitx" ===
+ΓöîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÉ
+Γöé (index) Γöé table_name         Γöé pos Γöé column_name           Γöé data_type                     Γöé nullable Γöé column_default                   Γöé max_len Γöé
+Γö£ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöñ
+Γöé 0       Γöé 'Application'      Γöé 1   Γöé 'id'                  Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 1       Γöé 'Application'      Γöé 2   Γöé 'studentId'           Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 2       Γöé 'Application'      Γöé 3   Γöé 'driveId'             Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 3       Γöé 'Application'      Γöé 4   Γöé 'status'              Γöé 'USER-DEFINED'                Γöé 'NO'     Γöé `'APPLIED'::"ApplicationStatus"` Γöé null    Γöé
+Γöé 4       Γöé 'Application'      Γöé 5   Γöé 'resumeUrl'           Γöé 'text'                        Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 5       Γöé 'Application'      Γöé 6   Γöé 'appliedAt'           Γöé 'timestamp without time zone' Γöé 'NO'     Γöé 'CURRENT_TIMESTAMP'              Γöé null    Γöé
+Γöé 6       Γöé 'Application'      Γöé 7   Γöé 'updatedAt'           Γöé 'timestamp without time zone' Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 7       Γöé 'Company'          Γöé 1   Γöé 'id'                  Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 8       Γöé 'Company'          Γöé 2   Γöé 'name'                Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 9       Γöé 'Company'          Γöé 3   Γöé 'industry'            Γöé 'text'                        Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 10      Γöé 'Company'          Γöé 4   Γöé 'website'             Γöé 'text'                        Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 11      Γöé 'Company'          Γöé 5   Γöé 'description'         Γöé 'text'                        Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 12      Γöé 'Company'          Γöé 6   Γöé 'contactEmail'        Γöé 'text'                        Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 13      Γöé 'Company'          Γöé 7   Γöé 'contactPhone'        Γöé 'text'                        Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 14      Γöé 'Company'          Γöé 8   Γöé 'location'            Γöé 'text'                        Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 15      Γöé 'Company'          Γöé 9   Γöé 'logoUrl'             Γöé 'text'                        Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 16      Γöé 'Company'          Γöé 10  Γöé 'createdAt'           Γöé 'timestamp without time zone' Γöé 'NO'     Γöé 'CURRENT_TIMESTAMP'              Γöé null    Γöé
+Γöé 17      Γöé 'Company'          Γöé 11  Γöé 'updatedAt'           Γöé 'timestamp without time zone' Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 18      Γöé 'Enrollment'       Γöé 1   Γöé 'id'                  Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 19      Γöé 'Enrollment'       Γöé 2   Γöé 'studentId'           Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 20      Γöé 'Enrollment'       Γöé 3   Γöé 'trainingId'          Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 21      Γöé 'Enrollment'       Γöé 4   Γöé 'enrolledAt'          Γöé 'timestamp without time zone' Γöé 'NO'     Γöé 'CURRENT_TIMESTAMP'              Γöé null    Γöé
+Γöé 22      Γöé 'Interview'        Γöé 1   Γöé 'id'                  Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 23      Γöé 'Interview'        Γöé 2   Γöé 'applicationId'       Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 24      Γöé 'Interview'        Γöé 3   Γöé 'studentId'           Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 25      Γöé 'Interview'        Γöé 4   Γöé 'driveId'             Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 26      Γöé 'Interview'        Γöé 5   Γöé 'round'               Γöé 'USER-DEFINED'                Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 27      Γöé 'Interview'        Γöé 6   Γöé 'scheduledAt'         Γöé 'timestamp without time zone' Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 28      Γöé 'Interview'        Γöé 7   Γöé 'mode'                Γöé 'USER-DEFINED'                Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 29      Γöé 'Interview'        Γöé 8   Γöé 'meetingLink'         Γöé 'text'                        Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 30      Γöé 'Interview'        Γöé 9   Γöé 'venue'               Γöé 'text'                        Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 31      Γöé 'Interview'        Γöé 10  Γöé 'status'              Γöé 'USER-DEFINED'                Γöé 'NO'     Γöé `'SCHEDULED'::"InterviewStatus"` Γöé null    Γöé
+Γöé 32      Γöé 'Interview'        Γöé 11  Γöé 'result'              Γöé 'USER-DEFINED'                Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 33      Γöé 'Interview'        Γöé 12  Γöé 'feedback'            Γöé 'text'                        Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 34      Γöé 'Interview'        Γöé 13  Γöé 'createdAt'           Γöé 'timestamp without time zone' Γöé 'NO'     Γöé 'CURRENT_TIMESTAMP'              Γöé null    Γöé
+Γöé 35      Γöé 'Interview'        Γöé 14  Γöé 'updatedAt'           Γöé 'timestamp without time zone' Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 36      Γöé 'Notification'     Γöé 1   Γöé 'id'                  Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 37      Γöé 'Notification'     Γöé 2   Γöé 'userId'              Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 38      Γöé 'Notification'     Γöé 3   Γöé 'type'                Γöé 'USER-DEFINED'                Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 39      Γöé 'Notification'     Γöé 4   Γöé 'message'             Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 40      Γöé 'Notification'     Γöé 5   Γöé 'read'                Γöé 'boolean'                     Γöé 'NO'     Γöé 'false'                          Γöé null    Γöé
+Γöé 41      Γöé 'Notification'     Γöé 6   Γöé 'createdAt'           Γöé 'timestamp without time zone' Γöé 'NO'     Γöé 'CURRENT_TIMESTAMP'              Γöé null    Γöé
+Γöé 42      Γöé 'Notification'     Γöé 7   Γöé 'updatedAt'           Γöé 'timestamp without time zone' Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 43      Γöé 'PlacementDrive'   Γöé 1   Γöé 'id'                  Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 44      Γöé 'PlacementDrive'   Γöé 2   Γöé 'companyId'           Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 45      Γöé 'PlacementDrive'   Γöé 3   Γöé 'jobRole'             Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 46      Γöé 'PlacementDrive'   Γöé 4   Γöé 'package'             Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 47      Γöé 'PlacementDrive'   Γöé 5   Γöé 'packageLpa'          Γöé 'numeric'                     Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 48      Γöé 'PlacementDrive'   Γöé 6   Γöé 'location'            Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 49      Γöé 'PlacementDrive'   Γöé 7   Γöé 'applicationDeadline' Γöé 'timestamp without time zone' Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 50      Γöé 'PlacementDrive'   Γöé 8   Γöé 'eligibleBranches'    Γöé 'ARRAY'                       Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 51      Γöé 'PlacementDrive'   Γöé 9   Γöé 'minCGPA'             Γöé 'numeric'                     Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 52      Γöé 'PlacementDrive'   Γöé 10  Γöé 'maxBacklogs'         Γöé 'integer'                     Γöé 'NO'     Γöé '0'                              Γöé null    Γöé
+Γöé 53      Γöé 'PlacementDrive'   Γöé 11  Γöé 'graduationYear'      Γöé 'integer'                     Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 54      Γöé 'PlacementDrive'   Γöé 12  Γöé 'description'         Γöé 'text'                        Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 55      Γöé 'PlacementDrive'   Γöé 13  Γöé 'status'              Γöé 'USER-DEFINED'                Γöé 'NO'     Γöé `'ACTIVE'::"DriveStatus"`        Γöé null    Γöé
+Γöé 56      Γöé 'PlacementDrive'   Γöé 14  Γöé 'createdAt'           Γöé 'timestamp without time zone' Γöé 'NO'     Γöé 'CURRENT_TIMESTAMP'              Γöé null    Γöé
+Γöé 57      Γöé 'PlacementDrive'   Γöé 15  Γöé 'updatedAt'           Γöé 'timestamp without time zone' Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 58      Γöé 'RecruiterProfile' Γöé 1   Γöé 'id'                  Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 59      Γöé 'RecruiterProfile' Γöé 2   Γöé 'userId'              Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 60      Γöé 'RecruiterProfile' Γöé 3   Γöé 'companyId'           Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 61      Γöé 'RecruiterProfile' Γöé 4   Γöé 'jobTitle'            Γöé 'text'                        Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 62      Γöé 'RecruiterProfile' Γöé 5   Γöé 'isPrimaryContact'    Γöé 'boolean'                     Γöé 'NO'     Γöé 'false'                          Γöé null    Γöé
+Γöé 63      Γöé 'RecruiterProfile' Γöé 6   Γöé 'createdAt'           Γöé 'timestamp without time zone' Γöé 'NO'     Γöé 'CURRENT_TIMESTAMP'              Γöé null    Γöé
+Γöé 64      Γöé 'RecruiterProfile' Γöé 7   Γöé 'updatedAt'           Γöé 'timestamp without time zone' Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 65      Γöé 'Result'           Γöé 1   Γöé 'id'                  Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 66      Γöé 'Result'           Γöé 2   Γöé 'applicationId'       Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 67      Γöé 'Result'           Γöé 3   Γöé 'status'              Γöé 'USER-DEFINED'                Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 68      Γöé 'Result'           Γöé 4   Γöé 'feedback'            Γöé 'text'                        Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 69      Γöé 'Result'           Γöé 5   Γöé 'createdAt'           Γöé 'timestamp without time zone' Γöé 'NO'     Γöé 'CURRENT_TIMESTAMP'              Γöé null    Γöé
+Γöé 70      Γöé 'Result'           Γöé 6   Γöé 'updatedAt'           Γöé 'timestamp without time zone' Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 71      Γöé 'StudentProfile'   Γöé 1   Γöé 'id'                  Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 72      Γöé 'StudentProfile'   Γöé 2   Γöé 'userId'              Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 73      Γöé 'StudentProfile'   Γöé 3   Γöé 'cgpa'                Γöé 'numeric'                     Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 74      Γöé 'StudentProfile'   Γöé 4   Γöé 'branch'              Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 75      Γöé 'StudentProfile'   Γöé 5   Γöé 'graduationYear'      Γöé 'integer'                     Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 76      Γöé 'StudentProfile'   Γöé 6   Γöé 'backlogs'            Γöé 'integer'                     Γöé 'NO'     Γöé '0'                              Γöé null    Γöé
+Γöé 77      Γöé 'StudentProfile'   Γöé 7   Γöé 'phone'               Γöé 'text'                        Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 78      Γöé 'StudentProfile'   Γöé 8   Γöé 'skills'              Γöé 'ARRAY'                       Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 79      Γöé 'StudentProfile'   Γöé 9   Γöé 'resumeUrl'           Γöé 'text'                        Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 80      Γöé 'StudentProfile'   Γöé 10  Γöé 'isActive'            Γöé 'boolean'                     Γöé 'NO'     Γöé 'true'                           Γöé null    Γöé
+Γöé 81      Γöé 'StudentProfile'   Γöé 11  Γöé 'createdAt'           Γöé 'timestamp without time zone' Γöé 'NO'     Γöé 'CURRENT_TIMESTAMP'              Γöé null    Γöé
+Γöé 82      Γöé 'StudentProfile'   Γöé 12  Γöé 'updatedAt'           Γöé 'timestamp without time zone' Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 83      Γöé 'Training'         Γöé 1   Γöé 'id'                  Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 84      Γöé 'Training'         Γöé 2   Γöé 'title'               Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 85      Γöé 'Training'         Γöé 3   Γöé 'description'         Γöé 'text'                        Γöé 'YES'    Γöé "''::text"                       Γöé null    Γöé
+Γöé 86      Γöé 'Training'         Γöé 4   Γöé 'instructor'          Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 87      Γöé 'Training'         Γöé 5   Γöé 'startDate'           Γöé 'timestamp without time zone' Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 88      Γöé 'Training'         Γöé 6   Γöé 'endDate'             Γöé 'timestamp without time zone' Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 89      Γöé 'Training'         Γöé 7   Γöé 'duration'            Γöé 'text'                        Γöé 'YES'    Γöé null                             Γöé null    Γöé
+Γöé 90      Γöé 'Training'         Γöé 8   Γöé 'mode'                Γöé 'USER-DEFINED'                Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 91      Γöé 'Training'         Γöé 9   Γöé 'maxStudents'         Γöé 'integer'                     Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 92      Γöé 'Training'         Γöé 10  Γöé 'status'              Γöé 'USER-DEFINED'                Γöé 'NO'     Γöé `'UPCOMING'::"TrainingStatus"`   Γöé null    Γöé
+Γöé 93      Γöé 'Training'         Γöé 11  Γöé 'createdAt'           Γöé 'timestamp without time zone' Γöé 'NO'     Γöé 'CURRENT_TIMESTAMP'              Γöé null    Γöé
+Γöé 94      Γöé 'Training'         Γöé 12  Γöé 'updatedAt'           Γöé 'timestamp without time zone' Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 95      Γöé 'User'             Γöé 1   Γöé 'id'                  Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 96      Γöé 'User'             Γöé 2   Γöé 'email'               Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 97      Γöé 'User'             Γöé 3   Γöé 'passwordHash'        Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 98      Γöé 'User'             Γöé 4   Γöé 'name'                Γöé 'text'                        Γöé 'NO'     Γöé null                             Γöé null    Γöé
+Γöé 99      Γöé 'User'             Γöé 5   Γöé 'role'                Γöé 'USER-DEFINED'                Γöé 'NO'     Γöé `'STUDENT'::"UserRole"`          Γöé null    Γöé
+Γöé 100     Γöé 'User'             Γöé 6   Γöé 'createdAt'           Γöé 'timestamp without time zone' Γöé 'NO'     Γöé 'CURRENT_TIMESTAMP'              Γöé null    Γöé
+Γöé 101     Γöé 'User'             Γöé 7   Γöé 'updatedAt'           Γöé 'timestamp without time zone' Γöé 'NO'     Γöé null                             Γöé null    Γöé
+ΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÿ
+
+=== CONSTRAINTS & INDEXES ΓÇö schema "public" ===
+ΓöîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÉ
+Γöé (index) Γöé relation                  Γöé name                                   Γöé type Γöé definition                                                                        Γöé
+Γö£ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöñ
+Γöé 0       Γöé 'public.admins'           Γöé 'admins_pkey'                          Γöé 'p'  Γöé 'PRIMARY KEY (id)'                                                                Γöé
+Γöé 1       Γöé 'public.admins'           Γöé 'admins_email_key'                     Γöé 'u'  Γöé 'UNIQUE (email)'                                                                  Γöé
+Γöé 2       Γöé 'public.applications'     Γöé 'applications_drive_id_fkey'           Γöé 'f'  Γöé 'FOREIGN KEY (drive_id) REFERENCES public.placement_drives(id) ON DELETE CASCADE' Γöé
+Γöé 3       Γöé 'public.applications'     Γöé 'applications_student_id_fkey'         Γöé 'f'  Γöé 'FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE'       Γöé
+Γöé 4       Γöé 'public.applications'     Γöé 'applications_pkey'                    Γöé 'p'  Γöé 'PRIMARY KEY (id)'                                                                Γöé
+Γöé 5       Γöé 'public.applications'     Γöé 'applications_student_id_drive_id_key' Γöé 'u'  Γöé 'UNIQUE (student_id, drive_id)'                                                   Γöé
+Γöé 6       Γöé 'public.companies'        Γöé 'companies_pkey'                       Γöé 'p'  Γöé 'PRIMARY KEY (id)'                                                                Γöé
+Γöé 7       Γöé 'public.interviews'       Γöé 'interviews_drive_id_fkey'             Γöé 'f'  Γöé 'FOREIGN KEY (drive_id) REFERENCES public.placement_drives(id) ON DELETE CASCADE' Γöé
+Γöé 8       Γöé 'public.interviews'       Γöé 'interviews_student_id_fkey'           Γöé 'f'  Γöé 'FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE'       Γöé
+Γöé 9       Γöé 'public.interviews'       Γöé 'interviews_pkey'                      Γöé 'p'  Γöé 'PRIMARY KEY (id)'                                                                Γöé
+Γöé 10      Γöé 'public.notifications'    Γöé 'notifications_pkey'                   Γöé 'p'  Γöé 'PRIMARY KEY (id)'                                                                Γöé
+Γöé 11      Γöé 'public.placement_drives' Γöé 'placement_drives_company_id_fkey'     Γöé 'f'  Γöé 'FOREIGN KEY (company_id) REFERENCES public.companies(id) ON DELETE SET NULL'     Γöé
+Γöé 12      Γöé 'public.placement_drives' Γöé 'placement_drives_pkey'                Γöé 'p'  Γöé 'PRIMARY KEY (id)'                                                                Γöé
+Γöé 13      Γöé 'public.students'         Γöé 'students_auth_user_id_fkey'           Γöé 'f'  Γöé 'FOREIGN KEY (auth_user_id) REFERENCES auth.users(id) ON DELETE CASCADE'          Γöé
+Γöé 14      Γöé 'public.students'         Γöé 'students_pkey'                        Γöé 'p'  Γöé 'PRIMARY KEY (id)'                                                                Γöé
+Γöé 15      Γöé 'public.students'         Γöé 'students_email_key'                   Γöé 'u'  Γöé 'UNIQUE (email)'                                                                  Γöé
+Γöé 16      Γöé 'public.trainings'        Γöé 'trainings_pkey'                       Γöé 'p'  Γöé 'PRIMARY KEY (id)'                                                                Γöé
+ΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÿ
+ΓöîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÉ
+Γöé (index) Γöé tablename          Γöé indexname                              Γöé indexdef                                                                                                                                                                                                                          Γöé
+Γö£ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöñ
+Γöé 0       Γöé 'admins'           Γöé 'admins_email_key'                     Γöé 'CREATE UNIQUE INDEX admins_email_key ON public.admins USING btree (email)'                                                                                                                                                       Γöé
+Γöé 1       Γöé 'admins'           Γöé 'admins_pkey'                          Γöé 'CREATE UNIQUE INDEX admins_pkey ON public.admins USING btree (id)'                                                                                                                                                               Γöé
+Γöé 2       Γöé 'applications'     Γöé 'applications_pkey'                    Γöé 'CREATE UNIQUE INDEX applications_pkey ON public.applications USING btree (id)'                                                                                                                                                   Γöé
+Γöé 3       Γöé 'applications'     Γöé 'applications_student_id_drive_id_key' Γöé 'CREATE UNIQUE INDEX applications_student_id_drive_id_key ON public.applications USING btree (student_id, drive_id)'                                                                                                              Γöé
+Γöé 4       Γöé 'companies'        Γöé 'companies_pkey'                       Γöé 'CREATE UNIQUE INDEX companies_pkey ON public.companies USING btree (id)'                                                                                                                                                         Γöé
+Γöé 5       Γöé 'interviews'       Γöé 'interviews_pkey'                      Γöé 'CREATE UNIQUE INDEX interviews_pkey ON public.interviews USING btree (id)'                                                                                                                                                       Γöé
+Γöé 6       Γöé 'notifications'    Γöé 'notifications_pkey'                   Γöé 'CREATE UNIQUE INDEX notifications_pkey ON public.notifications USING btree (id)'                                                                                                                                                 Γöé
+Γöé 7       Γöé 'placement_drives' Γöé 'placement_drives_pkey'                Γöé 'CREATE UNIQUE INDEX placement_drives_pkey ON public.placement_drives USING btree (id)'                                                                                                                                           Γöé
+Γöé 8       Γöé 'students'         Γöé 'students_auth_user_id_uidx'           Γöé 'CREATE UNIQUE INDEX students_auth_user_id_uidx ON public.students USING btree (auth_user_id) WHERE (auth_user_id IS NOT NULL)'                                                                                                   Γöé
+Γöé 9       Γöé 'students'         Γöé 'students_email_key'                   Γöé 'CREATE UNIQUE INDEX students_email_key ON public.students USING btree (email)'                                                                                                                                                   Γöé
+Γöé 10      Γöé 'students'         Γöé 'students_pkey'                        Γöé 'CREATE UNIQUE INDEX students_pkey ON public.students USING btree (id)'                                                                                                                                                           Γöé
+Γöé 11      Γöé 'students'         Γöé 'students_registration_number_uidx'    Γöé "CREATE UNIQUE INDEX students_registration_number_uidx ON public.students USING btree (lower(btrim((registration_number)::text))) WHERE ((registration_number IS NOT NULL) AND (btrim((registration_number)::text) <> ''::text))" Γöé
+Γöé 12      Γöé 'trainings'        Γöé 'trainings_pkey'                       Γöé 'CREATE UNIQUE INDEX trainings_pkey ON public.trainings USING btree (id)'                                                                                                                                                         Γöé
+ΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÿ
+
+=== CONSTRAINTS & INDEXES ΓÇö schema "recruitx" ===
+ΓöîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÉ
+Γöé (index) Γöé relation             Γöé name                                             Γöé type Γöé definition                                                                                                                                        Γöé
+Γö£ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöñ
+Γöé 0       Γöé '_prisma_migrations' Γöé '_prisma_migrations_pkey'                        Γöé 'p'  Γöé 'PRIMARY KEY (id)'                                                                                                                                Γöé
+Γöé 1       Γöé '"Application"'      Γöé 'Application_driveId_fkey'                       Γöé 'f'  Γöé 'FOREIGN KEY ("driveId") REFERENCES "PlacementDrive"(id) ON UPDATE CASCADE ON DELETE RESTRICT'                                                    Γöé
+Γöé 2       Γöé '"Application"'      Γöé 'Application_studentId_fkey'                     Γöé 'f'  Γöé 'FOREIGN KEY ("studentId") REFERENCES "StudentProfile"(id) ON UPDATE CASCADE ON DELETE RESTRICT'                                                  Γöé
+Γöé 3       Γöé '"Application"'      Γöé 'Application_pkey'                               Γöé 'p'  Γöé 'PRIMARY KEY (id)'                                                                                                                                Γöé
+Γöé 4       Γöé '"Company"'          Γöé 'Company_pkey'                                   Γöé 'p'  Γöé 'PRIMARY KEY (id)'                                                                                                                                Γöé
+Γöé 5       Γöé '"Enrollment"'       Γöé 'Enrollment_studentId_fkey'                      Γöé 'f'  Γöé 'FOREIGN KEY ("studentId") REFERENCES "StudentProfile"(id) ON UPDATE CASCADE ON DELETE RESTRICT'                                                  Γöé
+Γöé 6       Γöé '"Enrollment"'       Γöé 'Enrollment_trainingId_fkey'                     Γöé 'f'  Γöé 'FOREIGN KEY ("trainingId") REFERENCES "Training"(id) ON UPDATE CASCADE ON DELETE RESTRICT'                                                       Γöé
+Γöé 7       Γöé '"Enrollment"'       Γöé 'Enrollment_pkey'                                Γöé 'p'  Γöé 'PRIMARY KEY (id)'                                                                                                                                Γöé
+Γöé 8       Γöé '"Interview"'        Γöé 'Interview_applicationId_studentId_driveId_fkey' Γöé 'f'  Γöé 'FOREIGN KEY ("applicationId", "studentId", "driveId") REFERENCES "Application"(id, "studentId", "driveId") ON UPDATE CASCADE ON DELETE RESTRICT' Γöé
+Γöé 9       Γöé '"Interview"'        Γöé 'Interview_pkey'                                 Γöé 'p'  Γöé 'PRIMARY KEY (id)'                                                                                                                                Γöé
+Γöé 10      Γöé '"Notification"'     Γöé 'Notification_userId_fkey'                       Γöé 'f'  Γöé 'FOREIGN KEY ("userId") REFERENCES "User"(id) ON UPDATE CASCADE ON DELETE RESTRICT'                                                               Γöé
+Γöé 11      Γöé '"Notification"'     Γöé 'Notification_pkey'                              Γöé 'p'  Γöé 'PRIMARY KEY (id)'                                                                                                                                Γöé
+Γöé 12      Γöé '"PlacementDrive"'   Γöé 'PlacementDrive_companyId_fkey'                  Γöé 'f'  Γöé 'FOREIGN KEY ("companyId") REFERENCES "Company"(id) ON UPDATE CASCADE ON DELETE RESTRICT'                                                         Γöé
+Γöé 13      Γöé '"PlacementDrive"'   Γöé 'PlacementDrive_pkey'                            Γöé 'p'  Γöé 'PRIMARY KEY (id)'                                                                                                                                Γöé
+Γöé 14      Γöé '"RecruiterProfile"' Γöé 'RecruiterProfile_companyId_fkey'                Γöé 'f'  Γöé 'FOREIGN KEY ("companyId") REFERENCES "Company"(id) ON UPDATE CASCADE ON DELETE RESTRICT'                                                         Γöé
+Γöé 15      Γöé '"RecruiterProfile"' Γöé 'RecruiterProfile_userId_fkey'                   Γöé 'f'  Γöé 'FOREIGN KEY ("userId") REFERENCES "User"(id) ON UPDATE CASCADE ON DELETE RESTRICT'                                                               Γöé
+Γöé 16      Γöé '"RecruiterProfile"' Γöé 'RecruiterProfile_pkey'                          Γöé 'p'  Γöé 'PRIMARY KEY (id)'                                                                                                                                Γöé
+Γöé 17      Γöé '"Result"'           Γöé 'Result_applicationId_fkey'                      Γöé 'f'  Γöé 'FOREIGN KEY ("applicationId") REFERENCES "Application"(id) ON UPDATE CASCADE ON DELETE RESTRICT'                                                 Γöé
+Γöé 18      Γöé '"Result"'           Γöé 'Result_pkey'                                    Γöé 'p'  Γöé 'PRIMARY KEY (id)'                                                                                                                                Γöé
+Γöé 19      Γöé '"StudentProfile"'   Γöé 'StudentProfile_userId_fkey'                     Γöé 'f'  Γöé 'FOREIGN KEY ("userId") REFERENCES "User"(id) ON UPDATE CASCADE ON DELETE RESTRICT'                                                               Γöé
+Γöé 20      Γöé '"StudentProfile"'   Γöé 'StudentProfile_pkey'                            Γöé 'p'  Γöé 'PRIMARY KEY (id)'                                                                                                                                Γöé
+Γöé 21      Γöé '"Training"'         Γöé 'Training_pkey'                                  Γöé 'p'  Γöé 'PRIMARY KEY (id)'                                                                                                                                Γöé
+Γöé 22      Γöé '"User"'             Γöé 'User_pkey'                                      Γöé 'p'  Γöé 'PRIMARY KEY (id)'                                                                                                                                Γöé
+ΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÿ
+ΓöîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÉ
+Γöé (index) Γöé tablename            Γöé indexname                              Γöé indexdef                                                                                                                        Γöé
+Γö£ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöñ
+Γöé 0       Γöé 'Application'        Γöé 'Application_driveId_idx'              Γöé 'CREATE INDEX "Application_driveId_idx" ON recruitx."Application" USING btree ("driveId")'                                      Γöé
+Γöé 1       Γöé 'Application'        Γöé 'Application_driveId_status_idx'       Γöé 'CREATE INDEX "Application_driveId_status_idx" ON recruitx."Application" USING btree ("driveId", status)'                       Γöé
+Γöé 2       Γöé 'Application'        Γöé 'Application_id_studentId_driveId_key' Γöé 'CREATE UNIQUE INDEX "Application_id_studentId_driveId_key" ON recruitx."Application" USING btree (id, "studentId", "driveId")' Γöé
+Γöé 3       Γöé 'Application'        Γöé 'Application_pkey'                     Γöé 'CREATE UNIQUE INDEX "Application_pkey" ON recruitx."Application" USING btree (id)'                                             Γöé
+Γöé 4       Γöé 'Application'        Γöé 'Application_status_idx'               Γöé 'CREATE INDEX "Application_status_idx" ON recruitx."Application" USING btree (status)'                                          Γöé
+Γöé 5       Γöé 'Application'        Γöé 'Application_studentId_driveId_key'    Γöé 'CREATE UNIQUE INDEX "Application_studentId_driveId_key" ON recruitx."Application" USING btree ("studentId", "driveId")'        Γöé
+Γöé 6       Γöé 'Application'        Γöé 'Application_studentId_idx'            Γöé 'CREATE INDEX "Application_studentId_idx" ON recruitx."Application" USING btree ("studentId")'                                  Γöé
+Γöé 7       Γöé 'Company'            Γöé 'Company_industry_idx'                 Γöé 'CREATE INDEX "Company_industry_idx" ON recruitx."Company" USING btree (industry)'                                              Γöé
+Γöé 8       Γöé 'Company'            Γöé 'Company_name_idx'                     Γöé 'CREATE INDEX "Company_name_idx" ON recruitx."Company" USING btree (name)'                                                      Γöé
+Γöé 9       Γöé 'Company'            Γöé 'Company_pkey'                         Γöé 'CREATE UNIQUE INDEX "Company_pkey" ON recruitx."Company" USING btree (id)'                                                     Γöé
+Γöé 10      Γöé 'Enrollment'         Γöé 'Enrollment_pkey'                      Γöé 'CREATE UNIQUE INDEX "Enrollment_pkey" ON recruitx."Enrollment" USING btree (id)'                                               Γöé
+Γöé 11      Γöé 'Enrollment'         Γöé 'Enrollment_studentId_idx'             Γöé 'CREATE INDEX "Enrollment_studentId_idx" ON recruitx."Enrollment" USING btree ("studentId")'                                    Γöé
+Γöé 12      Γöé 'Enrollment'         Γöé 'Enrollment_studentId_trainingId_key'  Γöé 'CREATE UNIQUE INDEX "Enrollment_studentId_trainingId_key" ON recruitx."Enrollment" USING btree ("studentId", "trainingId")'    Γöé
+Γöé 13      Γöé 'Enrollment'         Γöé 'Enrollment_trainingId_idx'            Γöé 'CREATE INDEX "Enrollment_trainingId_idx" ON recruitx."Enrollment" USING btree ("trainingId")'                                  Γöé
+Γöé 14      Γöé 'Interview'          Γöé 'Interview_applicationId_idx'          Γöé 'CREATE INDEX "Interview_applicationId_idx" ON recruitx."Interview" USING btree ("applicationId")'                              Γöé
+Γöé 15      Γöé 'Interview'          Γöé 'Interview_driveId_idx'                Γöé 'CREATE INDEX "Interview_driveId_idx" ON recruitx."Interview" USING btree ("driveId")'                                          Γöé
+Γöé 16      Γöé 'Interview'          Γöé 'Interview_driveId_status_idx'         Γöé 'CREATE INDEX "Interview_driveId_status_idx" ON recruitx."Interview" USING btree ("driveId", status)'                           Γöé
+Γöé 17      Γöé 'Interview'          Γöé 'Interview_pkey'                       Γöé 'CREATE UNIQUE INDEX "Interview_pkey" ON recruitx."Interview" USING btree (id)'                                                 Γöé
+Γöé 18      Γöé 'Interview'          Γöé 'Interview_round_idx'                  Γöé 'CREATE INDEX "Interview_round_idx" ON recruitx."Interview" USING btree (round)'                                                Γöé
+Γöé 19      Γöé 'Interview'          Γöé 'Interview_status_idx'                 Γöé 'CREATE INDEX "Interview_status_idx" ON recruitx."Interview" USING btree (status)'                                              Γöé
+Γöé 20      Γöé 'Interview'          Γöé 'Interview_studentId_idx'              Γöé 'CREATE INDEX "Interview_studentId_idx" ON recruitx."Interview" USING btree ("studentId")'                                      Γöé
+Γöé 21      Γöé 'Notification'       Γöé 'Notification_pkey'                    Γöé 'CREATE UNIQUE INDEX "Notification_pkey" ON recruitx."Notification" USING btree (id)'                                           Γöé
+Γöé 22      Γöé 'Notification'       Γöé 'Notification_read_idx'                Γöé 'CREATE INDEX "Notification_read_idx" ON recruitx."Notification" USING btree (read)'                                            Γöé
+Γöé 23      Γöé 'Notification'       Γöé 'Notification_type_idx'                Γöé 'CREATE INDEX "Notification_type_idx" ON recruitx."Notification" USING btree (type)'                                            Γöé
+Γöé 24      Γöé 'Notification'       Γöé 'Notification_userId_idx'              Γöé 'CREATE INDEX "Notification_userId_idx" ON recruitx."Notification" USING btree ("userId")'                                      Γöé
+Γöé 25      Γöé 'PlacementDrive'     Γöé 'PlacementDrive_companyId_idx'         Γöé 'CREATE INDEX "PlacementDrive_companyId_idx" ON recruitx."PlacementDrive" USING btree ("companyId")'                            Γöé
+Γöé 26      Γöé 'PlacementDrive'     Γöé 'PlacementDrive_graduationYear_idx'    Γöé 'CREATE INDEX "PlacementDrive_graduationYear_idx" ON recruitx."PlacementDrive" USING btree ("graduationYear")'                  Γöé
+Γöé 27      Γöé 'PlacementDrive'     Γöé 'PlacementDrive_pkey'                  Γöé 'CREATE UNIQUE INDEX "PlacementDrive_pkey" ON recruitx."PlacementDrive" USING btree (id)'                                       Γöé
+Γöé 28      Γöé 'PlacementDrive'     Γöé 'PlacementDrive_status_idx'            Γöé 'CREATE INDEX "PlacementDrive_status_idx" ON recruitx."PlacementDrive" USING btree (status)'                                    Γöé
+Γöé 29      Γöé 'RecruiterProfile'   Γöé 'RecruiterProfile_companyId_idx'       Γöé 'CREATE INDEX "RecruiterProfile_companyId_idx" ON recruitx."RecruiterProfile" USING btree ("companyId")'                        Γöé
+Γöé 30      Γöé 'RecruiterProfile'   Γöé 'RecruiterProfile_pkey'                Γöé 'CREATE UNIQUE INDEX "RecruiterProfile_pkey" ON recruitx."RecruiterProfile" USING btree (id)'                                   Γöé
+Γöé 31      Γöé 'RecruiterProfile'   Γöé 'RecruiterProfile_userId_idx'          Γöé 'CREATE INDEX "RecruiterProfile_userId_idx" ON recruitx."RecruiterProfile" USING btree ("userId")'                              Γöé
+Γöé 32      Γöé 'RecruiterProfile'   Γöé 'RecruiterProfile_userId_key'          Γöé 'CREATE UNIQUE INDEX "RecruiterProfile_userId_key" ON recruitx."RecruiterProfile" USING btree ("userId")'                       Γöé
+Γöé 33      Γöé 'Result'             Γöé 'Result_applicationId_idx'             Γöé 'CREATE INDEX "Result_applicationId_idx" ON recruitx."Result" USING btree ("applicationId")'                                    Γöé
+Γöé 34      Γöé 'Result'             Γöé 'Result_applicationId_key'             Γöé 'CREATE UNIQUE INDEX "Result_applicationId_key" ON recruitx."Result" USING btree ("applicationId")'                             Γöé
+Γöé 35      Γöé 'Result'             Γöé 'Result_pkey'                          Γöé 'CREATE UNIQUE INDEX "Result_pkey" ON recruitx."Result" USING btree (id)'                                                       Γöé
+Γöé 36      Γöé 'Result'             Γöé 'Result_status_idx'                    Γöé 'CREATE INDEX "Result_status_idx" ON recruitx."Result" USING btree (status)'                                                    Γöé
+Γöé 37      Γöé 'StudentProfile'     Γöé 'StudentProfile_branch_idx'            Γöé 'CREATE INDEX "StudentProfile_branch_idx" ON recruitx."StudentProfile" USING btree (branch)'                                    Γöé
+Γöé 38      Γöé 'StudentProfile'     Γöé 'StudentProfile_graduationYear_idx'    Γöé 'CREATE INDEX "StudentProfile_graduationYear_idx" ON recruitx."StudentProfile" USING btree ("graduationYear")'                  Γöé
+Γöé 39      Γöé 'StudentProfile'     Γöé 'StudentProfile_isActive_idx'          Γöé 'CREATE INDEX "StudentProfile_isActive_idx" ON recruitx."StudentProfile" USING btree ("isActive")'                              Γöé
+Γöé 40      Γöé 'StudentProfile'     Γöé 'StudentProfile_pkey'                  Γöé 'CREATE UNIQUE INDEX "StudentProfile_pkey" ON recruitx."StudentProfile" USING btree (id)'                                       Γöé
+Γöé 41      Γöé 'StudentProfile'     Γöé 'StudentProfile_userId_idx'            Γöé 'CREATE INDEX "StudentProfile_userId_idx" ON recruitx."StudentProfile" USING btree ("userId")'                                  Γöé
+Γöé 42      Γöé 'StudentProfile'     Γöé 'StudentProfile_userId_key'            Γöé 'CREATE UNIQUE INDEX "StudentProfile_userId_key" ON recruitx."StudentProfile" USING btree ("userId")'                           Γöé
+Γöé 43      Γöé 'Training'           Γöé 'Training_mode_idx'                    Γöé 'CREATE INDEX "Training_mode_idx" ON recruitx."Training" USING btree (mode)'                                                    Γöé
+Γöé 44      Γöé 'Training'           Γöé 'Training_pkey'                        Γöé 'CREATE UNIQUE INDEX "Training_pkey" ON recruitx."Training" USING btree (id)'                                                   Γöé
+Γöé 45      Γöé 'Training'           Γöé 'Training_status_idx'                  Γöé 'CREATE INDEX "Training_status_idx" ON recruitx."Training" USING btree (status)'                                                Γöé
+Γöé 46      Γöé 'User'               Γöé 'User_email_idx'                       Γöé 'CREATE INDEX "User_email_idx" ON recruitx."User" USING btree (email)'                                                          Γöé
+Γöé 47      Γöé 'User'               Γöé 'User_email_key'                       Γöé 'CREATE UNIQUE INDEX "User_email_key" ON recruitx."User" USING btree (email)'                                                   Γöé
+Γöé 48      Γöé 'User'               Γöé 'User_pkey'                            Γöé 'CREATE UNIQUE INDEX "User_pkey" ON recruitx."User" USING btree (id)'                                                           Γöé
+Γöé 49      Γöé 'User'               Γöé 'User_role_idx'                        Γöé 'CREATE INDEX "User_role_idx" ON recruitx."User" USING btree (role)'                                                            Γöé
+Γöé 50      Γöé '_prisma_migrations' Γöé '_prisma_migrations_pkey'              Γöé 'CREATE UNIQUE INDEX _prisma_migrations_pkey ON recruitx._prisma_migrations USING btree (id)'                                   Γöé
+ΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÿ
+
+=== ENUM TYPES ===
+ΓöîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÉ
+Γöé (index) Γöé schema     Γöé enum_name                    Γöé value                        Γöé ord Γöé
+Γö£ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöñ
+Γöé 0       Γöé 'auth'     Γöé 'aal_level'                  Γöé 'aal1'                       Γöé 1   Γöé
+Γöé 1       Γöé 'auth'     Γöé 'aal_level'                  Γöé 'aal2'                       Γöé 2   Γöé
+Γöé 2       Γöé 'auth'     Γöé 'aal_level'                  Γöé 'aal3'                       Γöé 3   Γöé
+Γöé 3       Γöé 'auth'     Γöé 'code_challenge_method'      Γöé 's256'                       Γöé 1   Γöé
+Γöé 4       Γöé 'auth'     Γöé 'code_challenge_method'      Γöé 'plain'                      Γöé 2   Γöé
+Γöé 5       Γöé 'auth'     Γöé 'factor_status'              Γöé 'unverified'                 Γöé 1   Γöé
+Γöé 6       Γöé 'auth'     Γöé 'factor_status'              Γöé 'verified'                   Γöé 2   Γöé
+Γöé 7       Γöé 'auth'     Γöé 'factor_type'                Γöé 'totp'                       Γöé 1   Γöé
+Γöé 8       Γöé 'auth'     Γöé 'factor_type'                Γöé 'webauthn'                   Γöé 2   Γöé
+Γöé 9       Γöé 'auth'     Γöé 'factor_type'                Γöé 'phone'                      Γöé 3   Γöé
+Γöé 10      Γöé 'auth'     Γöé 'factor_type'                Γöé 'recovery_code'              Γöé 4   Γöé
+Γöé 11      Γöé 'auth'     Γöé 'oauth_authorization_status' Γöé 'pending'                    Γöé 1   Γöé
+Γöé 12      Γöé 'auth'     Γöé 'oauth_authorization_status' Γöé 'approved'                   Γöé 2   Γöé
+Γöé 13      Γöé 'auth'     Γöé 'oauth_authorization_status' Γöé 'denied'                     Γöé 3   Γöé
+Γöé 14      Γöé 'auth'     Γöé 'oauth_authorization_status' Γöé 'expired'                    Γöé 4   Γöé
+Γöé 15      Γöé 'auth'     Γöé 'oauth_client_type'          Γöé 'public'                     Γöé 1   Γöé
+Γöé 16      Γöé 'auth'     Γöé 'oauth_client_type'          Γöé 'confidential'               Γöé 2   Γöé
+Γöé 17      Γöé 'auth'     Γöé 'oauth_registration_type'    Γöé 'dynamic'                    Γöé 1   Γöé
+Γöé 18      Γöé 'auth'     Γöé 'oauth_registration_type'    Γöé 'manual'                     Γöé 2   Γöé
+Γöé 19      Γöé 'auth'     Γöé 'oauth_response_type'        Γöé 'code'                       Γöé 1   Γöé
+Γöé 20      Γöé 'auth'     Γöé 'one_time_token_type'        Γöé 'confirmation_token'         Γöé 1   Γöé
+Γöé 21      Γöé 'auth'     Γöé 'one_time_token_type'        Γöé 'reauthentication_token'     Γöé 2   Γöé
+Γöé 22      Γöé 'auth'     Γöé 'one_time_token_type'        Γöé 'recovery_token'             Γöé 3   Γöé
+Γöé 23      Γöé 'auth'     Γöé 'one_time_token_type'        Γöé 'email_change_token_new'     Γöé 4   Γöé
+Γöé 24      Γöé 'auth'     Γöé 'one_time_token_type'        Γöé 'email_change_token_current' Γöé 5   Γöé
+Γöé 25      Γöé 'auth'     Γöé 'one_time_token_type'        Γöé 'phone_change_token'         Γöé 6   Γöé
+Γöé 26      Γöé 'realtime' Γöé 'action'                     Γöé 'INSERT'                     Γöé 1   Γöé
+Γöé 27      Γöé 'realtime' Γöé 'action'                     Γöé 'UPDATE'                     Γöé 2   Γöé
+Γöé 28      Γöé 'realtime' Γöé 'action'                     Γöé 'DELETE'                     Γöé 3   Γöé
+Γöé 29      Γöé 'realtime' Γöé 'action'                     Γöé 'TRUNCATE'                   Γöé 4   Γöé
+Γöé 30      Γöé 'realtime' Γöé 'action'                     Γöé 'ERROR'                      Γöé 5   Γöé
+Γöé 31      Γöé 'realtime' Γöé 'equality_op'                Γöé 'eq'                         Γöé 1   Γöé
+Γöé 32      Γöé 'realtime' Γöé 'equality_op'                Γöé 'neq'                        Γöé 2   Γöé
+Γöé 33      Γöé 'realtime' Γöé 'equality_op'                Γöé 'lt'                         Γöé 3   Γöé
+Γöé 34      Γöé 'realtime' Γöé 'equality_op'                Γöé 'lte'                        Γöé 4   Γöé
+Γöé 35      Γöé 'realtime' Γöé 'equality_op'                Γöé 'gt'                         Γöé 5   Γöé
+Γöé 36      Γöé 'realtime' Γöé 'equality_op'                Γöé 'gte'                        Γöé 6   Γöé
+Γöé 37      Γöé 'realtime' Γöé 'equality_op'                Γöé 'in'                         Γöé 7   Γöé
+Γöé 38      Γöé 'realtime' Γöé 'equality_op'                Γöé 'like'                       Γöé 8   Γöé
+Γöé 39      Γöé 'realtime' Γöé 'equality_op'                Γöé 'ilike'                      Γöé 9   Γöé
+Γöé 40      Γöé 'realtime' Γöé 'equality_op'                Γöé 'is'                         Γöé 10  Γöé
+Γöé 41      Γöé 'realtime' Γöé 'equality_op'                Γöé 'match'                      Γöé 11  Γöé
+Γöé 42      Γöé 'realtime' Γöé 'equality_op'                Γöé 'imatch'                     Γöé 12  Γöé
+Γöé 43      Γöé 'realtime' Γöé 'equality_op'                Γöé 'isdistinct'                 Γöé 13  Γöé
+Γöé 44      Γöé 'recruitx' Γöé 'ApplicationStatus'          Γöé 'APPLIED'                    Γöé 1   Γöé
+Γöé 45      Γöé 'recruitx' Γöé 'ApplicationStatus'          Γöé 'SHORTLISTED'                Γöé 2   Γöé
+Γöé 46      Γöé 'recruitx' Γöé 'ApplicationStatus'          Γöé 'APTITUDE'                   Γöé 3   Γöé
+Γöé 47      Γöé 'recruitx' Γöé 'ApplicationStatus'          Γöé 'TECHNICAL_INTERVIEW'        Γöé 4   Γöé
+Γöé 48      Γöé 'recruitx' Γöé 'ApplicationStatus'          Γöé 'HR_INTERVIEW'               Γöé 5   Γöé
+Γöé 49      Γöé 'recruitx' Γöé 'ApplicationStatus'          Γöé 'SELECTED'                   Γöé 6   Γöé
+Γöé 50      Γöé 'recruitx' Γöé 'ApplicationStatus'          Γöé 'REJECTED'                   Γöé 7   Γöé
+Γöé 51      Γöé 'recruitx' Γöé 'ApplicationStatus'          Γöé 'WAITLISTED'                 Γöé 8   Γöé
+Γöé 52      Γöé 'recruitx' Γöé 'DriveStatus'                Γöé 'DRAFT'                      Γöé 1   Γöé
+Γöé 53      Γöé 'recruitx' Γöé 'DriveStatus'                Γöé 'ACTIVE'                     Γöé 2   Γöé
+Γöé 54      Γöé 'recruitx' Γöé 'DriveStatus'                Γöé 'CLOSED'                     Γöé 3   Γöé
+Γöé 55      Γöé 'recruitx' Γöé 'DriveStatus'                Γöé 'CANCELLED'                  Γöé 4   Γöé
+Γöé 56      Γöé 'recruitx' Γöé 'FinalResultStatus'          Γöé 'SELECTED'                   Γöé 1   Γöé
+Γöé 57      Γöé 'recruitx' Γöé 'FinalResultStatus'          Γöé 'REJECTED'                   Γöé 2   Γöé
+Γöé 58      Γöé 'recruitx' Γöé 'FinalResultStatus'          Γöé 'WAITLISTED'                 Γöé 3   Γöé
+Γöé 59      Γöé 'recruitx' Γöé 'InterviewMode'              Γöé 'ONLINE'                     Γöé 1   Γöé
+Γöé 60      Γöé 'recruitx' Γöé 'InterviewMode'              Γöé 'OFFLINE'                    Γöé 2   Γöé
+Γöé 61      Γöé 'recruitx' Γöé 'InterviewResult'            Γöé 'PASSED'                     Γöé 1   Γöé
+Γöé 62      Γöé 'recruitx' Γöé 'InterviewResult'            Γöé 'FAILED'                     Γöé 2   Γöé
+Γöé 63      Γöé 'recruitx' Γöé 'InterviewResult'            Γöé 'PENDING'                    Γöé 3   Γöé
+Γöé 64      Γöé 'recruitx' Γöé 'InterviewRound'             Γöé 'APTITUDE'                   Γöé 1   Γöé
+Γöé 65      Γöé 'recruitx' Γöé 'InterviewRound'             Γöé 'TECHNICAL_INTERVIEW'        Γöé 2   Γöé
+Γöé 66      Γöé 'recruitx' Γöé 'InterviewRound'             Γöé 'HR_INTERVIEW'               Γöé 3   Γöé
+Γöé 67      Γöé 'recruitx' Γöé 'InterviewRound'             Γöé 'GROUP_DISCUSSION'           Γöé 4   Γöé
+Γöé 68      Γöé 'recruitx' Γöé 'InterviewStatus'            Γöé 'SCHEDULED'                  Γöé 1   Γöé
+Γöé 69      Γöé 'recruitx' Γöé 'InterviewStatus'            Γöé 'COMPLETED'                  Γöé 2   Γöé
+Γöé 70      Γöé 'recruitx' Γöé 'InterviewStatus'            Γöé 'CANCELLED'                  Γöé 3   Γöé
+Γöé 71      Γöé 'recruitx' Γöé 'NotificationType'           Γöé 'GENERAL'                    Γöé 1   Γöé
+Γöé 72      Γöé 'recruitx' Γöé 'NotificationType'           Γöé 'DRIVE_ANNOUNCEMENT'         Γöé 2   Γöé
+Γöé 73      Γöé 'recruitx' Γöé 'NotificationType'           Γöé 'INTERVIEW_SCHEDULED'        Γöé 3   Γöé
+Γöé 74      Γöé 'recruitx' Γöé 'NotificationType'           Γöé 'APPLICATION_STATUS'         Γöé 4   Γöé
+Γöé 75      Γöé 'recruitx' Γöé 'NotificationType'           Γöé 'SHORTLISTED'                Γöé 5   Γöé
+Γöé 76      Γöé 'recruitx' Γöé 'NotificationType'           Γöé 'REJECTED'                   Γöé 6   Γöé
+Γöé 77      Γöé 'recruitx' Γöé 'NotificationType'           Γöé 'INTERVIEW_RESULT'           Γöé 7   Γöé
+Γöé 78      Γöé 'recruitx' Γöé 'TrainingMode'               Γöé 'ONLINE'                     Γöé 1   Γöé
+Γöé 79      Γöé 'recruitx' Γöé 'TrainingMode'               Γöé 'OFFLINE'                    Γöé 2   Γöé
+Γöé 80      Γöé 'recruitx' Γöé 'TrainingMode'               Γöé 'HYBRID'                     Γöé 3   Γöé
+Γöé 81      Γöé 'recruitx' Γöé 'TrainingStatus'             Γöé 'UPCOMING'                   Γöé 1   Γöé
+Γöé 82      Γöé 'recruitx' Γöé 'TrainingStatus'             Γöé 'ACTIVE'                     Γöé 2   Γöé
+Γöé 83      Γöé 'recruitx' Γöé 'TrainingStatus'             Γöé 'COMPLETED'                  Γöé 3   Γöé
+Γöé 84      Γöé 'recruitx' Γöé 'TrainingStatus'             Γöé 'CANCELLED'                  Γöé 4   Γöé
+Γöé 85      Γöé 'recruitx' Γöé 'UserRole'                   Γöé 'ADMIN'                      Γöé 1   Γöé
+Γöé 86      Γöé 'recruitx' Γöé 'UserRole'                   Γöé 'STUDENT'                    Γöé 2   Γöé
+Γöé 87      Γöé 'recruitx' Γöé 'UserRole'                   Γöé 'RECRUITER'                  Γöé 3   Γöé
+Γöé 88      Γöé 'storage'  Γöé 'buckettype'                 Γöé 'STANDARD'                   Γöé 1   Γöé
+Γöé 89      Γöé 'storage'  Γöé 'buckettype'                 Γöé 'ANALYTICS'                  Γöé 2   Γöé
+Γöé 90      Γöé 'storage'  Γöé 'buckettype'                 Γöé 'VECTOR'                     Γöé 3   Γöé
+ΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÿ
+
+=== _prisma_migrations ΓÇö schema "public" ===
+exists check: ERROR ΓÇö 
+does not exist
+
+=== _prisma_migrations ΓÇö schema "recruitx" ===
+exists check: ERROR ΓÇö 
+does not exist
+
+=== TRIGGERS ===
+ΓöîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÉ
+Γöé (index) Γöé schema     Γöé table_name     Γöé trigger_name                         Γöé definition                                                                                                                                                                                                                                     Γöé
+Γö£ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöñ
+Γöé 0       Γöé 'auth'     Γöé 'users'        Γöé 'on_auth_student_created'            Γöé 'CREATE TRIGGER on_auth_student_created AFTER INSERT ON auth.users FOR EACH ROW EXECUTE FUNCTION public.create_student_profile_for_auth_user()'                                                                                                Γöé
+Γöé 1       Γöé 'realtime' Γöé 'subscription' Γöé 'tr_check_filters'                   Γöé 'CREATE TRIGGER tr_check_filters BEFORE INSERT OR UPDATE ON realtime.subscription FOR EACH ROW EXECUTE FUNCTION realtime.subscription_check_filters()'                                                                                         Γöé
+Γöé 2       Γöé 'storage'  Γöé 'buckets'      Γöé 'enforce_bucket_name_length_trigger' Γöé 'CREATE TRIGGER enforce_bucket_name_length_trigger BEFORE INSERT OR UPDATE OF name ON storage.buckets FOR EACH ROW EXECUTE FUNCTION storage.enforce_bucket_name_length()'                                                                      Γöé
+Γöé 3       Γöé 'storage'  Γöé 'buckets'      Γöé 'protect_bucket_control_insert'      Γöé "CREATE TRIGGER protect_bucket_control_insert BEFORE INSERT ON storage.buckets FOR EACH ROW EXECUTE FUNCTION storage.protect_bucket_control_columns('service_role')"                                                                           Γöé
+Γöé 4       Γöé 'storage'  Γöé 'buckets'      Γöé 'protect_bucket_control_update'      Γöé 'CREATE TRIGGER protect_bucket_control_update BEFORE UPDATE OF lifecycle_configuration, lifecycle_configuration_generation ON storage.buckets FOR EACH ROW EXECUTE FUNCTION storage.protect_bucket_control_columns()'                          Γöé
+Γöé 5       Γöé 'storage'  Γöé 'buckets'      Γöé 'protect_bucket_control_update_role' Γöé "CREATE TRIGGER protect_bucket_control_update_role AFTER UPDATE OF lifecycle_configuration, lifecycle_configuration_generation ON storage.buckets FOR EACH ROW EXECUTE FUNCTION storage.enforce_bucket_lifecycle_service_role('service_role')" Γöé
+Γöé 6       Γöé 'storage'  Γöé 'buckets'      Γöé 'protect_buckets_delete'             Γöé 'CREATE TRIGGER protect_buckets_delete BEFORE DELETE ON storage.buckets FOR EACH STATEMENT EXECUTE FUNCTION storage.protect_delete()'                                                                                                          Γöé
+Γöé 7       Γöé 'storage'  Γöé 'objects'      Γöé 'protect_objects_delete'             Γöé 'CREATE TRIGGER protect_objects_delete BEFORE DELETE ON storage.objects FOR EACH STATEMENT EXECUTE FUNCTION storage.protect_delete()'                                                                                                          Γöé
+Γöé 8       Γöé 'storage'  Γöé 'objects'      Γöé 'update_objects_updated_at'          Γöé 'CREATE TRIGGER update_objects_updated_at BEFORE UPDATE ON storage.objects FOR EACH ROW EXECUTE FUNCTION storage.update_updated_at_column()'                                                                                                   Γöé
+ΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÿ
+
+=== TRIGGER FN ΓÇö create_student_profile_for_auth_user ===
+CREATE OR REPLACE FUNCTION public.create_student_profile_for_auth_user()
+ RETURNS trigger
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO ''
+AS $function$
+DECLARE
+  linked_student_id character varying;
+  registration_number_value character varying := NULLIF(BTRIM(NEW.raw_user_meta_data ->> 'registration_number'), '');
+BEGIN
+  -- Prefer linking an existing roster row by Auth ID, email, or registration
+  -- number. This avoids creating a duplicate student when signup uses a
+  -- personal email instead of the email already stored by the placement team.
+  SELECT student.id INTO linked_student_id
+  FROM public.students AS student
+  WHERE (student.auth_user_id IS NULL OR student.auth_user_id = NEW.id)
+    AND (
+      student.auth_user_id = NEW.id
+      OR LOWER(student.email) = LOWER(NEW.email)
+      OR (
+        registration_number_value IS NOT NULL
+        AND LOWER(BTRIM(student.registration_number)) = LOWER(BTRIM(registration_number_value))
+      )
+    )
+  ORDER BY CASE
+    WHEN student.auth_user_id = NEW.id THEN 1
+    WHEN LOWER(student.email) = LOWER(NEW.email) THEN 2
+    ELSE 3
+  END
+  LIMIT 1
+  FOR UPDATE;
+
+  IF linked_student_id IS NOT NULL THEN
+    UPDATE public.students
+    SET auth_user_id = NEW.id,
+        password = NULL,
+        registration_number = COALESCE(registration_number, registration_number_value),
+        updated_at = NOW()
+    WHERE id = linked_student_id
+      AND (auth_user_id IS NULL OR auth_user_id = NEW.id);
+
+    IF NOT FOUND THEN
+      RAISE EXCEPTION 'The matching student profile is already linked to another Auth account.';
+    END IF;
+  ELSE
+    INSERT INTO public.students (
+      id,
+      auth_user_id,
+      name,
+      email,
+      password,
+      role,
+      registration_number,
+      cgpa,
+      backlogs,
+      skills,
+      is_active
+    ) VALUES (
+      NEW.id::text,
+      NEW.id,
+      COALESCE(NULLIF(BTRIM(NEW.raw_user_meta_data ->> 'name'), ''), NEW.email),
+      LOWER(NEW.email),
+      NULL,
+      'student',
+      registration_number_value,
+      0,
+      0,
+      '[]'::jsonb,
+      TRUE
+    )
+    ON CONFLICT (email) DO UPDATE
+      SET auth_user_id = COALESCE(public.students.auth_user_id, EXCLUDED.auth_user_id),
+          password = NULL,
+          updated_at = NOW()
+      WHERE public.students.auth_user_id IS NULL
+         OR public.students.auth_user_id = EXCLUDED.auth_user_id
+    RETURNING id INTO linked_student_id;
+  END IF;
+
+  IF linked_student_id IS NULL THEN
+    RAISE EXCEPTION 'This email is already linked to another student account.';
+  END IF;
+
+  RETURN NEW;
+END;
+$function$
+
+
+=== RLS ΓÇö enabled tables (non-system schemas) ===
+ΓöîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÉ
+Γöé (index) Γöé schema    Γöé table_name                   Γöé
+Γö£ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöñ
+Γöé 0       Γöé 'auth'    Γöé 'audit_log_entries'          Γöé
+Γöé 1       Γöé 'auth'    Γöé 'flow_state'                 Γöé
+Γöé 2       Γöé 'auth'    Γöé 'identities'                 Γöé
+Γöé 3       Γöé 'auth'    Γöé 'instances'                  Γöé
+Γöé 4       Γöé 'auth'    Γöé 'mfa_amr_claims'             Γöé
+Γöé 5       Γöé 'auth'    Γöé 'mfa_challenges'             Γöé
+Γöé 6       Γöé 'auth'    Γöé 'mfa_factors'                Γöé
+Γöé 7       Γöé 'auth'    Γöé 'one_time_tokens'            Γöé
+Γöé 8       Γöé 'auth'    Γöé 'refresh_tokens'             Γöé
+Γöé 9       Γöé 'auth'    Γöé 'saml_providers'             Γöé
+Γöé 10      Γöé 'auth'    Γöé 'saml_relay_states'          Γöé
+Γöé 11      Γöé 'auth'    Γöé 'schema_migrations'          Γöé
+Γöé 12      Γöé 'auth'    Γöé 'sessions'                   Γöé
+Γöé 13      Γöé 'auth'    Γöé 'sso_domains'                Γöé
+Γöé 14      Γöé 'auth'    Γöé 'sso_providers'              Γöé
+Γöé 15      Γöé 'auth'    Γöé 'users'                      Γöé
+Γöé 16      Γöé 'public'  Γöé 'students'                   Γöé
+Γöé 17      Γöé 'storage' Γöé 'buckets'                    Γöé
+Γöé 18      Γöé 'storage' Γöé 'buckets_analytics'          Γöé
+Γöé 19      Γöé 'storage' Γöé 'buckets_vectors'            Γöé
+Γöé 20      Γöé 'storage' Γöé 'migrations'                 Γöé
+Γöé 21      Γöé 'storage' Γöé 'objects'                    Γöé
+Γöé 22      Γöé 'storage' Γöé 's3_multipart_uploads'       Γöé
+Γöé 23      Γöé 'storage' Γöé 's3_multipart_uploads_parts' Γöé
+Γöé 24      Γöé 'storage' Γöé 'vector_indexes'             Γöé
+ΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÿ
+
+=== RLS ΓÇö policies ===
+ΓöîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÉ
+Γöé (index) Γöé schemaname Γöé tablename  Γöé policyname                                     Γöé roles               Γöé cmd      Γöé qual                                           Γöé with_check                                     Γöé
+Γö£ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöñ
+Γöé 0       Γöé 'public'   Γöé 'students' Γöé 'Students can read their own linked profile'   Γöé [ 'authenticated' ] Γöé 'SELECT' Γöé '(auth_user_id = ( SELECT auth.uid() AS uid))' Γöé null                                           Γöé
+Γöé 1       Γöé 'public'   Γöé 'students' Γöé 'Students can update their own linked profile' Γöé [ 'authenticated' ] Γöé 'UPDATE' Γöé '(auth_user_id = ( SELECT auth.uid() AS uid))' Γöé '(auth_user_id = ( SELECT auth.uid() AS uid))' Γöé
+ΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÿ
+
+=== SUPABASE AUTH (counts only ΓÇö no PII) ===
+ΓöîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÉ
+Γöé (index) Γöé auth_users Γöé
+Γö£ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöñ
+Γöé 0       Γöé 2          Γöé
+ΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÿ
+
+=== ROW COUNTS ΓÇö schema "public" ===
+public.admins: 1 rows
+public.applications: 3 rows
+public.companies: 2 rows
+public.interviews: 1 rows
+public.notifications: 3 rows
+public.placement_drives: 3 rows
+public.students: 6 rows
+public.trainings: 2 rows
+
+=== ROW COUNTS ΓÇö schema "recruitx" ===
+recruitx.Application: 0 rows
+recruitx.Company: 0 rows
+recruitx.Enrollment: 0 rows
+recruitx.Interview: 0 rows
+recruitx.Notification: 0 rows
+recruitx.PlacementDrive: 0 rows
+recruitx.RecruiterProfile: 0 rows
+recruitx.Result: 0 rows
+recruitx.StudentProfile: 0 rows
+recruitx.Training: 0 rows
+recruitx.User: 0 rows
+
+=== EXTENSIONS ===
+ΓöîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÉ
+Γöé (index) Γöé extname              Γöé extversion Γöé
+Γö£ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöñ
+Γöé 0       Γöé 'pg_stat_statements' Γöé '1.11'     Γöé
+Γöé 1       Γöé 'pgcrypto'           Γöé '1.3'      Γöé
+Γöé 2       Γöé 'plpgsql'            Γöé '1.0'      Γöé
+Γöé 3       Γöé 'supabase_vault'     Γöé '0.3.1'    Γöé
+Γöé 4       Γöé 'uuid-ossp'          Γöé '1.1'      Γöé
+ΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÿ
+
+Diagnosis complete (read-only).
