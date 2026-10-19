@@ -6,7 +6,7 @@ import { useNotification } from '../context/NotificationContext';
 
 const BRANCHES = ['CSE', 'IT', 'ECE', 'EEE', 'MECH', 'CIVIL'];
 const emptyForm = {
-  companyId: '', jobRole: '', package: '', location: '', applicationDeadline: '',
+  companyId: '', jobRole: '', driveType: 'placement', package: '', location: '', applicationDeadline: '',
   eligibleBranches: [], minCGPA: 6.0, maxBacklogs: 0, graduationYear: 2025, description: '',
 };
 
@@ -20,13 +20,17 @@ export default function PlacementDrives() {
   const [form, setForm] = useState(emptyForm);
   const [submitting, setSubmitting] = useState(false);
   const [statusFilter, setStatusFilter] = useState('');
+  const [typeFilter, setTypeFilter] = useState('');
 
-  useEffect(() => { loadData(); }, [statusFilter]);
+  useEffect(() => { loadData(); }, [statusFilter, typeFilter]);
 
   const loadData = async () => {
     try {
+      const params = {};
+      if (statusFilter) params.status = statusFilter;
+      if (typeFilter) params.driveType = typeFilter;
       const [drivesRes, companiesRes] = await Promise.all([
-        api.get('/admin/drives', { params: statusFilter ? { status: statusFilter } : {} }),
+        api.get('/admin/drives', { params }),
         api.get('/admin/companies'),
       ]);
       setDrives(drivesRes.data.data);
@@ -92,16 +96,34 @@ export default function PlacementDrives() {
         </button>
       </div>
 
-      <div className="search-bar">
-        {['', 'active', 'closed', 'cancelled'].map(s => (
-          <button
-            key={s || 'all'}
-            className={`btn ${statusFilter === s ? 'btn-primary' : 'btn-secondary'} btn-sm`}
-            onClick={() => setStatusFilter(s)}
-          >
-            {s === '' ? 'All' : s.charAt(0).toUpperCase() + s.slice(1)}
-          </button>
-        ))}
+      <div className="search-bar" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: 6 }}>
+          {[
+            { label: 'All Types', val: '' },
+            { label: '🎯 Placements', val: 'placement' },
+            { label: '💼 Internships', val: 'internship' },
+          ].map(t => (
+            <button
+              key={t.val || 'all-type'}
+              className={`btn ${typeFilter === t.val ? 'btn-primary' : 'btn-secondary'} btn-sm`}
+              onClick={() => setTypeFilter(t.val)}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+        <div style={{ width: 1, height: 24, background: 'var(--color-pencil-light, #ccc)' }} />
+        <div style={{ display: 'flex', gap: 6 }}>
+          {['', 'active', 'closed', 'cancelled'].map(s => (
+            <button
+              key={s || 'all-status'}
+              className={`btn ${statusFilter === s ? 'btn-primary' : 'btn-secondary'} btn-sm`}
+              onClick={() => setStatusFilter(s)}
+            >
+              {s === '' ? 'All Statuses' : s.charAt(0).toUpperCase() + s.slice(1)}
+            </button>
+          ))}
+        </div>
       </div>
 
       {loading ? (
@@ -109,7 +131,7 @@ export default function PlacementDrives() {
       ) : drives.length === 0 ? (
         <div className="empty-state">
           <div className="empty-state-icon">💼</div>
-          <p>No placement drives found</p>
+          <p>No drives found</p>
           <span>Create a drive to get started</span>
         </div>
       ) : (
@@ -134,8 +156,11 @@ export default function PlacementDrives() {
 
               {/* Info */}
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
-                  <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: 18, color: 'var(--color-pencil)' }}>{d.jobRole}</h3>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4, flexWrap: 'wrap' }}>
+                  <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: 18, color: 'var(--color-pencil)', margin: 0 }}>{d.jobRole}</h3>
+                  <span className={`badge ${d.driveType === 'internship' ? 'badge-info' : 'badge-primary'}`}>
+                    {d.driveType === 'internship' ? 'Internship' : 'Placement'}
+                  </span>
                   <span className={`badge ${statusColor[d.status] || 'badge-muted'}`}>{d.status}</span>
                 </div>
                 <p style={{ color: 'var(--text-muted)', fontSize: 13, marginBottom: 8 }}>{d.company?.name}</p>
@@ -198,8 +223,15 @@ export default function PlacementDrives() {
                   <input id="drive-role" className="form-input" required value={form.jobRole} onChange={e => setForm({...form, jobRole: e.target.value})} />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Package *</label>
-                  <input id="drive-package" className="form-input" placeholder="e.g. 8 LPA" required value={form.package} onChange={e => setForm({...form, package: e.target.value})} />
+                  <label className="form-label">Drive Type *</label>
+                  <select id="drive-type" className="form-select" value={form.driveType} onChange={e => setForm({...form, driveType: e.target.value})}>
+                    <option value="placement">Full-Time Placement</option>
+                    <option value="internship">Internship Drive</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Package / Compensation *</label>
+                  <input id="drive-package" className="form-input" placeholder="e.g. 8 LPA or 35,000/month" required value={form.package} onChange={e => setForm({...form, package: e.target.value})} />
                 </div>
                 <div className="form-group">
                   <label className="form-label">Location *</label>

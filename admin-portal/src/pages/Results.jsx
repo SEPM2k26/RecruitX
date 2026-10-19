@@ -144,36 +144,39 @@ export default function Results() {
               <tbody>
                 {results.length === 0 ? (
                   <tr><td colSpan={6}><div className="empty-state"><p>No results found</p></div></td></tr>
-                ) : results.map((r) => (
-                  <tr key={r.applicationId}>
-                    <td>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <div className="avatar">{r.student?.name?.charAt(0)}</div>
-                        <div>
-                          <p style={{ fontWeight: 500, fontSize: 13 }}>{r.student?.name}</p>
-                          <p style={{ fontSize: 11, color: 'var(--text-muted)' }}>{r.student?.branch} • CGPA {r.student?.cgpa}</p>
+                ) : results.map((r, idx) => {
+                  const appId = r.applicationId || r.id;
+                  return (
+                    <tr key={appId || idx}>
+                      <td>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                          <div className="avatar">{r.student?.name?.charAt(0)}</div>
+                          <div>
+                            <p style={{ fontWeight: 500, fontSize: 13 }}>{r.student?.name}</p>
+                            <p style={{ fontSize: 11, color: 'var(--text-muted)' }}>{r.student?.branch} • CGPA {r.student?.cgpa}</p>
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td style={{ fontSize: 13 }}>{r.drive?.jobRole}</td>
-                    <td><span className="badge badge-success">{r.drive?.package}</span></td>
-                    <td><span className={`badge ${statusBadge[r.status] || 'badge-muted'}`}>{r.status}</span></td>
-                    <td>
-                      <span className="badge badge-muted">{r.interviews?.length || 0} rounds</span>
-                    </td>
-                    <td>
-                      {['Selected', 'Rejected', 'Waitlisted'].includes(r.status) ? (
-                        <span className={`badge ${statusBadge[r.status]}`}>{r.status}</span>
-                      ) : (
-                        <div style={{ display: 'flex', gap: 6 }}>
-                          <button className="btn btn-success btn-sm" onClick={() => setFinalResult(r.applicationId, 'Selected')}>Select</button>
-                          <button className="btn btn-secondary btn-sm" onClick={() => setFinalResult(r.applicationId, 'Waitlisted')}>Waitlist</button>
-                          <button className="btn btn-danger btn-sm" onClick={() => setFinalResult(r.applicationId, 'Rejected')}>Reject</button>
-                        </div>
-                      )}
-                    </td>
-                  </tr>
-                ))}
+                      </td>
+                      <td style={{ fontSize: 13 }}>{r.drive?.jobRole}</td>
+                      <td><span className="badge badge-success">{r.drive?.package}</span></td>
+                      <td><span className={`badge ${statusBadge[r.status] || 'badge-muted'}`}>{r.status}</span></td>
+                      <td>
+                        <span className="badge badge-muted">{r.interviews?.length || 0} rounds</span>
+                      </td>
+                      <td>
+                        {['Selected', 'Rejected', 'Waitlisted'].includes(r.status) ? (
+                          <span className={`badge ${statusBadge[r.status]}`}>{r.status}</span>
+                        ) : (
+                          <div style={{ display: 'flex', gap: 6 }}>
+                            <button className="btn btn-success btn-sm" onClick={() => setFinalResult(appId, 'Selected')}>Select</button>
+                            <button className="btn btn-secondary btn-sm" onClick={() => setFinalResult(appId, 'Waitlisted')}>Waitlist</button>
+                            <button className="btn btn-danger btn-sm" onClick={() => setFinalResult(appId, 'Rejected')}>Reject</button>
+                          </div>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

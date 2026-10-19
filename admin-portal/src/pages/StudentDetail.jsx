@@ -123,8 +123,8 @@ export default function StudentDetail() {
             <table>
               <thead><tr><th>Drive</th><th>Company</th><th>Package</th><th>Status</th><th>Applied</th></tr></thead>
               <tbody>
-                {applications.map(app => (
-                  <tr key={app.applicationId}>
+                {applications.map((app, idx) => (
+                  <tr key={app.id || app.applicationId || idx}>
                     <td style={{ fontWeight: 500 }}>{app.drive?.jobRole}</td>
                     <td style={{ color: 'var(--text-muted)' }}>{app.drive?.companyId}</td>
                     <td><span className="badge badge-success">{app.drive?.package}</span></td>

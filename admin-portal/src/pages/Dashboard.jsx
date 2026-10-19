@@ -262,9 +262,9 @@ export default function Dashboard() {
 
           {recentApps.length > 0 ? (
             <div className="space-y-3">
-              {recentApps.map((app) => (
+              {recentApps.map((app, idx) => (
                 <div
-                  key={app.applicationId}
+                  key={app.id || app.applicationId || idx}
                   className="p-3 border-2 border-pencil rounded-wobbly-sm bg-paper-white shadow-hand-xs flex items-center justify-between gap-3 hover:-rotate-0.5 transition-transform"
                 >
                   <div className="flex items-center gap-3">

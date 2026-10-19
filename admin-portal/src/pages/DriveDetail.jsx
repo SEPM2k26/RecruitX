@@ -78,7 +78,12 @@ export default function DriveDetail() {
           <ArrowLeft size={16} />
         </button>
         <div style={{ flex: 1 }}>
-          <h1 className="page-title">{drive.jobRole}</h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+            <h1 className="page-title" style={{ margin: 0 }}>{drive.jobRole}</h1>
+            <span className={`badge ${drive.driveType === 'internship' ? 'badge-info' : 'badge-primary'}`}>
+              {drive.driveType === 'internship' ? 'Internship Drive' : 'Placement Drive'}
+            </span>
+          </div>
           <p className="page-subtitle">{drive.company?.name} • {drive.location} • {drive.package}</p>
         </div>
         <span className={`badge ${drive.status === 'active' ? 'badge-success' : 'badge-muted'}`} style={{ fontSize: 13, padding: '6px 14px' }}>
@@ -150,50 +155,53 @@ export default function DriveDetail() {
                 </tr>
               </thead>
               <tbody>
-                {filtered.map((app) => (
-                  <tr key={app.applicationId}>
-                    <td>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <div className="avatar">{app.student?.name?.charAt(0)}</div>
-                        <div>
-                          <p style={{ fontWeight: 500 }}>{app.student?.name}</p>
-                          <p style={{ fontSize: 12, color: 'var(--text-muted)' }}>{app.student?.email}</p>
+                {filtered.map((app, idx) => {
+                  const appId = app.id || app.applicationId;
+                  return (
+                    <tr key={appId || idx}>
+                      <td>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                          <div className="avatar">{app.student?.name?.charAt(0)}</div>
+                          <div>
+                            <p style={{ fontWeight: 500 }}>{app.student?.name}</p>
+                            <p style={{ fontSize: 12, color: 'var(--text-muted)' }}>{app.student?.email}</p>
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td><span className="badge badge-primary">{app.student?.branch}</span></td>
-                    <td><strong style={{ color: app.student?.cgpa >= 8 ? 'var(--success)' : 'var(--warning)' }}>{app.student?.cgpa}</strong></td>
-                    <td><span className={`badge ${statusBadge[app.status] || 'badge-muted'}`}>{app.status}</span></td>
-                    <td style={{ fontSize: 12, color: 'var(--text-muted)' }}>{new Date(app.appliedAt).toLocaleDateString()}</td>
-                    <td>
-                      <div style={{ display: 'flex', gap: 6 }}>
-                        {app.status === 'Applied' && (
-                          <button className="btn btn-success btn-sm" onClick={() => updateStatus(app.applicationId, 'Shortlisted')}>
-                            Shortlist
-                          </button>
-                        )}
-                        {['Shortlisted', 'Aptitude'].includes(app.status) && (
-                          <button
-                            className="btn btn-primary btn-sm"
-                            onClick={() => setInterviewModal({ open: true, studentId: app.student?.id, appId: app.applicationId })}
-                          >
-                            <Calendar size={13} /> Schedule
-                          </button>
-                        )}
-                        {!['Rejected', 'Selected'].includes(app.status) && (
-                          <button className="btn btn-danger btn-sm" onClick={() => updateStatus(app.applicationId, 'Rejected')}>
-                            Reject
-                          </button>
-                        )}
-                        {app.status === 'HR Interview' && (
-                          <button className="btn btn-success btn-sm" onClick={() => updateStatus(app.applicationId, 'Selected')}>
-                            Select ✓
-                          </button>
-                        )}
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                      </td>
+                      <td><span className="badge badge-primary">{app.student?.branch}</span></td>
+                      <td><strong style={{ color: app.student?.cgpa >= 8 ? 'var(--success)' : 'var(--warning)' }}>{app.student?.cgpa}</strong></td>
+                      <td><span className={`badge ${statusBadge[app.status] || 'badge-muted'}`}>{app.status}</span></td>
+                      <td style={{ fontSize: 12, color: 'var(--text-muted)' }}>{new Date(app.appliedAt).toLocaleDateString()}</td>
+                      <td>
+                        <div style={{ display: 'flex', gap: 6 }}>
+                          {app.status === 'Applied' && (
+                            <button className="btn btn-success btn-sm" onClick={() => updateStatus(appId, 'Shortlisted')}>
+                              Shortlist
+                            </button>
+                          )}
+                          {['Shortlisted', 'Aptitude'].includes(app.status) && (
+                            <button
+                              className="btn btn-primary btn-sm"
+                              onClick={() => setInterviewModal({ open: true, studentId: app.student?.id, appId })}
+                            >
+                              <Calendar size={13} /> Schedule
+                            </button>
+                          )}
+                          {!['Rejected', 'Selected'].includes(app.status) && (
+                            <button className="btn btn-danger btn-sm" onClick={() => updateStatus(appId, 'Rejected')}>
+                              Reject
+                            </button>
+                          )}
+                          {app.status === 'HR Interview' && (
+                            <button className="btn btn-success btn-sm" onClick={() => updateStatus(appId, 'Selected')}>
+                              Select ✓
+                            </button>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

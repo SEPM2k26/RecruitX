@@ -116,49 +116,57 @@ export default function Applications() {
                 <tr><td colSpan={8}>
                   <div className="empty-state"><p>No applications found</p></div>
                 </td></tr>
-              ) : applications.map((app) => (
-                <tr key={app.applicationId}>
-                  <td>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <div className="avatar">{app.student?.name?.charAt(0)}</div>
-                      <div>
-                        <p style={{ fontWeight: 500, fontSize: 13 }}>{app.student?.name}</p>
-                        <p style={{ fontSize: 11, color: 'var(--text-muted)' }}>{app.student?.email}</p>
+              ) : applications.map((app, idx) => {
+                const appId = app.id || app.applicationId;
+                return (
+                  <tr key={appId || idx}>
+                    <td>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <div className="avatar">{app.student?.name?.charAt(0)}</div>
+                        <div>
+                          <p style={{ fontWeight: 500, fontSize: 13 }}>{app.student?.name}</p>
+                          <p style={{ fontSize: 11, color: 'var(--text-muted)' }}>{app.student?.email}</p>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td style={{ fontWeight: 500, fontSize: 13 }}>{app.drive?.jobRole}</td>
-                  <td style={{ color: 'var(--text-muted)', fontSize: 13 }}>{app.drive?.companyId}</td>
-                  <td><span className="badge badge-primary">{app.student?.branch}</span></td>
-                  <td style={{ fontWeight: 600, color: (app.student?.cgpa || 0) >= 8 ? 'var(--success)' : 'var(--warning)' }}>
-                    {app.student?.cgpa}
-                  </td>
-                  <td><span className={`badge ${statusBadge[app.status] || 'badge-muted'}`}>{app.status}</span></td>
-                  <td style={{ fontSize: 12, color: 'var(--text-muted)' }}>
-                    {new Date(app.appliedAt).toLocaleDateString()}
-                  </td>
-                  <td>
-                    <div style={{ display: 'flex', gap: 6 }}>
-                      {nextStatus[app.status] && (
-                        <button
-                          className="btn btn-primary btn-sm"
-                          onClick={() => updateStatus(app.applicationId, nextStatus[app.status])}
-                        >
-                          → {nextStatus[app.status]}
-                        </button>
+                    </td>
+                    <td style={{ fontWeight: 500, fontSize: 13 }}>
+                      {app.drive?.jobRole}
+                      {app.drive?.driveType === 'internship' && (
+                        <span className="badge badge-info" style={{ marginLeft: 6, fontSize: 10 }}>Internship</span>
                       )}
-                      {!['Rejected', 'Selected'].includes(app.status) && (
-                        <button
-                          className="btn btn-danger btn-sm"
-                          onClick={() => updateStatus(app.applicationId, 'Rejected')}
-                        >
-                          Reject
-                        </button>
-                      )}
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                    <td style={{ color: 'var(--text-muted)', fontSize: 13 }}>{app.drive?.companyId || app.drive?.company?.name || '—'}</td>
+                    <td><span className="badge badge-primary">{app.student?.branch}</span></td>
+                    <td style={{ fontWeight: 600, color: (app.student?.cgpa || 0) >= 8 ? 'var(--success)' : 'var(--warning)' }}>
+                      {app.student?.cgpa}
+                    </td>
+                    <td><span className={`badge ${statusBadge[app.status] || 'badge-muted'}`}>{app.status}</span></td>
+                    <td style={{ fontSize: 12, color: 'var(--text-muted)' }}>
+                      {new Date(app.appliedAt).toLocaleDateString()}
+                    </td>
+                    <td>
+                      <div style={{ display: 'flex', gap: 6 }}>
+                        {nextStatus[app.status] && (
+                          <button
+                            className="btn btn-primary btn-sm"
+                            onClick={() => updateStatus(appId, nextStatus[app.status])}
+                          >
+                            → {nextStatus[app.status]}
+                          </button>
+                        )}
+                        {!['Rejected', 'Selected'].includes(app.status) && (
+                          <button
+                            className="btn btn-danger btn-sm"
+                            onClick={() => updateStatus(appId, 'Rejected')}
+                          >
+                            Reject
+                          </button>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
