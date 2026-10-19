@@ -15,24 +15,27 @@ const enrichDrive = (drive) => {
  * GET /api/admin/drives  |  GET /api/drives  (shared)
  * Query: ?status=active&branch=CSE&companyId=...
  */
-const getAllDrives = (req, res) => {
-  let result = [...placementDrives];
-  const { status, branch, companyId } = req.query;
-
-  if (status) result = result.filter((d) => d.status === status);
-  if (companyId) result = result.filter((d) => d.companyId === companyId);
-  if (branch) result = result.filter((d) => d.eligibleBranches.includes(branch));
-
-  res.json({ success: true, total: result.length, data: result.map(enrichDrive) });
+const getAllDrives = async (req, res, next) => {
+  try {
+    const { status, branch, companyId } = req.query;
+    const result = await placementDrives.findAll({ status, branch, companyId });
+    res.json({ success: true, total: result.length, data: result });
+  } catch (err) {
+    next(err);
+  }
 };
 
 /**
  * GET /api/drives/:id  |  GET /api/admin/drives/:id
  */
-const getDriveById = (req, res) => {
-  const drive = placementDrives.find((d) => d.id === req.params.id);
-  if (!drive) return res.status(404).json({ success: false, message: 'Drive not found' });
-  res.json({ success: true, data: enrichDrive(drive) });
+const getDriveById = async (req, res, next) => {
+  try {
+    const drive = await placementDrives.findById(req.params.id);
+    if (!drive) return res.status(404).json({ success: false, message: 'Drive not found' });
+    res.json({ success: true, data: drive });
+  } catch (err) {
+    next(err);
+  }
 };
 
 /**
@@ -49,32 +52,44 @@ const createDrive = [
   body('maxBacklogs').isInt({ min: 0 }).withMessage('Max backlogs must be >= 0'),
   body('graduationYear').isInt({ min: 2020 }).withMessage('Valid graduation year required'),
   validate,
-  (req, res) => {
-    const { companyId, jobRole, package: pkg, location, applicationDeadline,
-            eligibleBranches, minCGPA, maxBacklogs, graduationYear, description } = req.body;
+  async (req, res, next) => {
+    try {
+      const {
+        companyId,
+        jobRole,
+        package: pkg,
+        location,
+        applicationDeadline,
+        eligibleBranches,
+        minCGPA,
+        maxBacklogs,
+        graduationYear,
+        description,
+      } = req.body;
 
-    if (!companies.find((c) => c.id === companyId)) {
-      return res.status(404).json({ success: false, message: 'Company not found' });
+      const company = await companies.findById(companyId);
+      if (!company) {
+        return res.status(404).json({ success: false, message: 'Company not found' });
+      }
+
+      const newDrive = await placementDrives.create({
+        companyId,
+        jobRole,
+        package: pkg,
+        location,
+        applicationDeadline,
+        eligibleBranches,
+        minCGPA,
+        maxBacklogs,
+        graduationYear,
+        description,
+        status: 'active',
+      });
+
+      res.status(201).json({ success: true, message: 'Drive created', data: newDrive });
+    } catch (err) {
+      next(err);
     }
-
-    const newDrive = {
-      id: generateId('drive'),
-      companyId,
-      jobRole,
-      package: pkg,
-      location,
-      applicationDeadline,
-      eligibleBranches,
-      minCGPA: parseFloat(minCGPA),
-      maxBacklogs: parseInt(maxBacklogs),
-      graduationYear: parseInt(graduationYear),
-      description: description || '',
-      status: 'active',
-      createdAt: new Date().toISOString(),
-    };
-    placementDrives.push(newDrive);
-
-    res.status(201).json({ success: true, message: 'Drive created', data: enrichDrive(newDrive) });
   },
 ];
 
@@ -86,44 +101,75 @@ const updateDrive = [
   body('minCGPA').optional().isFloat({ min: 0, max: 10 }),
   body('maxBacklogs').optional().isInt({ min: 0 }),
   validate,
-  (req, res) => {
-    const idx = placementDrives.findIndex((d) => d.id === req.params.id);
-    if (idx === -1) return res.status(404).json({ success: false, message: 'Drive not found' });
+  async (req, res, next) => {
+    try {
+      const existing = await placementDrives.findById(req.params.id);
+      if (!existing) return res.status(404).json({ success: false, message: 'Drive not found' });
 
-    const allowed = ['jobRole', 'package', 'location', 'applicationDeadline',
-                     'eligibleBranches', 'minCGPA', 'maxBacklogs', 'graduationYear',
-                     'description', 'status'];
-    allowed.forEach((key) => {
-      if (req.body[key] !== undefined) placementDrives[idx][key] = req.body[key];
-    });
-    placementDrives[idx].updatedAt = new Date().toISOString();
+      const allowed = [
+        'jobRole',
+        'package',
+        'location',
+        'applicationDeadline',
+        'eligibleBranches',
+        'minCGPA',
+        'maxBacklogs',
+        'graduationYear',
+        'description',
+        'status',
+      ];
+      const updates = {};
+      allowed.forEach((key) => {
+        if (req.body[key] !== undefined) updates[key] = req.body[key];
+      });
 
-    res.json({ success: true, message: 'Drive updated', data: enrichDrive(placementDrives[idx]) });
+      const updated = await placementDrives.update(req.params.id, updates);
+      res.json({ success: true, message: 'Drive updated', data: updated });
+    } catch (err) {
+      next(err);
+    }
   },
 ];
 
 /**
  * DELETE /api/admin/drives/:id
  */
-const deleteDrive = (req, res) => {
-  const idx = placementDrives.findIndex((d) => d.id === req.params.id);
-  if (idx === -1) return res.status(404).json({ success: false, message: 'Drive not found' });
-  placementDrives.splice(idx, 1);
-  res.json({ success: true, message: 'Drive deleted' });
+const deleteDrive = async (req, res, next) => {
+  try {
+    const existing = await placementDrives.findById(req.params.id);
+    if (!existing) return res.status(404).json({ success: false, message: 'Drive not found' });
+
+    await placementDrives.delete(req.params.id);
+    res.json({ success: true, message: 'Drive deleted' });
+  } catch (err) {
+    next(err);
+  }
 };
 
 /**
  * GET /api/drives/:id/eligibility  — check if requesting student is eligible
  */
-const checkEligibility = (req, res) => {
-  const drive = placementDrives.find((d) => d.id === req.params.id);
-  if (!drive) return res.status(404).json({ success: false, message: 'Drive not found' });
+const checkEligibility = async (req, res, next) => {
+  try {
+    const drive = await placementDrives.findById(req.params.id);
+    if (!drive) return res.status(404).json({ success: false, message: 'Drive not found' });
 
-  const student = students.find((s) => s.id === req.user.id);
-  if (!student) return res.status(404).json({ success: false, message: 'Student not found' });
+    const student = await students.findById(req.user.id);
+    if (!student) return res.status(404).json({ success: false, message: 'Student not found' });
 
-  const result = checkStudentEligibility(student, drive);
-  res.json({ success: true, ...result });
+    const eligibleBranches = Array.isArray(drive.eligibleBranches) ? drive.eligibleBranches : [];
+    const checks = {
+      cgpa: student.cgpa >= drive.minCGPA,
+      backlogs: student.backlogs <= drive.maxBacklogs,
+      branch: eligibleBranches.includes(student.branch),
+      graduationYear: student.graduationYear === drive.graduationYear,
+    };
+
+    const eligible = Object.values(checks).every(Boolean);
+    res.json({ success: true, eligible, checks });
+  } catch (err) {
+    next(err);
+  }
 };
 
 module.exports = { getAllDrives, getDriveById, createDrive, updateDrive, deleteDrive, checkEligibility };

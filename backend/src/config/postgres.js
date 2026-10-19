@@ -14,9 +14,8 @@ const getPool = () => {
     // explicit ssl option below wins (self-signed proxy chains).
     const needsSsl = /sslmode=(require|verify-ca|verify-full|prefer)/.test(config.databaseUrl);
     pool = new Pool({
-      connectionString: needsSsl
-        ? config.databaseUrl.replace(/([?&])sslmode=[^&]*/g, '$1').replace(/[?&]$/, '')
-        : config.databaseUrl,
+      connectionString: config.databaseUrl,
+      ssl: config.db?.ssl || { rejectUnauthorized: false },
       max: Number(process.env.PG_POOL_MAX) || 5,
       idleTimeoutMillis: 30_000,
       connectionTimeoutMillis: 10_000,

@@ -1,6 +1,6 @@
 const { body } = require('express-validator');
 const { validate } = require('../middleware/validate.middleware');
-const { notifications, generateId } = require('../config/db');
+const { notifications, students } = require('../config/db');
 
 // ── Controllers ───────────────────────────────────────────────────────────────
 
@@ -8,61 +8,67 @@ const { notifications, generateId } = require('../config/db');
  * GET /api/admin/notifications
  * Admin views all or filtered notifications
  */
-const getAllNotifications = (req, res) => {
-  const { userId, type, read } = req.query;
-  let result = [...notifications];
-
-  if (userId) result = result.filter((n) => n.userId === userId);
-  if (type) result = result.filter((n) => n.type === type);
-  if (read !== undefined) result = result.filter((n) => n.read === (read === 'true'));
-
-  res.json({ success: true, total: result.length, data: result });
+const getAllNotifications = async (req, res, next) => {
+  try {
+    const { userId, type, read } = req.query;
+    const result = await notifications.findAll({ userId, type, read });
+    res.json({ success: true, total: result.length, data: result });
+  } catch (err) {
+    next(err);
+  }
 };
 
 /**
  * GET /api/notifications/me — student's own notifications
  */
-const getMyNotifications = (req, res) => {
-  const result = notifications
-    .filter((n) => n.userId === req.user.id)
-    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
-  res.json({ success: true, total: result.length, data: result });
+const getMyNotifications = async (req, res, next) => {
+  try {
+    const result = await notifications.findByUserId(req.user.id);
+    res.json({ success: true, total: result.length, data: result });
+  } catch (err) {
+    next(err);
+  }
 };
 
 /**
  * PATCH /api/notifications/:id/read
  */
-const markAsRead = (req, res) => {
-  const notif = notifications.find((n) => n.id === req.params.id && n.userId === req.user.id);
-  if (!notif) return res.status(404).json({ success: false, message: 'Notification not found' });
-
-  notif.read = true;
-  res.json({ success: true, message: 'Marked as read', data: notif });
+const markAsRead = async (req, res, next) => {
+  try {
+    const updated = await notifications.markAsRead(req.params.id, req.user.id);
+    if (!updated) return res.status(404).json({ success: false, message: 'Notification not found' });
+    res.json({ success: true, message: 'Marked as read', data: updated });
+  } catch (err) {
+    next(err);
+  }
 };
 
 /**
- * POST /api/admin/notifications  — admin broadcasts a notification
+ * POST /api/admin/notifications  — admin sends a notification
  */
 const createNotification = [
   body('userId').notEmpty().withMessage('User ID required'),
   body('message').trim().notEmpty().withMessage('Message required'),
-  body('type').isIn(['general', 'drive_announcement', 'interview_scheduled', 'application_status', 'shortlisted', 'rejected', 'interview_result']).withMessage('Invalid type'),
+  body('type')
+    .isIn([
+      'general',
+      'drive_announcement',
+      'interview_scheduled',
+      'application_status',
+      'shortlisted',
+      'rejected',
+      'interview_result',
+    ])
+    .withMessage('Invalid type'),
   validate,
-  (req, res) => {
-    const { userId, message, type } = req.body;
-
-    const newNotif = {
-      id: generateId('notif'),
-      userId,
-      type,
-      message,
-      read: false,
-      createdAt: new Date().toISOString(),
-    };
-    notifications.push(newNotif);
-
-    res.status(201).json({ success: true, message: 'Notification sent', data: newNotif });
+  async (req, res, next) => {
+    try {
+      const { userId, message, type } = req.body;
+      const newNotif = await notifications.create({ userId, message, type });
+      res.status(201).json({ success: true, message: 'Notification sent', data: newNotif });
+    } catch (err) {
+      next(err);
+    }
   },
 ];
 
@@ -74,32 +80,29 @@ const broadcastNotification = [
   body('message').trim().notEmpty().withMessage('Message required'),
   body('type').notEmpty().withMessage('Type required'),
   validate,
-  (req, res) => {
-    const { students } = require('../config/db');
-    const { message, type, branch, graduationYear } = req.body;
+  async (req, res, next) => {
+    try {
+      const { message, type, branch, graduationYear } = req.body;
+      const targetStudents = await students.findAll({ branch, graduationYear });
 
-    let targetStudents = [...students];
-    if (branch) targetStudents = targetStudents.filter((s) => s.branch === branch);
-    if (graduationYear) targetStudents = targetStudents.filter((s) => s.graduationYear === parseInt(graduationYear));
+      const created = await Promise.all(
+        targetStudents.map((s) =>
+          notifications.create({
+            userId: s.id,
+            type,
+            message,
+          })
+        )
+      );
 
-    const created = targetStudents.map((s) => {
-      const notif = {
-        id: generateId('notif'),
-        userId: s.id,
-        type,
-        message,
-        read: false,
-        createdAt: new Date().toISOString(),
-      };
-      notifications.push(notif);
-      return notif;
-    });
-
-    res.status(201).json({
-      success: true,
-      message: `Broadcast sent to ${created.length} students`,
-      count: created.length,
-    });
+      res.status(201).json({
+        success: true,
+        message: `Broadcast sent to ${created.length} students`,
+        count: created.length,
+      });
+    } catch (err) {
+      next(err);
+    }
   },
 ];
 

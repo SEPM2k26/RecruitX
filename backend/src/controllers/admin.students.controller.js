@@ -1,7 +1,6 @@
-const { body, param, query } = require('express-validator');
+const { body } = require('express-validator');
 const { validate } = require('../middleware/validate.middleware');
-const { students, generateId } = require('../config/db');
-const bcrypt = require('bcryptjs');
+const { students } = require('../config/db');
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 const safeStudent = ({ password, resumeStoragePath, resumeMimeType, resumeSize, ...rest }) => rest;
@@ -12,36 +11,32 @@ const safeStudent = ({ password, resumeStoragePath, resumeMimeType, resumeSize, 
  * GET /api/admin/students
  * Query: ?search=name&branch=CSE&graduationYear=2025&isActive=true
  */
-const getAllStudents = (req, res) => {
-  let result = [...students];
-  const { search, branch, graduationYear, isActive } = req.query;
+const getAllStudents = async (req, res, next) => {
+  try {
+    const { search, branch, graduationYear, isActive } = req.query;
+    const result = await students.findAll({ search, branch, graduationYear, isActive });
 
-  if (search) {
-    const q = search.toLowerCase();
-    result = result.filter(
-      (s) =>
-        s.name.toLowerCase().includes(q) ||
-        s.email.toLowerCase().includes(q)
-    );
+    res.json({
+      success: true,
+      total: result.length,
+      data: result.map(safeStudent),
+    });
+  } catch (err) {
+    next(err);
   }
-  if (branch) result = result.filter((s) => s.branch === branch);
-  if (graduationYear) result = result.filter((s) => s.graduationYear === parseInt(graduationYear));
-  if (isActive !== undefined) result = result.filter((s) => s.isActive === (isActive === 'true'));
-
-  res.json({
-    success: true,
-    total: result.length,
-    data: result.map(safeStudent),
-  });
 };
 
 /**
  * GET /api/admin/students/:id
  */
-const getStudentById = (req, res) => {
-  const student = students.find((s) => s.id === req.params.id);
-  if (!student) return res.status(404).json({ success: false, message: 'Student not found' });
-  res.json({ success: true, data: safeStudent(student) });
+const getStudentById = async (req, res, next) => {
+  try {
+    const student = await students.findById(req.params.id);
+    if (!student) return res.status(404).json({ success: false, message: 'Student not found' });
+    res.json({ success: true, data: safeStudent(student) });
+  } catch (err) {
+    next(err);
+  }
 };
 
 /**
@@ -54,17 +49,22 @@ const updateStudent = [
   body('graduationYear').optional().isInt({ min: 2020 }),
   body('backlogs').optional().isInt({ min: 0 }),
   validate,
-  (req, res) => {
-    const idx = students.findIndex((s) => s.id === req.params.id);
-    if (idx === -1) return res.status(404).json({ success: false, message: 'Student not found' });
+  async (req, res, next) => {
+    try {
+      const existing = await students.findById(req.params.id);
+      if (!existing) return res.status(404).json({ success: false, message: 'Student not found' });
 
-    const allowed = ['name', 'phone', 'cgpa', 'branch', 'graduationYear', 'backlogs', 'skills'];
-    allowed.forEach((key) => {
-      if (req.body[key] !== undefined) students[idx][key] = req.body[key];
-    });
-    students[idx].updatedAt = new Date().toISOString();
+      const allowed = ['name', 'phone', 'cgpa', 'branch', 'graduationYear', 'backlogs', 'skills'];
+      const updates = {};
+      allowed.forEach((key) => {
+        if (req.body[key] !== undefined) updates[key] = req.body[key];
+      });
 
-    res.json({ success: true, message: 'Student updated', data: safeStudent(students[idx]) });
+      const updated = await students.update(req.params.id, updates);
+      res.json({ success: true, message: 'Student updated', data: safeStudent(updated) });
+    } catch (err) {
+      next(err);
+    }
   },
 ];
 
@@ -72,29 +72,37 @@ const updateStudent = [
  * PATCH /api/admin/students/:id/status
  * Toggle isActive (disable/enable)
  */
-const toggleStudentStatus = (req, res) => {
-  const student = students.find((s) => s.id === req.params.id);
-  if (!student) return res.status(404).json({ success: false, message: 'Student not found' });
+const toggleStudentStatus = async (req, res, next) => {
+  try {
+    const student = await students.findById(req.params.id);
+    if (!student) return res.status(404).json({ success: false, message: 'Student not found' });
 
-  student.isActive = !student.isActive;
-  student.updatedAt = new Date().toISOString();
+    const newStatus = !student.isActive;
+    const updated = await students.update(req.params.id, { isActive: newStatus });
 
-  res.json({
-    success: true,
-    message: `Student ${student.isActive ? 'enabled' : 'disabled'}`,
-    data: safeStudent(student),
-  });
+    res.json({
+      success: true,
+      message: `Student ${updated.isActive ? 'enabled' : 'disabled'}`,
+      data: safeStudent(updated),
+    });
+  } catch (err) {
+    next(err);
+  }
 };
 
 /**
  * DELETE /api/admin/students/:id
  */
-const deleteStudent = (req, res) => {
-  const idx = students.findIndex((s) => s.id === req.params.id);
-  if (idx === -1) return res.status(404).json({ success: false, message: 'Student not found' });
+const deleteStudent = async (req, res, next) => {
+  try {
+    const student = await students.findById(req.params.id);
+    if (!student) return res.status(404).json({ success: false, message: 'Student not found' });
 
-  students.splice(idx, 1);
-  res.json({ success: true, message: 'Student deleted' });
+    await students.delete(req.params.id);
+    res.json({ success: true, message: 'Student deleted' });
+  } catch (err) {
+    next(err);
+  }
 };
 
 module.exports = {

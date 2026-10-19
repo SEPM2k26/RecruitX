@@ -1,32 +1,9 @@
 const { body } = require('express-validator');
 const { validate } = require('../middleware/validate.middleware');
-const { applications, interviews, students, placementDrives, notifications, generateId } = require('../config/db');
+const { applications, interviews, students, placementDrives, notifications } = require('../config/db');
 
 // Final result statuses
 const FINAL_STATUSES = ['Selected', 'Rejected', 'Waitlisted'];
-
-// ── Helpers ───────────────────────────────────────────────────────────────────
-const buildResult = (app) => {
-  const student = students.find((s) => s.id === app.studentId);
-  const drive = placementDrives.find((d) => d.id === app.driveId);
-  const studentInterviews = interviews.filter(
-    (i) => i.studentId === app.studentId && i.driveId === app.driveId
-  );
-
-  return {
-    applicationId: app.id,
-    status: app.status,
-    appliedAt: app.appliedAt,
-    updatedAt: app.updatedAt,
-    student: student
-      ? { id: student.id, name: student.name, email: student.email, branch: student.branch, cgpa: student.cgpa }
-      : null,
-    drive: drive
-      ? { id: drive.id, jobRole: drive.jobRole, package: drive.package, companyId: drive.companyId }
-      : null,
-    interviews: studentInterviews,
-  };
-};
 
 // ── Controllers ───────────────────────────────────────────────────────────────
 
@@ -35,20 +12,35 @@ const buildResult = (app) => {
  * Returns all application results with enriched data
  * Query: ?status=Selected&driveId=...&branch=...
  */
-const getAllResults = (req, res) => {
-  let result = [...applications];
-  const { status, driveId, branch } = req.query;
+const getAllResults = async (req, res, next) => {
+  try {
+    const { status, driveId, branch } = req.query;
+    const allApps = await applications.findAll({ status, driveId });
+    const allInterviews = await interviews.findAll();
 
-  if (status) result = result.filter((a) => a.status === status);
-  if (driveId) result = result.filter((a) => a.driveId === driveId);
-  if (branch) {
-    result = result.filter((a) => {
-      const student = students.find((s) => s.id === a.studentId);
-      return student && student.branch === branch;
+    let results = allApps.map((app) => {
+      const studentInterviews = allInterviews.filter(
+        (i) => i.studentId === app.studentId && i.driveId === app.driveId
+      );
+      return {
+        applicationId: app.id,
+        status: app.status,
+        appliedAt: app.appliedAt,
+        updatedAt: app.updatedAt,
+        student: app.student,
+        drive: app.drive,
+        interviews: studentInterviews,
+      };
     });
-  }
 
-  res.json({ success: true, total: result.length, data: result.map(buildResult) });
+    if (branch) {
+      results = results.filter((r) => r.student && r.student.branch === branch);
+    }
+
+    res.json({ success: true, total: results.length, data: results });
+  } catch (err) {
+    next(err);
+  }
 };
 
 /**
@@ -58,34 +50,49 @@ const getAllResults = (req, res) => {
 const setFinalResult = [
   body('status').isIn(FINAL_STATUSES).withMessage(`Status must be: ${FINAL_STATUSES.join(', ')}`),
   validate,
-  (req, res) => {
-    const app = applications.find((a) => a.id === req.params.applicationId);
-    if (!app) return res.status(404).json({ success: false, message: 'Application not found' });
+  async (req, res, next) => {
+    try {
+      const app = await applications.findById(req.params.applicationId);
+      if (!app) return res.status(404).json({ success: false, message: 'Application not found' });
 
-    const prevStatus = app.status;
-    app.status = req.body.status;
-    app.updatedAt = new Date().toISOString();
+      const prevStatus = app.status;
+      const updated = await applications.updateStatus(req.params.applicationId, req.body.status);
 
-    const messages = {
-      Selected: '🎉 Congratulations! You have been SELECTED!',
-      Rejected: 'We regret to inform you that your application has been rejected.',
-      Waitlisted: 'You have been placed on the waitlist.',
-    };
+      const messages = {
+        Selected: '🎉 Congratulations! You have been SELECTED!',
+        Rejected: 'We regret to inform you that your application has been rejected.',
+        Waitlisted: 'You have been placed on the waitlist.',
+      };
 
-    notifications.push({
-      id: generateId('notif'),
-      userId: app.studentId,
-      type: 'application_status',
-      message: messages[req.body.status],
-      read: false,
-      createdAt: new Date().toISOString(),
-    });
+      await notifications.create({
+        userId: app.studentId,
+        type: 'application_status',
+        message: messages[req.body.status] || `Result updated to: ${req.body.status}`,
+      });
 
-    res.json({
-      success: true,
-      message: `Result updated: ${prevStatus} → ${req.body.status}`,
-      data: buildResult(app),
-    });
+      const allInterviews = await interviews.findAll({
+        studentId: app.studentId,
+        driveId: app.driveId,
+      });
+
+      const enriched = {
+        applicationId: updated.id,
+        status: updated.status,
+        appliedAt: updated.appliedAt,
+        updatedAt: updated.updatedAt,
+        student: updated.student,
+        drive: updated.drive,
+        interviews: allInterviews,
+      };
+
+      res.json({
+        success: true,
+        message: `Result updated: ${prevStatus} → ${req.body.status}`,
+        data: enriched,
+      });
+    } catch (err) {
+      next(err);
+    }
   },
 ];
 
@@ -93,33 +100,37 @@ const setFinalResult = [
  * GET /api/admin/results/summary
  * Dashboard-friendly aggregates
  */
-const getResultSummary = (req, res) => {
-  const total = applications.length;
-  const byStatus = {};
-  applications.forEach((a) => {
-    byStatus[a.status] = (byStatus[a.status] || 0) + 1;
-  });
-
-  // Branch-wise selected
-  const branchWise = {};
-  applications
-    .filter((a) => a.status === 'Selected')
-    .forEach((a) => {
-      const student = students.find((s) => s.id === a.studentId);
-      if (student) {
-        branchWise[student.branch] = (branchWise[student.branch] || 0) + 1;
-      }
+const getResultSummary = async (req, res, next) => {
+  try {
+    const allApps = await applications.findAll();
+    const total = allApps.length;
+    const byStatus = {};
+    allApps.forEach((a) => {
+      byStatus[a.status] = (byStatus[a.status] || 0) + 1;
     });
 
-  res.json({
-    success: true,
-    data: {
-      totalApplications: total,
-      byStatus,
-      selectedByBranch: branchWise,
-      selectionRate: total > 0 ? ((byStatus['Selected'] || 0) / total * 100).toFixed(1) + '%' : '0%',
-    },
-  });
+    // Branch-wise selected
+    const branchWise = {};
+    allApps
+      .filter((a) => a.status === 'Selected')
+      .forEach((a) => {
+        if (a.student && a.student.branch) {
+          branchWise[a.student.branch] = (branchWise[a.student.branch] || 0) + 1;
+        }
+      });
+
+    res.json({
+      success: true,
+      data: {
+        totalApplications: total,
+        byStatus,
+        selectedByBranch: branchWise,
+        selectionRate: total > 0 ? ((byStatus['Selected'] || 0) / total * 100).toFixed(1) + '%' : '0%',
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
 };
 
 module.exports = { getAllResults, setFinalResult, getResultSummary };
