@@ -15,7 +15,9 @@ module.exports = {
     expiresIn: process.env.JWT_EXPIRES_IN || '7d',
   },
   db: {
-    url: process.env.DATABASE_URL,
+    url: process.env.DATABASE_URL
+      ? process.env.DATABASE_URL.replace(/([?&])sslmode=[^&]*/g, '$1').replace(/[?&]$/, '')
+      : undefined,
     host: process.env.DB_HOST || 'localhost',
     port: parseInt(process.env.DB_PORT, 10) || 5432,
     name: process.env.DB_NAME || 'postgres',

@@ -70,6 +70,26 @@ export default function Login({ onLogin }) {
             {busy ? 'Signing in…' : 'Sign in'}
           </button>
         </form>
+
+        <div className="mt-6 pt-4 border-t-2 border-dashed border-pencil/20 text-xs text-pencil-light text-center space-y-1">
+          <p className="font-bold text-pencil">Demo Credentials (click to fill):</p>
+          <div className="flex flex-col gap-1 items-center">
+            <button
+              type="button"
+              className="underline hover:text-ink font-mono text-xs cursor-pointer"
+              onClick={() => { setEmail('recruiter@recruitx.com'); setPassword('Recruiter@123'); }}
+            >
+              recruiter@recruitx.com • Recruiter@123 (TechCorp)
+            </button>
+            <button
+              type="button"
+              className="underline hover:text-ink font-mono text-xs cursor-pointer"
+              onClick={() => { setEmail('rishi@teradata.com'); setPassword('Teradata123'); }}
+            >
+              rishi@teradata.com • Teradata123 (Teradata)
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
