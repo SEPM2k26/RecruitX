@@ -1,8 +1,16 @@
 const { Pool } = require('pg');
 const config = require('./config');
 
+// Strip sslmode from connectionString so the explicit ssl config wins
+// (pg treats sslmode=require as verify-full, conflicting with rejectUnauthorized: false)
+const dbUrl = config.db.url || '';
+const needsSsl = /sslmode=(require|verify-ca|verify-full|prefer)/.test(dbUrl);
+const cleanedUrl = needsSsl
+  ? dbUrl.replace(/([?&])sslmode=[^&]*/g, '$1').replace(/[?&]$/, '')
+  : dbUrl;
+
 const poolConfig = config.db.url
-  ? { connectionString: config.db.url, ssl: config.db.ssl }
+  ? { connectionString: cleanedUrl, ssl: needsSsl ? { rejectUnauthorized: false } : config.db.ssl }
   : {
       host: config.db.host,
       port: config.db.port,

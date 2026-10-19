@@ -72,7 +72,7 @@ app.use('/api/auth/recruiter', recruiterAuthRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/students', studentRoutes);
 app.use('/api/recruiter', recruiterRoutes);
-app.use('/api', sharedRoutes);  // shared: /api/drives, /api/trainings, etc.
+app.use('/api', sharedRoutes); // shared: /api/drives, /api/trainings, etc.
 
 // ── Error Handling ────────────────────────────────────────────────────────────
 app.use(notFound);

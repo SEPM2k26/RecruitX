@@ -15,8 +15,9 @@ const getPool = () => {
     const cleanUrl = config.databaseUrl.replace(/([?&])sslmode=[^&]*/g, '$1').replace(/[?&]$/, '');
     const needsSsl = /sslmode=(require|verify-ca|verify-full|prefer)/.test(config.databaseUrl) || Boolean(config.db?.ssl);
     pool = new Pool({
-      connectionString: cleanUrl,
-      ssl: needsSsl ? { rejectUnauthorized: false } : false,
+      connectionString: needsSsl
+        ? config.databaseUrl.replace(/([?&])sslmode=[^&]*/g, '$1').replace(/[?&]$/, '')
+        : config.databaseUrl,
       max: Number(process.env.PG_POOL_MAX) || 5,
       idleTimeoutMillis: 30_000,
       connectionTimeoutMillis: 10_000,
@@ -36,7 +37,7 @@ const withTransaction = async (callback) => {
     await client.query('COMMIT');
     return result;
   } catch (error) {
-    await client.query('ROLLBACK').catch(() => {});
+    await client.query('ROLLBACK').catch(() => { });
     throw error;
   } finally {
     client.release();
