@@ -11,6 +11,7 @@ export default function DriveDetail() {
   const [apps, setApps] = useState(null);
   const [error, setError] = useState('');
   const [msg, setMsg] = useState('');
+  const [openingResume, setOpeningResume] = useState({});
 
   const load = () => {
     api.get(`/recruiter/drives/${id}`)
@@ -44,6 +45,23 @@ export default function DriveDetail() {
     }
   };
 
+  const viewResume = async (studentId, studentName) => {
+    setOpeningResume((p) => ({ ...p, [studentId]: true }));
+    try {
+      const res = await api.get(`/recruiter/students/${studentId}/resume`, {
+        responseType: 'blob',
+      });
+      const blob = new Blob([res.data], { type: res.headers['content-type'] || 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url, '_blank');
+      setTimeout(() => window.URL.revokeObjectURL(url), 60000);
+    } catch (err) {
+      alert(err.response?.data?.message || `Resume not available for ${studentName || 'this student'}.`);
+    } finally {
+      setOpeningResume((p) => ({ ...p, [studentId]: false }));
+    }
+  };
+
   if (error) return (
     <div>
       <p className="text-marker-red font-bold mb-3">{error}</p>
@@ -52,13 +70,20 @@ export default function DriveDetail() {
   );
   if (!drive || !apps) return <p className="text-pencil-faint">Loading…</p>;
 
+  const isInternship = drive.driveType === 'internship';
+
   return (
     <div className="space-y-5">
       <Link to="/drives" className="underline text-pen-blue">← Back to drives</Link>
 
       <div className="card-hand flex flex-wrap items-center gap-4 justify-between">
         <div>
-          <h1 className="font-heading text-3xl font-bold">{drive.jobRole}</h1>
+          <div className="flex items-center gap-2 mb-1 flex-wrap">
+            <h1 className="font-heading text-3xl font-bold">{drive.jobRole}</h1>
+            <span className={`badge-hand ${isInternship ? 'bg-highlighter-blue text-pencil' : 'bg-highlighter-yellow text-pencil'}`}>
+              {isInternship ? '💼 Internship Drive' : '🎯 Placement Drive'}
+            </span>
+          </div>
           <p className="text-pencil-light">
             {drive.package} · {drive.location} · deadline {drive.applicationDeadline || '—'}
           </p>
@@ -93,6 +118,7 @@ export default function DriveDetail() {
                 <th className="py-2 pr-3">Branch</th>
                 <th className="py-2 pr-3">CGPA</th>
                 <th className="py-2 pr-3">Reg. no</th>
+                <th className="py-2 pr-3">Resume</th>
                 <th className="py-2 pr-3">Status</th>
               </tr>
             </thead>
@@ -106,6 +132,20 @@ export default function DriveDetail() {
                   <td className="py-2 pr-3">{a.student?.branch || '—'}</td>
                   <td className="py-2 pr-3 font-bold">{a.student?.cgpa ?? '—'}</td>
                   <td className="py-2 pr-3">{a.student?.registrationNumber || '—'}</td>
+                  <td className="py-2 pr-3">
+                    {a.student?.hasResume || a.student?.resumeDownloadUrl || a.student?.resumeUrl ? (
+                      <button
+                        type="button"
+                        onClick={() => viewResume(a.student.id, a.student.name)}
+                        disabled={openingResume[a.student.id]}
+                        className="btn-hand bg-postit text-xs py-1 px-2.5 inline-flex items-center gap-1 font-bold text-pencil hover:bg-highlighter-yellow shadow-hand-xs"
+                      >
+                        {openingResume[a.student.id] ? 'Loading…' : '📄 View Resume'}
+                      </button>
+                    ) : (
+                      <span className="text-xs text-pencil-faint italic">No resume</span>
+                    )}
+                  </td>
                   <td className="py-2 pr-3">
                     <select className="input-hand py-1" value={a.status || 'Applied'}
                       onChange={(e) => setAppStatus(a.id, e.target.value)}>

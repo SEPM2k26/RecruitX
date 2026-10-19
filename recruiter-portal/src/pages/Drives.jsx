@@ -5,6 +5,7 @@ import api from '../api';
 const emptyForm = {
   jobRole: '', package: '', location: '', applicationDeadline: '',
   eligibleBranches: 'CSE,ECE,IT', minCGPA: '6.5', maxBacklogs: '0', graduationYear: '2027',
+  driveType: 'placement',
 };
 
 export default function Drives() {
@@ -60,7 +61,10 @@ export default function Drives() {
   return (
     <div className="space-y-5">
       <div className="flex items-center justify-between flex-wrap gap-3">
-        <h1 className="font-heading text-3xl font-bold">Placement Drives</h1>
+        <div>
+          <h1 className="font-heading text-3xl font-bold">Placement & Internship Drives</h1>
+          <p className="text-pencil-light text-sm">Manage campus recruitment drives for your company</p>
+        </div>
         <button className="btn-hand bg-postit" onClick={() => setShowForm(!showForm)}>
           {showForm ? 'Cancel' : '+ New Drive'}
         </button>
@@ -70,22 +74,45 @@ export default function Drives() {
 
       {showForm && (
         <form onSubmit={create} className="card-hand grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div><label className="block font-bold mb-1">Job role *</label>
-            <input className="input-hand" required value={form.jobRole} onChange={set('jobRole')} /></div>
-          <div><label className="block font-bold mb-1">Package *</label>
-            <input className="input-hand" required placeholder="8 LPA" value={form.package} onChange={set('package')} /></div>
-          <div><label className="block font-bold mb-1">Location *</label>
-            <input className="input-hand" required value={form.location} onChange={set('location')} /></div>
-          <div><label className="block font-bold mb-1">Deadline</label>
-            <input className="input-hand" type="date" value={form.applicationDeadline} onChange={set('applicationDeadline')} /></div>
-          <div><label className="block font-bold mb-1">Branches (comma-sep) *</label>
-            <input className="input-hand" required value={form.eligibleBranches} onChange={set('eligibleBranches')} /></div>
-          <div><label className="block font-bold mb-1">Min CGPA</label>
-            <input className="input-hand" type="number" step="0.1" min="0" max="10" value={form.minCGPA} onChange={set('minCGPA')} /></div>
-          <div><label className="block font-bold mb-1">Max backlogs</label>
-            <input className="input-hand" type="number" min="0" value={form.maxBacklogs} onChange={set('maxBacklogs')} /></div>
-          <div><label className="block font-bold mb-1">Graduation year</label>
-            <input className="input-hand" type="number" min="2020" value={form.graduationYear} onChange={set('graduationYear')} /></div>
+          <div>
+            <label className="block font-bold mb-1">Job role *</label>
+            <input className="input-hand" required value={form.jobRole} onChange={set('jobRole')} placeholder="e.g. Software Engineer" />
+          </div>
+          <div>
+            <label className="block font-bold mb-1">Drive Type *</label>
+            <select className="input-hand" value={form.driveType} onChange={set('driveType')}>
+              <option value="placement">Full-Time Placement</option>
+              <option value="internship">Internship Drive</option>
+            </select>
+          </div>
+          <div>
+            <label className="block font-bold mb-1">Compensation / Package *</label>
+            <input className="input-hand" required placeholder="e.g. 8 LPA or 40,000/month" value={form.package} onChange={set('package')} />
+          </div>
+          <div>
+            <label className="block font-bold mb-1">Location *</label>
+            <input className="input-hand" required placeholder="e.g. Bengaluru, Hybrid" value={form.location} onChange={set('location')} />
+          </div>
+          <div>
+            <label className="block font-bold mb-1">Deadline</label>
+            <input className="input-hand" type="date" value={form.applicationDeadline} onChange={set('applicationDeadline')} />
+          </div>
+          <div>
+            <label className="block font-bold mb-1">Branches (comma-sep) *</label>
+            <input className="input-hand" required value={form.eligibleBranches} onChange={set('eligibleBranches')} />
+          </div>
+          <div>
+            <label className="block font-bold mb-1">Min CGPA</label>
+            <input className="input-hand" type="number" step="0.1" min="0" max="10" value={form.minCGPA} onChange={set('minCGPA')} />
+          </div>
+          <div>
+            <label className="block font-bold mb-1">Max backlogs</label>
+            <input className="input-hand" type="number" min="0" value={form.maxBacklogs} onChange={set('maxBacklogs')} />
+          </div>
+          <div>
+            <label className="block font-bold mb-1">Graduation year</label>
+            <input className="input-hand" type="number" min="2020" value={form.graduationYear} onChange={set('graduationYear')} />
+          </div>
           <button type="submit" disabled={busy} className="btn-hand bg-highlighter-green md:col-span-2">
             {busy ? 'Creating…' : 'Create drive'}
           </button>
@@ -100,6 +127,7 @@ export default function Drives() {
             <thead>
               <tr className="border-b-3 border-pencil font-heading">
                 <th className="py-2 pr-4">Role</th>
+                <th className="py-2 pr-4">Type</th>
                 <th className="py-2 pr-4">Package</th>
                 <th className="py-2 pr-4">Location</th>
                 <th className="py-2 pr-4">Status</th>
@@ -108,20 +136,28 @@ export default function Drives() {
               </tr>
             </thead>
             <tbody>
-              {drives.map((d) => (
-                <tr key={d.id} className="border-b border-erased hover:bg-paper-dark">
-                  <td className="py-2 pr-4">
-                    <Link className="underline text-pen-blue font-bold" to={`/drives/${d.id}`}>{d.jobRole}</Link>
-                  </td>
-                  <td className="py-2 pr-4">{d.package}</td>
-                  <td className="py-2 pr-4">{d.location}</td>
-                  <td className="py-2 pr-4"><span className="badge-hand bg-highlighter-green">{d.status}</span></td>
-                  <td className="py-2 pr-4 font-bold">{d._count?.applications ?? 0}</td>
-                  <td className="py-2 text-right">
-                    <button className="btn-hand bg-marker-red text-white text-sm" onClick={() => remove(d.id)}>Delete</button>
-                  </td>
-                </tr>
-              ))}
+              {drives.map((d) => {
+                const isIntern = d.driveType === 'internship';
+                return (
+                  <tr key={d.id} className="border-b border-erased hover:bg-paper-dark">
+                    <td className="py-2 pr-4">
+                      <Link className="underline text-pen-blue font-bold" to={`/drives/${d.id}`}>{d.jobRole}</Link>
+                    </td>
+                    <td className="py-2 pr-4">
+                      <span className={`badge-hand text-xs ${isIntern ? 'bg-highlighter-blue text-pencil' : 'bg-highlighter-yellow text-pencil'}`}>
+                        {isIntern ? 'Internship' : 'Placement'}
+                      </span>
+                    </td>
+                    <td className="py-2 pr-4">{d.package}</td>
+                    <td className="py-2 pr-4">{d.location}</td>
+                    <td className="py-2 pr-4"><span className="badge-hand bg-highlighter-green">{d.status}</span></td>
+                    <td className="py-2 pr-4 font-bold">{d._count?.applications ?? 0}</td>
+                    <td className="py-2 text-right">
+                      <button className="btn-hand bg-marker-red text-white text-sm" onClick={() => remove(d.id)}>Delete</button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         )}
