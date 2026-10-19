@@ -20,9 +20,26 @@ const profileRules = [
   body('skills.*').optional().isString().trim().isLength({ min: 1, max: 40 }).withMessage('Each skill must be between 1 and 40 characters'),
 ];
 
+const getActiveStudent = async (user) => {
+  if (!user) return null;
+  let student = null;
+  if (user.id) student = await students.findByAuthUserId(user.id);
+  if (!student && user.id) student = await students.findById(user.id);
+  if (!student && user.email) student = await students.findByEmail(user.email);
+  return student;
+};
+
+const updateStudentByContext = async (student, changes) => {
+  if (student.authUserId) {
+    const updated = await students.updateByAuthUserId(student.authUserId, changes);
+    if (updated) return updated;
+  }
+  return students.update(student.id, changes);
+};
+
 const getProfile = async (req, res, next) => {
   try {
-    const student = await students.findByAuthUserId(req.user.id);
+    const student = await getActiveStudent(req.user);
     if (!student) return res.status(404).json({ success: false, message: 'Student profile not found.' });
     return res.json({ success: true, data: safeStudent(student) });
   } catch (error) { next(error); }
@@ -33,6 +50,9 @@ const updateProfile = [
   validate,
   async (req, res, next) => {
     try {
+      const student = await getActiveStudent(req.user);
+      if (!student) return res.status(404).json({ success: false, message: 'Student profile not found.' });
+
       const allowed = ['name', 'phone', 'branch', 'graduationYear', 'cgpa', 'backlogs', 'linkedinUrl', 'portfolioUrl', 'skills'];
       const changes = {};
       for (const key of allowed) {
@@ -42,7 +62,7 @@ const updateProfile = [
         } else if (key === 'skills') changes.skills = normalizeSkills(req.body.skills);
         else changes[key] = typeof req.body[key] === 'string' ? req.body[key].trim() : req.body[key];
       }
-      const updated = await students.updateByAuthUserId(req.user.id, changes);
+      const updated = await updateStudentByContext(student, changes);
       if (!updated) return res.status(404).json({ success: false, message: 'Student profile not found.' });
       return res.json({ success: true, message: 'Profile updated.', data: safeStudent(updated) });
     } catch (error) { next(error); }
@@ -51,7 +71,7 @@ const updateProfile = [
 
 const getSkills = async (req, res, next) => {
   try {
-    const student = await students.findByAuthUserId(req.user.id);
+    const student = await getActiveStudent(req.user);
     if (!student) return res.status(404).json({ success: false, message: 'Student profile not found.' });
     return res.json({ success: true, data: { skills: student.skills || [] } });
   } catch (error) { next(error); }
@@ -63,7 +83,9 @@ const updateSkills = [
   validate,
   async (req, res, next) => {
     try {
-      const updated = await students.updateByAuthUserId(req.user.id, { skills: normalizeSkills(req.body.skills) });
+      const student = await getActiveStudent(req.user);
+      if (!student) return res.status(404).json({ success: false, message: 'Student profile not found.' });
+      const updated = await updateStudentByContext(student, { skills: normalizeSkills(req.body.skills) });
       if (!updated) return res.status(404).json({ success: false, message: 'Student profile not found.' });
       return res.json({ success: true, data: { skills: updated.skills } });
     } catch (error) { next(error); }
@@ -76,7 +98,7 @@ const uploadResume = [
     let uploadedPath;
     try {
       if (!req.file) return res.status(400).json({ success: false, message: 'Choose a resume file to upload.' });
-      const student = await students.findByAuthUserId(req.user.id);
+      const student = await getActiveStudent(req.user);
       if (!student) return res.status(404).json({ success: false, message: 'Student profile not found.' });
 
       const bucket = getBucket();
@@ -89,7 +111,7 @@ const uploadResume = [
       if (uploadError) throw uploadError;
 
       const previousPath = student.resumeStoragePath;
-      const updated = await students.updateByAuthUserId(req.user.id, {
+      const updated = await updateStudentByContext(student, {
         resumeFileName: path.basename(req.file.originalname),
         resumeStoragePath: uploadedPath,
         resumeMimeType: req.file.mimetype,
@@ -112,7 +134,7 @@ const uploadResume = [
 
 const downloadResume = async (req, res, next) => {
   try {
-    const student = await students.findByAuthUserId(req.user.id);
+    const student = await getActiveStudent(req.user);
     if (!student?.resumeStoragePath || !student.resumeFileName) {
       return res.status(404).json({ success: false, message: 'No resume has been uploaded.' });
     }
@@ -128,10 +150,10 @@ const downloadResume = async (req, res, next) => {
 
 const deleteResume = async (req, res, next) => {
   try {
-    const student = await students.findByAuthUserId(req.user.id);
+    const student = await getActiveStudent(req.user);
     if (!student) return res.status(404).json({ success: false, message: 'Student profile not found.' });
     if (!student.resumeStoragePath) return res.status(404).json({ success: false, message: 'No resume has been uploaded.' });
-    await students.updateByAuthUserId(req.user.id, {
+    await updateStudentByContext(student, {
       resumeUrl: null, resumeFileName: null, resumeStoragePath: null, resumeMimeType: null,
       resumeSize: null, resumeUploadedAt: null,
     });

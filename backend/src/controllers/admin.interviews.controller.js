@@ -1,17 +1,6 @@
 const { body } = require('express-validator');
 const { validate } = require('../middleware/validate.middleware');
-const { interviews, applications, students, placementDrives, notifications, generateId } = require('../config/db');
-
-// ── Helpers ───────────────────────────────────────────────────────────────────
-const enrichInterview = (interview) => {
-  const student = students.find((s) => s.id === interview.studentId);
-  const drive = placementDrives.find((d) => d.id === interview.driveId);
-  return {
-    ...interview,
-    student: student ? { id: student.id, name: student.name, email: student.email } : null,
-    drive: drive ? { id: drive.id, jobRole: drive.jobRole } : null,
-  };
-};
+const { interviews, students, placementDrives, notifications } = require('../config/db');
 
 // ── Controllers ───────────────────────────────────────────────────────────────
 
@@ -19,33 +8,39 @@ const enrichInterview = (interview) => {
  * GET /api/admin/interviews
  * Query: ?driveId=...&studentId=...&round=...&status=...
  */
-const getAllInterviews = (req, res) => {
-  let result = [...interviews];
-  const { driveId, studentId, round, status } = req.query;
-
-  if (driveId) result = result.filter((i) => i.driveId === driveId);
-  if (studentId) result = result.filter((i) => i.studentId === studentId);
-  if (round) result = result.filter((i) => i.round === round);
-  if (status) result = result.filter((i) => i.status === status);
-
-  res.json({ success: true, total: result.length, data: result.map(enrichInterview) });
+const getAllInterviews = async (req, res, next) => {
+  try {
+    const { driveId, studentId, round, status } = req.query;
+    const result = await interviews.findAll({ driveId, studentId, round, status });
+    res.json({ success: true, total: result.length, data: result });
+  } catch (err) {
+    next(err);
+  }
 };
 
 /**
  * GET /api/interviews/student  — student's own interviews
  */
-const getMyInterviews = (req, res) => {
-  const result = interviews.filter((i) => i.studentId === req.user.id);
-  res.json({ success: true, total: result.length, data: result.map(enrichInterview) });
+const getMyInterviews = async (req, res, next) => {
+  try {
+    const result = await interviews.findAll({ studentId: req.user.id });
+    res.json({ success: true, total: result.length, data: result });
+  } catch (err) {
+    next(err);
+  }
 };
 
 /**
  * GET /api/admin/interviews/:id
  */
-const getInterviewById = (req, res) => {
-  const interview = interviews.find((i) => i.id === req.params.id);
-  if (!interview) return res.status(404).json({ success: false, message: 'Interview not found' });
-  res.json({ success: true, data: enrichInterview(interview) });
+const getInterviewById = async (req, res, next) => {
+  try {
+    const interview = await interviews.findById(req.params.id);
+    if (!interview) return res.status(404).json({ success: false, message: 'Interview not found' });
+    res.json({ success: true, data: interview });
+  } catch (err) {
+    next(err);
+  }
 };
 
 /**
@@ -58,44 +53,39 @@ const createInterview = [
   body('scheduledAt').isISO8601().withMessage('Valid scheduled date required'),
   body('mode').isIn(['online', 'offline']).withMessage('Mode: online|offline'),
   validate,
-  (req, res) => {
-    const { studentId, driveId, applicationId, round, scheduledAt, mode, meetingLink, venue } = req.body;
+  async (req, res, next) => {
+    try {
+      const { studentId, driveId, applicationId, round, scheduledAt, mode, meetingLink, venue } = req.body;
 
-    if (!students.find((s) => s.id === studentId)) {
-      return res.status(404).json({ success: false, message: 'Student not found' });
+      const student = await students.findById(studentId);
+      if (!student) return res.status(404).json({ success: false, message: 'Student not found' });
+
+      const drive = await placementDrives.findById(driveId);
+      if (!drive) return res.status(404).json({ success: false, message: 'Drive not found' });
+
+      const newInterview = await interviews.create({
+        studentId,
+        driveId,
+        applicationId: applicationId || null,
+        round,
+        scheduledAt,
+        mode,
+        meetingLink: meetingLink || null,
+        venue: venue || null,
+        status: 'scheduled',
+      });
+
+      // Notify student
+      await notifications.create({
+        userId: studentId,
+        type: 'interview_scheduled',
+        message: `You have been scheduled for ${round} on ${new Date(scheduledAt).toLocaleDateString()}`,
+      });
+
+      res.status(201).json({ success: true, message: 'Interview scheduled', data: newInterview });
+    } catch (err) {
+      next(err);
     }
-    if (!placementDrives.find((d) => d.id === driveId)) {
-      return res.status(404).json({ success: false, message: 'Drive not found' });
-    }
-
-    const newInterview = {
-      id: generateId('int'),
-      studentId,
-      driveId,
-      applicationId: applicationId || null,
-      round,
-      scheduledAt,
-      mode,
-      meetingLink: meetingLink || null,
-      venue: venue || null,
-      status: 'scheduled',
-      result: null,
-      feedback: null,
-      createdAt: new Date().toISOString(),
-    };
-    interviews.push(newInterview);
-
-    // Notify student
-    notifications.push({
-      id: generateId('notif'),
-      userId: studentId,
-      type: 'interview_scheduled',
-      message: `You have been scheduled for ${round} on ${new Date(scheduledAt).toLocaleDateString()}`,
-      read: false,
-      createdAt: new Date().toISOString(),
-    });
-
-    res.status(201).json({ success: true, message: 'Interview scheduled', data: enrichInterview(newInterview) });
   },
 ];
 
@@ -108,28 +98,38 @@ const updateInterview = [
   body('status').optional().isIn(['scheduled', 'completed', 'cancelled']),
   body('result').optional().isIn(['passed', 'failed', 'pending']),
   validate,
-  (req, res) => {
-    const idx = interviews.findIndex((i) => i.id === req.params.id);
-    if (idx === -1) return res.status(404).json({ success: false, message: 'Interview not found' });
+  async (req, res, next) => {
+    try {
+      const existing = await interviews.findById(req.params.id);
+      if (!existing) return res.status(404).json({ success: false, message: 'Interview not found' });
 
-    const allowed = ['round', 'scheduledAt', 'mode', 'meetingLink', 'venue', 'status', 'result', 'feedback'];
-    allowed.forEach((key) => {
-      if (req.body[key] !== undefined) interviews[idx][key] = req.body[key];
-    });
-    interviews[idx].updatedAt = new Date().toISOString();
+      const allowed = ['round', 'scheduledAt', 'mode', 'meetingLink', 'venue', 'status', 'result', 'feedback'];
+      const updates = {};
+      allowed.forEach((key) => {
+        if (req.body[key] !== undefined) updates[key] = req.body[key];
+      });
 
-    res.json({ success: true, message: 'Interview updated', data: enrichInterview(interviews[idx]) });
+      const updated = await interviews.update(req.params.id, updates);
+      res.json({ success: true, message: 'Interview updated', data: updated });
+    } catch (err) {
+      next(err);
+    }
   },
 ];
 
 /**
  * DELETE /api/admin/interviews/:id
  */
-const deleteInterview = (req, res) => {
-  const idx = interviews.findIndex((i) => i.id === req.params.id);
-  if (idx === -1) return res.status(404).json({ success: false, message: 'Interview not found' });
-  interviews.splice(idx, 1);
-  res.json({ success: true, message: 'Interview deleted' });
+const deleteInterview = async (req, res, next) => {
+  try {
+    const existing = await interviews.findById(req.params.id);
+    if (!existing) return res.status(404).json({ success: false, message: 'Interview not found' });
+
+    await interviews.delete(req.params.id);
+    res.json({ success: true, message: 'Interview deleted' });
+  } catch (err) {
+    next(err);
+  }
 };
 
 /**
@@ -139,25 +139,23 @@ const deleteInterview = (req, res) => {
 const updateResult = [
   body('result').isIn(['passed', 'failed', 'pending']).withMessage('Result must be: passed|failed|pending'),
   validate,
-  (req, res) => {
-    const interview = interviews.find((i) => i.id === req.params.id);
-    if (!interview) return res.status(404).json({ success: false, message: 'Interview not found' });
+  async (req, res, next) => {
+    try {
+      const interview = await interviews.findById(req.params.id);
+      if (!interview) return res.status(404).json({ success: false, message: 'Interview not found' });
 
-    interview.result = req.body.result;
-    interview.feedback = req.body.feedback || null;
-    interview.status = 'completed';
-    interview.updatedAt = new Date().toISOString();
+      const updated = await interviews.updateResult(req.params.id, req.body.result, req.body.feedback);
 
-    notifications.push({
-      id: generateId('notif'),
-      userId: interview.studentId,
-      type: 'interview_result',
-      message: `Your ${interview.round} result: ${req.body.result.toUpperCase()}`,
-      read: false,
-      createdAt: new Date().toISOString(),
-    });
+      await notifications.create({
+        userId: interview.studentId,
+        type: 'interview_result',
+        message: `Your ${interview.round} result: ${req.body.result.toUpperCase()}`,
+      });
 
-    res.json({ success: true, message: 'Result updated', data: enrichInterview(interview) });
+      res.json({ success: true, message: 'Result updated', data: updated });
+    } catch (err) {
+      next(err);
+    }
   },
 ];
 

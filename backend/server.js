@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 
 const config = require('./src/config/config');
+const { pool, initializeDatabase } = require('./src/config/initDb');
 const { errorHandler, notFound } = require('./src/middleware/error.middleware');
 
 // Routes
@@ -26,23 +27,41 @@ app.use(morgan(config.nodeEnv === 'production' ? 'combined' : 'dev'));
 // ── CORS ──────────────────────────────────────────────────────────────────────
 app.use(
   cors({
-    origin: [config.clientUrl, config.adminClientUrl, config.studentClientUrl, config.recruiterClientUrl],
+    origin: [
+      config.clientUrl,
+      config.adminClientUrl,
+      config.studentClientUrl || 'http://localhost:5173',
+      'http://localhost:5173',
+      'http://localhost:5174',
+      'http://localhost:5175',
+    ],
     credentials: true,
   })
 );
 
 // ── Body Parsers ──────────────────────────────────────────────────────────────
-app.use(express.json({ limit: '1mb' }));
-app.use(express.urlencoded({ extended: true, limit: '1mb' }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // ── Health Check ──────────────────────────────────────────────────────────────
-app.get('/api/health', (req, res) => {
+app.get('/api/health', async (req, res) => {
+  let dbStatus = 'disconnected';
+  try {
+    const dbRes = await pool.query('SELECT NOW()');
+    if (dbRes.rows.length > 0) dbStatus = 'connected';
+  } catch (err) {
+    dbStatus = `error: ${err.message}`;
+  }
+
   res.json({
     success: true,
     message: 'RecruitX API is running',
     timestamp: new Date().toISOString(),
     environment: config.nodeEnv,
-    dataMode: config.dataMode,
+    database: {
+      status: dbStatus,
+      type: 'PostgreSQL (Supabase)',
+    },
   });
 });
 
@@ -53,7 +72,7 @@ app.use('/api/auth/recruiter', recruiterAuthRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/students', studentRoutes);
 app.use('/api/recruiter', recruiterRoutes);
-app.use('/api', sharedRoutes);  // shared: /api/drives, /api/trainings, etc.
+app.use('/api', sharedRoutes); // shared: /api/drives, /api/trainings, etc.
 
 // ── Error Handling ────────────────────────────────────────────────────────────
 app.use(notFound);
@@ -61,16 +80,30 @@ app.use(errorHandler);
 
 // ── Start Server ──────────────────────────────────────────────────────────────
 const PORT = config.port;
-// Bind to IPv4 loopback so local browsers and PowerShell can reach localhost
-// consistently on Windows systems that resolve localhost to 127.0.0.1.
-app.listen(PORT, '127.0.0.1', () => {
-  console.log(`
+
+async function startServer() {
+  try {
+    console.log('Connecting and verifying database schema...');
+    await initializeDatabase();
+    console.log('Database connected successfully!');
+  } catch (err) {
+    console.error('Database connection warning:', err.message);
+  }
+
+  app.listen(PORT, () => {
+    console.log(`
   ╔══════════════════════════════════════╗
   ║  RecruitX API Server                 ║
   ║  Running on: http://localhost:${PORT}  ║
   ║  Environment: ${config.nodeEnv.padEnd(22)}║
+  ║  Database: PostgreSQL (Supabase)     ║
   ╚══════════════════════════════════════╝
-  `);
-});
+    `);
+  });
+}
+
+if (process.env.NODE_ENV !== 'test') {
+  startServer();
+}
 
 module.exports = app;
