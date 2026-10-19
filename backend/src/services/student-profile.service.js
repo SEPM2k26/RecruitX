@@ -34,7 +34,7 @@ const calculateProfileCompletion = (student) => {
     Number.isFinite(Number(student.cgpa)) && Number(student.cgpa) > 0,
     student.backlogs !== null && student.backlogs !== undefined && Number.isFinite(Number(student.backlogs)),
     Array.isArray(student.skills) && student.skills.length > 0,
-    Boolean(student.resumeFileName),
+    Boolean(student.resumeFileName || student.resumeUrl || student.resumeStoragePath),
   ];
   return Math.round((checks.filter(Boolean).length / checks.length) * 100);
 };

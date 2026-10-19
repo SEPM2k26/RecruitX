@@ -34,16 +34,21 @@ const verifySupabaseAccessToken = async (token) => {
  * Middleware: Verify JWT token from Authorization header
  */
 const authenticate = async (req, res, next) => {
+  let token = null;
   const authHeader = req.headers.authorization;
 
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    token = authHeader.split(' ')[1];
+  } else if (req.query.token) {
+    token = req.query.token;
+  }
+
+  if (!token) {
     return res.status(401).json({
       success: false,
       message: 'Access denied. No token provided.',
     });
   }
-
-  const token = authHeader.split(' ')[1];
 
   // 1. Try local JWT verification (for both admin and student tokens)
   try {

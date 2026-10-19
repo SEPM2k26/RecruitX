@@ -32,6 +32,7 @@ const createDriveRules = [
   body('maxBacklogs').optional().isInt({ min: 0 }).withMessage('Max backlogs must be >= 0'),
   body('graduationYear').optional().isInt({ min: 2020 }).withMessage('Valid graduation year required'),
   body('description').optional().trim(),
+  body('driveType').optional().isIn(['placement', 'internship']).withMessage('driveType must be placement or internship'),
   body('status').optional().isIn(DRIVE_STATUS).withMessage('Invalid drive status'),
 ];
 
@@ -44,7 +45,7 @@ const createDrive = [
       const recruiter = await loadRecruiter(req);
       if (!recruiter) return res.status(404).json({ success: false, message: 'Recruiter account not found' });
       const { jobRole, package: pkg, location, applicationDeadline, eligibleBranches,
-              minCGPA, maxBacklogs, graduationYear, description, status } = req.body;
+              minCGPA, maxBacklogs, graduationYear, description, status, driveType } = req.body;
       const drive = await prisma.placementDrive.create({
         data: {
           id: `drive-${randomUUID().slice(0, 8)}`,
@@ -59,6 +60,7 @@ const createDrive = [
           graduationYear: graduationYear === undefined ? null : parseInt(graduationYear, 10),
           description: description || null,
           status: status || 'active',
+          driveType: driveType || 'placement',
         },
       });
       res.status(201).json({ success: true, message: 'Drive created', data: serializeDrive(drive) });
@@ -96,7 +98,7 @@ const updateDrive = [
         return res.status(404).json({ success: false, message: 'Drive not found' });
       }
       const { jobRole, package: pkg, location, applicationDeadline, eligibleBranches,
-              minCGPA, maxBacklogs, graduationYear, description, status } = req.body;
+              minCGPA, maxBacklogs, graduationYear, description, status, driveType } = req.body;
       const data = {};
       if (jobRole !== undefined) data.jobRole = jobRole;
       if (pkg !== undefined) data.package = pkg;
@@ -108,6 +110,7 @@ const updateDrive = [
       if (graduationYear !== undefined) data.graduationYear = parseInt(graduationYear, 10);
       if (description !== undefined) data.description = description || null;
       if (status !== undefined) data.status = status;
+      if (driveType !== undefined) data.driveType = driveType;
       const updated = await prisma.placementDrive.update({ where: { id: drive.id }, data });
       res.json({ success: true, message: 'Drive updated', data: serializeDrive(updated) });
     } catch (err) {

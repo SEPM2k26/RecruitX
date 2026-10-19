@@ -9,6 +9,16 @@ const config = require('./src/config/config');
 const { pool, initializeDatabase } = require('./src/config/initDb');
 const { errorHandler, notFound } = require('./src/middleware/error.middleware');
 
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
+// Handle uncaught exceptions
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+});
+
 // Routes
 const adminAuthRoutes = require('./src/routes/admin.auth.routes');
 const studentAuthRoutes = require('./src/routes/student.auth.routes');
@@ -90,7 +100,7 @@ async function startServer() {
     console.error('Database connection warning:', err.message);
   }
 
-  app.listen(PORT, () => {
+  const server = app.listen(PORT, () => {
     console.log(`
   ╔══════════════════════════════════════╗
   ║  RecruitX API Server                 ║
@@ -99,6 +109,13 @@ async function startServer() {
   ║  Database: PostgreSQL (Supabase)     ║
   ╚══════════════════════════════════════╝
     `);
+  });
+
+  server.on('error', (err) => {
+    console.error('Server error:', err);
+    if (err.code === 'EADDRINUSE') {
+      console.error(`Port ${PORT} is already in use. Please stop the other process or use a different port.`);
+    }
   });
 }
 

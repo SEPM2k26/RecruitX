@@ -17,8 +17,8 @@ const enrichDrive = (drive) => {
  */
 const getAllDrives = async (req, res, next) => {
   try {
-    const { status, branch, companyId } = req.query;
-    const result = await placementDrives.findAll({ status, branch, companyId });
+    const { status, branch, companyId, driveType } = req.query;
+    const result = await placementDrives.findAll({ status, branch, companyId, driveType });
     res.json({ success: true, total: result.length, data: result });
   } catch (err) {
     next(err);
@@ -44,6 +44,7 @@ const getDriveById = async (req, res, next) => {
 const createDrive = [
   body('companyId').notEmpty().withMessage('Company ID required'),
   body('jobRole').trim().notEmpty().withMessage('Job role required'),
+  body('driveType').optional().isIn(['placement', 'internship']).withMessage('driveType must be placement or internship'),
   body('package').trim().notEmpty().withMessage('Package required'),
   body('location').trim().notEmpty().withMessage('Location required'),
   body('applicationDeadline').isISO8601().withMessage('Valid deadline required'),
@@ -57,6 +58,7 @@ const createDrive = [
       const {
         companyId,
         jobRole,
+        driveType,
         package: pkg,
         location,
         applicationDeadline,
@@ -75,6 +77,7 @@ const createDrive = [
       const newDrive = await placementDrives.create({
         companyId,
         jobRole,
+        driveType: driveType || 'placement',
         package: pkg,
         location,
         applicationDeadline,
@@ -98,6 +101,7 @@ const createDrive = [
  */
 const updateDrive = [
   body('status').optional().isIn(['active', 'closed', 'cancelled']),
+  body('driveType').optional().isIn(['placement', 'internship']),
   body('minCGPA').optional().isFloat({ min: 0, max: 10 }),
   body('maxBacklogs').optional().isInt({ min: 0 }),
   validate,
@@ -108,6 +112,7 @@ const updateDrive = [
 
       const allowed = [
         'jobRole',
+        'driveType',
         'package',
         'location',
         'applicationDeadline',

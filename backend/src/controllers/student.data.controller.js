@@ -1,6 +1,7 @@
 const database = require('../config/postgres');
 const students = require('../repositories/student.repository');
 const { checkStudentEligibility } = require('../services/student-eligibility.service');
+const { calculateProfileCompletion } = require('../services/student-profile.service');
 
 const driveSelect = `
   SELECT d.*, c.name AS company_name, c.industry AS company_industry,
@@ -14,6 +15,7 @@ const driveFromRow = (row) => ({
   id: row.id,
   companyId: row.company_id,
   jobRole: row.job_role,
+  driveType: row.drive_type || 'placement',
   package: row.package,
   location: row.location,
   applicationDeadline: row.application_deadline,
@@ -132,6 +134,7 @@ const getDrives = handler(async (req, res) => {
   const filters = [];
   if (req.query.status) { values.push(req.query.status); filters.push(`d.status = $${values.length}`); }
   if (req.query.companyId) { values.push(req.query.companyId); filters.push(`d.company_id = $${values.length}`); }
+  if (req.query.driveType) { values.push(req.query.driveType); filters.push(`d.drive_type = $${values.length}`); }
   const { rows } = await database.query(`${driveSelect}${filters.length ? ` WHERE ${filters.join(' AND ')}` : ''} ORDER BY d.created_at DESC`, values);
   let data = rows.map(driveFromRow);
   if (req.query.branch) data = data.filter((drive) => drive.eligibleBranches.includes(req.query.branch));
@@ -157,6 +160,17 @@ const checkEligibility = handler(async (req, res) => {
 const applyForDrive = handler(async (req, res) => {
   const context = await getActiveStudent(req.user.id, req.user);
   if (context.response) return res.status(context.response.status).json({ success: false, message: context.response.message });
+
+  // Require 100% profile completion before allowing application
+  const profileCompletion = calculateProfileCompletion(context.student);
+  if (profileCompletion < 100) {
+    return res.status(403).json({
+      success: false,
+      message: `Your profile is only ${profileCompletion}% complete. Please complete your profile (including resume, skills, CGPA, branch, graduation year, and phone) before applying.`,
+      profileCompletion,
+    });
+  }
+
   const result = await database.withTransaction(async (client) => {
     const { rows } = await client.query(`${driveSelect} WHERE d.id = $1 FOR SHARE OF d`, [req.params.id]);
     if (!rows[0]) return { error: { status: 404, message: 'Drive not found.' } };

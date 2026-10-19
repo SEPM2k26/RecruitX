@@ -460,9 +460,10 @@ const trainings = {
 };
 
 const placementDrives = {
-  async findAll({ status, branch, companyId } = {}) {
+  async findAll({ status, branch, companyId, driveType } = {}) {
     let query = `
-      SELECT d.id, d.company_id AS "companyId", d.job_role AS "jobRole", d.package,
+      SELECT d.id, d.company_id AS "companyId", d.job_role AS "jobRole",
+             COALESCE(d.drive_type, 'placement') AS "driveType", d.package,
              d.location, d.application_deadline AS "applicationDeadline",
              d.eligible_branches AS "eligibleBranches", d.min_cgpa::float AS "minCGPA",
              d.max_backlogs AS "maxBacklogs", d.graduation_year AS "graduationYear",
@@ -484,6 +485,10 @@ const placementDrives = {
       params.push(status);
       query += ` AND d.status = $${params.length}`;
     }
+    if (driveType) {
+      params.push(driveType);
+      query += ` AND d.drive_type = $${params.length}`;
+    }
     if (companyId) {
       params.push(companyId);
       query += ` AND d.company_id = $${params.length}`;
@@ -500,7 +505,8 @@ const placementDrives = {
 
   async findById(id) {
     const res = await pool.query(
-      `SELECT d.id, d.company_id AS "companyId", d.job_role AS "jobRole", d.package,
+      `SELECT d.id, d.company_id AS "companyId", d.job_role AS "jobRole",
+              COALESCE(d.drive_type, 'placement') AS "driveType", d.package,
               d.location, d.application_deadline AS "applicationDeadline",
               d.eligible_branches AS "eligibleBranches", d.min_cgpa::float AS "minCGPA",
               d.max_backlogs AS "maxBacklogs", d.graduation_year AS "graduationYear",
@@ -523,9 +529,9 @@ const placementDrives = {
   async create(data) {
     const id = generateId('drive');
     const res = await pool.query(
-      `INSERT INTO placement_drives (id, company_id, job_role, package, location, application_deadline, eligible_branches, min_cgpa, max_backlogs, graduation_year, description, status)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
-       RETURNING id, company_id AS "companyId", job_role AS "jobRole", package,
+      `INSERT INTO placement_drives (id, company_id, job_role, drive_type, package, location, application_deadline, eligible_branches, min_cgpa, max_backlogs, graduation_year, description, status)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+       RETURNING id, company_id AS "companyId", job_role AS "jobRole", drive_type AS "driveType", package,
                  location, application_deadline AS "applicationDeadline",
                  eligible_branches AS "eligibleBranches", min_cgpa::float AS "minCGPA",
                  max_backlogs AS "maxBacklogs", graduation_year AS "graduationYear",
@@ -534,6 +540,7 @@ const placementDrives = {
         id,
         data.companyId,
         data.jobRole,
+        data.driveType || 'placement',
         data.package,
         data.location,
         data.applicationDeadline,
@@ -554,6 +561,7 @@ const placementDrives = {
 
     const fieldMap = {
       jobRole: 'job_role',
+      driveType: 'drive_type',
       package: 'package',
       location: 'location',
       applicationDeadline: 'application_deadline',
@@ -595,18 +603,22 @@ const placementDrives = {
 const applications = {
   async findAll({ driveId, status, studentId } = {}) {
     let query = `
-      SELECT a.id, a.student_id AS "studentId", a.drive_id AS "driveId",
+      SELECT a.id, a.id AS "applicationId", a.student_id AS "studentId", a.drive_id AS "driveId",
              a.status, a.applied_at AS "appliedAt", a.updated_at AS "updatedAt",
              json_build_object(
                'id', s.id,
                'name', s.name,
                'email', s.email,
                'cgpa', s.cgpa::float,
-               'branch', s.branch
+               'branch', s.branch,
+               'resumeUrl', s.resume_url,
+               'resumeFileName', s.resume_file_name,
+               'resumeStoragePath', s.resume_storage_path
              ) AS student,
              json_build_object(
                'id', d.id,
                'jobRole', d.job_role,
+               'driveType', COALESCE(d.drive_type, 'placement'),
                'package', d.package
              ) AS drive
       FROM applications a
@@ -636,18 +648,22 @@ const applications = {
 
   async findById(id) {
     const res = await pool.query(
-      `SELECT a.id, a.student_id AS "studentId", a.drive_id AS "driveId",
+      `SELECT a.id, a.id AS "applicationId", a.student_id AS "studentId", a.drive_id AS "driveId",
               a.status, a.applied_at AS "appliedAt", a.updated_at AS "updatedAt",
               json_build_object(
                 'id', s.id,
                 'name', s.name,
                 'email', s.email,
                 'cgpa', s.cgpa::float,
-                'branch', s.branch
+                'branch', s.branch,
+                'resumeUrl', s.resume_url,
+                'resumeFileName', s.resume_file_name,
+                'resumeStoragePath', s.resume_storage_path
               ) AS student,
               json_build_object(
                 'id', d.id,
                 'jobRole', d.job_role,
+                'driveType', COALESCE(d.drive_type, 'placement'),
                 'package', d.package
               ) AS drive
        FROM applications a

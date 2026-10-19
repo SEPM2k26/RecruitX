@@ -22,6 +22,7 @@ router.delete('/drives/:id', drives.deleteDrive);
 
 // ── Applicants & application status ──────────────────────────────────────────
 router.get('/drives/:id/applicants', applications.listApplicants);
+router.get('/students/:studentId/resume', applications.getStudentResume);
 router.patch('/applications/:id/status', applications.updateApplicationStatus);
 
 // ── Analytics ────────────────────────────────────────────────────────────────
