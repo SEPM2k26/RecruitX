@@ -1,0 +1,772 @@
+◇ injected env (13) from .env
+
+=== SESSION ===
+┌─────────┬────────────┬────────────┬─────────────┐
+│ (index) │ db         │ role       │ search_path │
+├─────────┼────────────┼────────────┼─────────────┤
+│ 0       │ 'postgres' │ 'postgres' │ 'recruitx'  │
+└─────────┴────────────┴────────────┴─────────────┘
+
+=== SCHEMAS ===
+┌─────────┬────────────────────┐
+│ (index) │ schema             │
+├─────────┼────────────────────┤
+│ 0       │ 'auth'             │
+│ 1       │ 'extensions'       │
+│ 2       │ 'graphql'          │
+│ 3       │ 'graphql_public'   │
+│ 4       │ 'pg_temp_10'       │
+│ 5       │ 'pg_temp_13'       │
+│ 6       │ 'pg_temp_16'       │
+│ 7       │ 'pg_temp_18'       │
+│ 8       │ 'pg_temp_19'       │
+│ 9       │ 'pg_temp_2'        │
+│ 10      │ 'pg_temp_20'       │
+│ 11      │ 'pg_temp_21'       │
+│ 12      │ 'pg_temp_24'       │
+│ 13      │ 'pg_temp_31'       │
+│ 14      │ 'pg_temp_32'       │
+│ 15      │ 'pg_temp_33'       │
+│ 16      │ 'pg_temp_34'       │
+│ 17      │ 'pg_temp_35'       │
+│ 18      │ 'pg_temp_36'       │
+│ 19      │ 'pg_temp_38'       │
+│ 20      │ 'pg_temp_4'        │
+│ 21      │ 'pg_temp_41'       │
+│ 22      │ 'pg_temp_46'       │
+│ 23      │ 'pg_temp_48'       │
+│ 24      │ 'pg_temp_49'       │
+│ 25      │ 'pg_temp_5'        │
+│ 26      │ 'pg_temp_50'       │
+│ 27      │ 'pg_temp_51'       │
+│ 28      │ 'pg_temp_56'       │
+│ 29      │ 'pg_temp_58'       │
+│ 30      │ 'pg_temp_6'        │
+│ 31      │ 'pg_temp_8'        │
+│ 32      │ 'pg_toast_temp_10' │
+│ 33      │ 'pg_toast_temp_13' │
+│ 34      │ 'pg_toast_temp_16' │
+│ 35      │ 'pg_toast_temp_18' │
+│ 36      │ 'pg_toast_temp_19' │
+│ 37      │ 'pg_toast_temp_2'  │
+│ 38      │ 'pg_toast_temp_20' │
+│ 39      │ 'pg_toast_temp_21' │
+│ 40      │ 'pg_toast_temp_24' │
+│ 41      │ 'pg_toast_temp_31' │
+│ 42      │ 'pg_toast_temp_32' │
+│ 43      │ 'pg_toast_temp_33' │
+│ 44      │ 'pg_toast_temp_34' │
+│ 45      │ 'pg_toast_temp_35' │
+│ 46      │ 'pg_toast_temp_36' │
+│ 47      │ 'pg_toast_temp_38' │
+│ 48      │ 'pg_toast_temp_4'  │
+│ 49      │ 'pg_toast_temp_41' │
+│ 50      │ 'pg_toast_temp_46' │
+│ 51      │ 'pg_toast_temp_48' │
+│ 52      │ 'pg_toast_temp_49' │
+│ 53      │ 'pg_toast_temp_5'  │
+│ 54      │ 'pg_toast_temp_50' │
+│ 55      │ 'pg_toast_temp_51' │
+│ 56      │ 'pg_toast_temp_56' │
+│ 57      │ 'pg_toast_temp_58' │
+│ 58      │ 'pg_toast_temp_6'  │
+│ 59      │ 'pg_toast_temp_8'  │
+│ 60      │ 'pgbouncer'        │
+│ 61      │ 'public'           │
+│ 62      │ 'realtime'         │
+│ 63      │ 'recruitx'         │
+│ 64      │ 'storage'          │
+│ 65      │ 'vault'            │
+└─────────┴────────────────────┘
+
+=== TABLES (all schemas, with row estimates) ===
+┌─────────┬──────────────┬──────────────────────────────┬───────────────┬──────────┐
+│ (index) │ schema       │ relation                     │ kind          │ est_rows │
+├─────────┼──────────────┼──────────────────────────────┼───────────────┼──────────┤
+│ 0       │ 'auth'       │ 'audit_log_entries'          │ 'table'       │ -1n      │
+│ 1       │ 'auth'       │ 'custom_oauth_providers'     │ 'table'       │ -1n      │
+│ 2       │ 'auth'       │ 'flow_state'                 │ 'table'       │ -1n      │
+│ 3       │ 'auth'       │ 'identities'                 │ 'table'       │ -1n      │
+│ 4       │ 'auth'       │ 'instances'                  │ 'table'       │ -1n      │
+│ 5       │ 'auth'       │ 'mfa_amr_claims'             │ 'table'       │ -1n      │
+│ 6       │ 'auth'       │ 'mfa_challenges'             │ 'table'       │ -1n      │
+│ 7       │ 'auth'       │ 'mfa_factors'                │ 'table'       │ -1n      │
+│ 8       │ 'auth'       │ 'mfa_recovery_code_sets'     │ 'table'       │ -1n      │
+│ 9       │ 'auth'       │ 'mfa_recovery_codes'         │ 'table'       │ -1n      │
+│ 10      │ 'auth'       │ 'oauth_authorizations'       │ 'table'       │ -1n      │
+│ 11      │ 'auth'       │ 'oauth_client_states'        │ 'table'       │ -1n      │
+│ 12      │ 'auth'       │ 'oauth_clients'              │ 'table'       │ -1n      │
+│ 13      │ 'auth'       │ 'oauth_consents'             │ 'table'       │ -1n      │
+│ 14      │ 'auth'       │ 'one_time_tokens'            │ 'table'       │ -1n      │
+│ 15      │ 'auth'       │ 'refresh_tokens'             │ 'table'       │ -1n      │
+│ 16      │ 'auth'       │ 'saml_providers'             │ 'table'       │ -1n      │
+│ 17      │ 'auth'       │ 'saml_relay_states'          │ 'table'       │ -1n      │
+│ 18      │ 'auth'       │ 'schema_migrations'          │ 'table'       │ 82n      │
+│ 19      │ 'auth'       │ 'scim_tokens'                │ 'table'       │ -1n      │
+│ 20      │ 'auth'       │ 'scim_users'                 │ 'table'       │ -1n      │
+│ 21      │ 'auth'       │ 'sessions'                   │ 'table'       │ -1n      │
+│ 22      │ 'auth'       │ 'sso_domains'                │ 'table'       │ -1n      │
+│ 23      │ 'auth'       │ 'sso_providers'              │ 'table'       │ -1n      │
+│ 24      │ 'auth'       │ 'users'                      │ 'table'       │ -1n      │
+│ 25      │ 'auth'       │ 'webauthn_challenges'        │ 'table'       │ -1n      │
+│ 26      │ 'auth'       │ 'webauthn_credentials'       │ 'table'       │ -1n      │
+│ 27      │ 'extensions' │ 'pg_stat_statements'         │ 'view'        │ -1n      │
+│ 28      │ 'extensions' │ 'pg_stat_statements_info'    │ 'view'        │ -1n      │
+│ 29      │ 'public'     │ 'admins'                     │ 'table'       │ -1n      │
+│ 30      │ 'public'     │ 'applications'               │ 'table'       │ -1n      │
+│ 31      │ 'public'     │ 'companies'                  │ 'table'       │ -1n      │
+│ 32      │ 'public'     │ 'interviews'                 │ 'table'       │ -1n      │
+│ 33      │ 'public'     │ 'notifications'              │ 'table'       │ -1n      │
+│ 34      │ 'public'     │ 'placement_drives'           │ 'table'       │ -1n      │
+│ 35      │ 'public'     │ 'students'                   │ 'table'       │ 3n       │
+│ 36      │ 'public'     │ 'trainings'                  │ 'table'       │ -1n      │
+│ 37      │ 'realtime'   │ 'messages'                   │ 'partitioned' │ -1n      │
+│ 38      │ 'realtime'   │ 'schema_migrations'          │ 'table'       │ 89n      │
+│ 39      │ 'realtime'   │ 'subscription'               │ 'table'       │ -1n      │
+│ 40      │ 'recruitx'   │ 'Application'                │ 'table'       │ -1n      │
+│ 41      │ 'recruitx'   │ 'Company'                    │ 'table'       │ -1n      │
+│ 42      │ 'recruitx'   │ 'Enrollment'                 │ 'table'       │ -1n      │
+│ 43      │ 'recruitx'   │ 'Interview'                  │ 'table'       │ -1n      │
+│ 44      │ 'recruitx'   │ 'Notification'               │ 'table'       │ -1n      │
+│ 45      │ 'recruitx'   │ 'PlacementDrive'             │ 'table'       │ -1n      │
+│ 46      │ 'recruitx'   │ 'RecruiterProfile'           │ 'table'       │ -1n      │
+│ 47      │ 'recruitx'   │ 'Result'                     │ 'table'       │ -1n      │
+│ 48      │ 'recruitx'   │ 'StudentProfile'             │ 'table'       │ -1n      │
+│ 49      │ 'recruitx'   │ 'Training'                   │ 'table'       │ -1n      │
+│ 50      │ 'recruitx'   │ 'User'                       │ 'table'       │ -1n      │
+│ 51      │ 'recruitx'   │ '_prisma_migrations'         │ 'table'       │ -1n      │
+│ 52      │ 'storage'    │ 'buckets'                    │ 'table'       │ -1n      │
+│ 53      │ 'storage'    │ 'buckets_analytics'          │ 'table'       │ -1n      │
+│ 54      │ 'storage'    │ 'buckets_vectors'            │ 'table'       │ -1n      │
+│ 55      │ 'storage'    │ 'migrations'                 │ 'table'       │ 74n      │
+│ 56      │ 'storage'    │ 'objects'                    │ 'table'       │ -1n      │
+│ 57      │ 'storage'    │ 's3_multipart_uploads'       │ 'table'       │ -1n      │
+│ 58      │ 'storage'    │ 's3_multipart_uploads_parts' │ 'table'       │ -1n      │
+│ 59      │ 'storage'    │ 'vector_indexes'             │ 'table'       │ -1n      │
+│ 60      │ 'vault'      │ 'decrypted_secrets'          │ 'view'        │ -1n      │
+│ 61      │ 'vault'      │ 'secrets'                    │ 'table'       │ -1n      │
+└─────────┴──────────────┴──────────────────────────────┴───────────────┴──────────┘
+
+=== COLUMNS — schema "public" ===
+┌─────────┬────────────────────┬─────┬────────────────────────┬────────────────────────────┬──────────┬──────────────────────────────────┬─────────┐
+│ (index) │ table_name         │ pos │ column_name            │ data_type                  │ nullable │ column_default                   │ max_len │
+├─────────┼────────────────────┼─────┼────────────────────────┼────────────────────────────┼──────────┼──────────────────────────────────┼─────────┤
+│ 0       │ 'admins'           │ 1   │ 'id'                   │ 'character varying'        │ 'NO'     │ null                             │ 100     │
+│ 1       │ 'admins'           │ 2   │ 'name'                 │ 'character varying'        │ 'NO'     │ null                             │ 255     │
+│ 2       │ 'admins'           │ 3   │ 'email'                │ 'character varying'        │ 'NO'     │ null                             │ 255     │
+│ 3       │ 'admins'           │ 4   │ 'password'             │ 'character varying'        │ 'NO'     │ null                             │ 255     │
+│ 4       │ 'admins'           │ 5   │ 'role'                 │ 'character varying'        │ 'YES'    │ "'admin'::character varying"     │ 50      │
+│ 5       │ 'admins'           │ 6   │ 'created_at'           │ 'timestamp with time zone' │ 'YES'    │ 'now()'                          │ null    │
+│ 6       │ 'applications'     │ 1   │ 'id'                   │ 'character varying'        │ 'NO'     │ null                             │ 100     │
+│ 7       │ 'applications'     │ 2   │ 'student_id'           │ 'character varying'        │ 'YES'    │ null                             │ 100     │
+│ 8       │ 'applications'     │ 3   │ 'drive_id'             │ 'character varying'        │ 'YES'    │ null                             │ 100     │
+│ 9       │ 'applications'     │ 4   │ 'status'               │ 'character varying'        │ 'YES'    │ "'Applied'::character varying"   │ 50      │
+│ 10      │ 'applications'     │ 5   │ 'applied_at'           │ 'timestamp with time zone' │ 'YES'    │ 'now()'                          │ null    │
+│ 11      │ 'applications'     │ 6   │ 'updated_at'           │ 'timestamp with time zone' │ 'YES'    │ 'now()'                          │ null    │
+│ 12      │ 'applications'     │ 7   │ 'resume_url'           │ 'text'                     │ 'YES'    │ null                             │ null    │
+│ 13      │ 'companies'        │ 1   │ 'id'                   │ 'character varying'        │ 'NO'     │ null                             │ 100     │
+│ 14      │ 'companies'        │ 2   │ 'name'                 │ 'character varying'        │ 'NO'     │ null                             │ 255     │
+│ 15      │ 'companies'        │ 3   │ 'industry'             │ 'character varying'        │ 'YES'    │ null                             │ 100     │
+│ 16      │ 'companies'        │ 4   │ 'website'              │ 'character varying'        │ 'YES'    │ null                             │ 255     │
+│ 17      │ 'companies'        │ 5   │ 'description'          │ 'text'                     │ 'YES'    │ null                             │ null    │
+│ 18      │ 'companies'        │ 6   │ 'contact_email'        │ 'character varying'        │ 'YES'    │ null                             │ 255     │
+│ 19      │ 'companies'        │ 7   │ 'contact_phone'        │ 'character varying'        │ 'YES'    │ null                             │ 50      │
+│ 20      │ 'companies'        │ 8   │ 'location'             │ 'character varying'        │ 'YES'    │ null                             │ 100     │
+│ 21      │ 'companies'        │ 9   │ 'logo_url'             │ 'text'                     │ 'YES'    │ null                             │ null    │
+│ 22      │ 'companies'        │ 10  │ 'created_at'           │ 'timestamp with time zone' │ 'YES'    │ 'now()'                          │ null    │
+│ 23      │ 'companies'        │ 11  │ 'updated_at'           │ 'timestamp with time zone' │ 'YES'    │ 'now()'                          │ null    │
+│ 24      │ 'interviews'       │ 1   │ 'id'                   │ 'character varying'        │ 'NO'     │ null                             │ 100     │
+│ 25      │ 'interviews'       │ 2   │ 'student_id'           │ 'character varying'        │ 'YES'    │ null                             │ 100     │
+│ 26      │ 'interviews'       │ 3   │ 'drive_id'             │ 'character varying'        │ 'YES'    │ null                             │ 100     │
+│ 27      │ 'interviews'       │ 4   │ 'application_id'       │ 'character varying'        │ 'YES'    │ null                             │ 100     │
+│ 28      │ 'interviews'       │ 5   │ 'round'                │ 'character varying'        │ 'NO'     │ null                             │ 100     │
+│ 29      │ 'interviews'       │ 6   │ 'scheduled_at'         │ 'timestamp with time zone' │ 'YES'    │ null                             │ null    │
+│ 30      │ 'interviews'       │ 7   │ 'mode'                 │ 'character varying'        │ 'YES'    │ "'online'::character varying"    │ 50      │
+│ 31      │ 'interviews'       │ 8   │ 'meeting_link'         │ 'text'                     │ 'YES'    │ null                             │ null    │
+│ 32      │ 'interviews'       │ 9   │ 'venue'                │ 'text'                     │ 'YES'    │ null                             │ null    │
+│ 33      │ 'interviews'       │ 10  │ 'status'               │ 'character varying'        │ 'YES'    │ "'scheduled'::character varying" │ 50      │
+│ 34      │ 'interviews'       │ 11  │ 'result'               │ 'character varying'        │ 'YES'    │ null                             │ 50      │
+│ 35      │ 'interviews'       │ 12  │ 'feedback'             │ 'text'                     │ 'YES'    │ null                             │ null    │
+│ 36      │ 'interviews'       │ 13  │ 'created_at'           │ 'timestamp with time zone' │ 'YES'    │ 'now()'                          │ null    │
+│ 37      │ 'interviews'       │ 14  │ 'updated_at'           │ 'timestamp with time zone' │ 'YES'    │ 'now()'                          │ null    │
+│ 38      │ 'notifications'    │ 1   │ 'id'                   │ 'character varying'        │ 'NO'     │ null                             │ 100     │
+│ 39      │ 'notifications'    │ 2   │ 'user_id'              │ 'character varying'        │ 'YES'    │ null                             │ 100     │
+│ 40      │ 'notifications'    │ 3   │ 'type'                 │ 'character varying'        │ 'YES'    │ "'general'::character varying"   │ 100     │
+│ 41      │ 'notifications'    │ 4   │ 'message'              │ 'text'                     │ 'NO'     │ null                             │ null    │
+│ 42      │ 'notifications'    │ 5   │ 'read'                 │ 'boolean'                  │ 'YES'    │ 'false'                          │ null    │
+│ 43      │ 'notifications'    │ 6   │ 'created_at'           │ 'timestamp with time zone' │ 'YES'    │ 'now()'                          │ null    │
+│ 44      │ 'placement_drives' │ 1   │ 'id'                   │ 'character varying'        │ 'NO'     │ null                             │ 100     │
+│ 45      │ 'placement_drives' │ 2   │ 'company_id'           │ 'character varying'        │ 'YES'    │ null                             │ 100     │
+│ 46      │ 'placement_drives' │ 3   │ 'job_role'             │ 'character varying'        │ 'NO'     │ null                             │ 255     │
+│ 47      │ 'placement_drives' │ 4   │ 'package'              │ 'character varying'        │ 'YES'    │ null                             │ 100     │
+│ 48      │ 'placement_drives' │ 5   │ 'location'             │ 'character varying'        │ 'YES'    │ null                             │ 100     │
+│ 49      │ 'placement_drives' │ 6   │ 'application_deadline' │ 'character varying'        │ 'YES'    │ null                             │ 50      │
+│ 50      │ 'placement_drives' │ 7   │ 'eligible_branches'    │ 'jsonb'                    │ 'YES'    │ "'[]'::jsonb"                    │ null    │
+│ 51      │ 'placement_drives' │ 8   │ 'min_cgpa'             │ 'numeric'                  │ 'YES'    │ '0.0'                            │ null    │
+│ 52      │ 'placement_drives' │ 9   │ 'max_backlogs'         │ 'integer'                  │ 'YES'    │ '0'                              │ null    │
+│ 53      │ 'placement_drives' │ 10  │ 'graduation_year'      │ 'integer'                  │ 'YES'    │ null                             │ null    │
+│ 54      │ 'placement_drives' │ 11  │ 'description'          │ 'text'                     │ 'YES'    │ null                             │ null    │
+│ 55      │ 'placement_drives' │ 12  │ 'status'               │ 'character varying'        │ 'YES'    │ "'active'::character varying"    │ 50      │
+│ 56      │ 'placement_drives' │ 13  │ 'created_at'           │ 'timestamp with time zone' │ 'YES'    │ 'now()'                          │ null    │
+│ 57      │ 'placement_drives' │ 14  │ 'updated_at'           │ 'timestamp with time zone' │ 'YES'    │ 'now()'                          │ null    │
+│ 58      │ 'students'         │ 1   │ 'id'                   │ 'character varying'        │ 'NO'     │ null                             │ 100     │
+│ 59      │ 'students'         │ 2   │ 'name'                 │ 'character varying'        │ 'NO'     │ null                             │ 255     │
+│ 60      │ 'students'         │ 3   │ 'email'                │ 'character varying'        │ 'NO'     │ null                             │ 255     │
+│ 61      │ 'students'         │ 4   │ 'password'             │ 'character varying'        │ 'YES'    │ null                             │ 255     │
+│ 62      │ 'students'         │ 5   │ 'role'                 │ 'character varying'        │ 'YES'    │ "'student'::character varying"   │ 50      │
+│ 63      │ 'students'         │ 6   │ 'cgpa'                 │ 'numeric'                  │ 'YES'    │ '0.0'                            │ null    │
+│ 64      │ 'students'         │ 7   │ 'branch'               │ 'character varying'        │ 'YES'    │ null                             │ 100     │
+│ 65      │ 'students'         │ 8   │ 'graduation_year'      │ 'integer'                  │ 'YES'    │ null                             │ null    │
+│ 66      │ 'students'         │ 9   │ 'backlogs'             │ 'integer'                  │ 'YES'    │ '0'                              │ null    │
+│ 67      │ 'students'         │ 10  │ 'phone'                │ 'character varying'        │ 'YES'    │ null                             │ 50      │
+│ 68      │ 'students'         │ 11  │ 'skills'               │ 'jsonb'                    │ 'YES'    │ "'[]'::jsonb"                    │ null    │
+│ 69      │ 'students'         │ 12  │ 'resume_url'           │ 'text'                     │ 'YES'    │ null                             │ null    │
+│ 70      │ 'students'         │ 13  │ 'is_active'            │ 'boolean'                  │ 'YES'    │ 'true'                           │ null    │
+│ 71      │ 'students'         │ 14  │ 'created_at'           │ 'timestamp with time zone' │ 'YES'    │ 'now()'                          │ null    │
+│ 72      │ 'students'         │ 15  │ 'updated_at'           │ 'timestamp with time zone' │ 'YES'    │ 'now()'                          │ null    │
+│ 73      │ 'students'         │ 16  │ 'registration_number'  │ 'character varying'        │ 'YES'    │ null                             │ 100     │
+│ 74      │ 'students'         │ 17  │ 'linkedin_url'         │ 'text'                     │ 'YES'    │ null                             │ null    │
+│ 75      │ 'students'         │ 18  │ 'portfolio_url'        │ 'text'                     │ 'YES'    │ null                             │ null    │
+│ 76      │ 'students'         │ 19  │ 'resume_file_name'     │ 'character varying'        │ 'YES'    │ null                             │ 255     │
+│ 77      │ 'students'         │ 20  │ 'resume_storage_path'  │ 'text'                     │ 'YES'    │ null                             │ null    │
+│ 78      │ 'students'         │ 21  │ 'resume_mime_type'     │ 'character varying'        │ 'YES'    │ null                             │ 100     │
+│ 79      │ 'students'         │ 22  │ 'resume_size'          │ 'bigint'                   │ 'YES'    │ null                             │ null    │
+│ 80      │ 'students'         │ 23  │ 'resume_uploaded_at'   │ 'timestamp with time zone' │ 'YES'    │ null                             │ null    │
+│ 81      │ 'students'         │ 24  │ 'auth_user_id'         │ 'uuid'                     │ 'YES'    │ null                             │ null    │
+│ 82      │ 'trainings'        │ 1   │ 'id'                   │ 'character varying'        │ 'NO'     │ null                             │ 100     │
+│ 83      │ 'trainings'        │ 2   │ 'title'                │ 'character varying'        │ 'NO'     │ null                             │ 255     │
+│ 84      │ 'trainings'        │ 3   │ 'description'          │ 'text'                     │ 'YES'    │ null                             │ null    │
+│ 85      │ 'trainings'        │ 4   │ 'instructor'           │ 'character varying'        │ 'YES'    │ null                             │ 255     │
+│ 86      │ 'trainings'        │ 5   │ 'start_date'           │ 'character varying'        │ 'YES'    │ null                             │ 50      │
+│ 87      │ 'trainings'        │ 6   │ 'end_date'             │ 'character varying'        │ 'YES'    │ null                             │ 50      │
+│ 88      │ 'trainings'        │ 7   │ 'duration'             │ 'character varying'        │ 'YES'    │ null                             │ 100     │
+│ 89      │ 'trainings'        │ 8   │ 'mode'                 │ 'character varying'        │ 'YES'    │ "'online'::character varying"    │ 50      │
+│ 90      │ 'trainings'        │ 9   │ 'max_students'         │ 'integer'                  │ 'YES'    │ '50'                             │ null    │
+│ 91      │ 'trainings'        │ 10  │ 'status'               │ 'character varying'        │ 'YES'    │ "'upcoming'::character varying"  │ 50      │
+│ 92      │ 'trainings'        │ 11  │ 'enrolled_students'    │ 'jsonb'                    │ 'YES'    │ "'[]'::jsonb"                    │ null    │
+│ 93      │ 'trainings'        │ 12  │ 'created_at'           │ 'timestamp with time zone' │ 'YES'    │ 'now()'                          │ null    │
+│ 94      │ 'trainings'        │ 13  │ 'updated_at'           │ 'timestamp with time zone' │ 'YES'    │ 'now()'                          │ null    │
+└─────────┴────────────────────┴─────┴────────────────────────┴────────────────────────────┴──────────┴──────────────────────────────────┴─────────┘
+
+=== COLUMNS — schema "recruitx" ===
+┌─────────┬────────────────────┬─────┬───────────────────────┬───────────────────────────────┬──────────┬──────────────────────────────────┬─────────┐
+│ (index) │ table_name         │ pos │ column_name           │ data_type                     │ nullable │ column_default                   │ max_len │
+├─────────┼────────────────────┼─────┼───────────────────────┼───────────────────────────────┼──────────┼──────────────────────────────────┼─────────┤
+│ 0       │ 'Application'      │ 1   │ 'id'                  │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 1       │ 'Application'      │ 2   │ 'studentId'           │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 2       │ 'Application'      │ 3   │ 'driveId'             │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 3       │ 'Application'      │ 4   │ 'status'              │ 'USER-DEFINED'                │ 'NO'     │ `'APPLIED'::"ApplicationStatus"` │ null    │
+│ 4       │ 'Application'      │ 5   │ 'resumeUrl'           │ 'text'                        │ 'YES'    │ null                             │ null    │
+│ 5       │ 'Application'      │ 6   │ 'appliedAt'           │ 'timestamp without time zone' │ 'NO'     │ 'CURRENT_TIMESTAMP'              │ null    │
+│ 6       │ 'Application'      │ 7   │ 'updatedAt'           │ 'timestamp without time zone' │ 'NO'     │ null                             │ null    │
+│ 7       │ 'Company'          │ 1   │ 'id'                  │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 8       │ 'Company'          │ 2   │ 'name'                │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 9       │ 'Company'          │ 3   │ 'industry'            │ 'text'                        │ 'YES'    │ null                             │ null    │
+│ 10      │ 'Company'          │ 4   │ 'website'             │ 'text'                        │ 'YES'    │ null                             │ null    │
+│ 11      │ 'Company'          │ 5   │ 'description'         │ 'text'                        │ 'YES'    │ null                             │ null    │
+│ 12      │ 'Company'          │ 6   │ 'contactEmail'        │ 'text'                        │ 'YES'    │ null                             │ null    │
+│ 13      │ 'Company'          │ 7   │ 'contactPhone'        │ 'text'                        │ 'YES'    │ null                             │ null    │
+│ 14      │ 'Company'          │ 8   │ 'location'            │ 'text'                        │ 'YES'    │ null                             │ null    │
+│ 15      │ 'Company'          │ 9   │ 'logoUrl'             │ 'text'                        │ 'YES'    │ null                             │ null    │
+│ 16      │ 'Company'          │ 10  │ 'createdAt'           │ 'timestamp without time zone' │ 'NO'     │ 'CURRENT_TIMESTAMP'              │ null    │
+│ 17      │ 'Company'          │ 11  │ 'updatedAt'           │ 'timestamp without time zone' │ 'NO'     │ null                             │ null    │
+│ 18      │ 'Enrollment'       │ 1   │ 'id'                  │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 19      │ 'Enrollment'       │ 2   │ 'studentId'           │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 20      │ 'Enrollment'       │ 3   │ 'trainingId'          │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 21      │ 'Enrollment'       │ 4   │ 'enrolledAt'          │ 'timestamp without time zone' │ 'NO'     │ 'CURRENT_TIMESTAMP'              │ null    │
+│ 22      │ 'Interview'        │ 1   │ 'id'                  │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 23      │ 'Interview'        │ 2   │ 'applicationId'       │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 24      │ 'Interview'        │ 3   │ 'studentId'           │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 25      │ 'Interview'        │ 4   │ 'driveId'             │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 26      │ 'Interview'        │ 5   │ 'round'               │ 'USER-DEFINED'                │ 'NO'     │ null                             │ null    │
+│ 27      │ 'Interview'        │ 6   │ 'scheduledAt'         │ 'timestamp without time zone' │ 'NO'     │ null                             │ null    │
+│ 28      │ 'Interview'        │ 7   │ 'mode'                │ 'USER-DEFINED'                │ 'NO'     │ null                             │ null    │
+│ 29      │ 'Interview'        │ 8   │ 'meetingLink'         │ 'text'                        │ 'YES'    │ null                             │ null    │
+│ 30      │ 'Interview'        │ 9   │ 'venue'               │ 'text'                        │ 'YES'    │ null                             │ null    │
+│ 31      │ 'Interview'        │ 10  │ 'status'              │ 'USER-DEFINED'                │ 'NO'     │ `'SCHEDULED'::"InterviewStatus"` │ null    │
+│ 32      │ 'Interview'        │ 11  │ 'result'              │ 'USER-DEFINED'                │ 'YES'    │ null                             │ null    │
+│ 33      │ 'Interview'        │ 12  │ 'feedback'            │ 'text'                        │ 'YES'    │ null                             │ null    │
+│ 34      │ 'Interview'        │ 13  │ 'createdAt'           │ 'timestamp without time zone' │ 'NO'     │ 'CURRENT_TIMESTAMP'              │ null    │
+│ 35      │ 'Interview'        │ 14  │ 'updatedAt'           │ 'timestamp without time zone' │ 'NO'     │ null                             │ null    │
+│ 36      │ 'Notification'     │ 1   │ 'id'                  │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 37      │ 'Notification'     │ 2   │ 'userId'              │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 38      │ 'Notification'     │ 3   │ 'type'                │ 'USER-DEFINED'                │ 'NO'     │ null                             │ null    │
+│ 39      │ 'Notification'     │ 4   │ 'message'             │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 40      │ 'Notification'     │ 5   │ 'read'                │ 'boolean'                     │ 'NO'     │ 'false'                          │ null    │
+│ 41      │ 'Notification'     │ 6   │ 'createdAt'           │ 'timestamp without time zone' │ 'NO'     │ 'CURRENT_TIMESTAMP'              │ null    │
+│ 42      │ 'Notification'     │ 7   │ 'updatedAt'           │ 'timestamp without time zone' │ 'NO'     │ null                             │ null    │
+│ 43      │ 'PlacementDrive'   │ 1   │ 'id'                  │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 44      │ 'PlacementDrive'   │ 2   │ 'companyId'           │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 45      │ 'PlacementDrive'   │ 3   │ 'jobRole'             │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 46      │ 'PlacementDrive'   │ 4   │ 'package'             │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 47      │ 'PlacementDrive'   │ 5   │ 'packageLpa'          │ 'numeric'                     │ 'YES'    │ null                             │ null    │
+│ 48      │ 'PlacementDrive'   │ 6   │ 'location'            │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 49      │ 'PlacementDrive'   │ 7   │ 'applicationDeadline' │ 'timestamp without time zone' │ 'NO'     │ null                             │ null    │
+│ 50      │ 'PlacementDrive'   │ 8   │ 'eligibleBranches'    │ 'ARRAY'                       │ 'YES'    │ null                             │ null    │
+│ 51      │ 'PlacementDrive'   │ 9   │ 'minCGPA'             │ 'numeric'                     │ 'NO'     │ null                             │ null    │
+│ 52      │ 'PlacementDrive'   │ 10  │ 'maxBacklogs'         │ 'integer'                     │ 'NO'     │ '0'                              │ null    │
+│ 53      │ 'PlacementDrive'   │ 11  │ 'graduationYear'      │ 'integer'                     │ 'NO'     │ null                             │ null    │
+│ 54      │ 'PlacementDrive'   │ 12  │ 'description'         │ 'text'                        │ 'YES'    │ null                             │ null    │
+│ 55      │ 'PlacementDrive'   │ 13  │ 'status'              │ 'USER-DEFINED'                │ 'NO'     │ `'ACTIVE'::"DriveStatus"`        │ null    │
+│ 56      │ 'PlacementDrive'   │ 14  │ 'createdAt'           │ 'timestamp without time zone' │ 'NO'     │ 'CURRENT_TIMESTAMP'              │ null    │
+│ 57      │ 'PlacementDrive'   │ 15  │ 'updatedAt'           │ 'timestamp without time zone' │ 'NO'     │ null                             │ null    │
+│ 58      │ 'RecruiterProfile' │ 1   │ 'id'                  │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 59      │ 'RecruiterProfile' │ 2   │ 'userId'              │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 60      │ 'RecruiterProfile' │ 3   │ 'companyId'           │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 61      │ 'RecruiterProfile' │ 4   │ 'jobTitle'            │ 'text'                        │ 'YES'    │ null                             │ null    │
+│ 62      │ 'RecruiterProfile' │ 5   │ 'isPrimaryContact'    │ 'boolean'                     │ 'NO'     │ 'false'                          │ null    │
+│ 63      │ 'RecruiterProfile' │ 6   │ 'createdAt'           │ 'timestamp without time zone' │ 'NO'     │ 'CURRENT_TIMESTAMP'              │ null    │
+│ 64      │ 'RecruiterProfile' │ 7   │ 'updatedAt'           │ 'timestamp without time zone' │ 'NO'     │ null                             │ null    │
+│ 65      │ 'Result'           │ 1   │ 'id'                  │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 66      │ 'Result'           │ 2   │ 'applicationId'       │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 67      │ 'Result'           │ 3   │ 'status'              │ 'USER-DEFINED'                │ 'NO'     │ null                             │ null    │
+│ 68      │ 'Result'           │ 4   │ 'feedback'            │ 'text'                        │ 'YES'    │ null                             │ null    │
+│ 69      │ 'Result'           │ 5   │ 'createdAt'           │ 'timestamp without time zone' │ 'NO'     │ 'CURRENT_TIMESTAMP'              │ null    │
+│ 70      │ 'Result'           │ 6   │ 'updatedAt'           │ 'timestamp without time zone' │ 'NO'     │ null                             │ null    │
+│ 71      │ 'StudentProfile'   │ 1   │ 'id'                  │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 72      │ 'StudentProfile'   │ 2   │ 'userId'              │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 73      │ 'StudentProfile'   │ 3   │ 'cgpa'                │ 'numeric'                     │ 'NO'     │ null                             │ null    │
+│ 74      │ 'StudentProfile'   │ 4   │ 'branch'              │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 75      │ 'StudentProfile'   │ 5   │ 'graduationYear'      │ 'integer'                     │ 'NO'     │ null                             │ null    │
+│ 76      │ 'StudentProfile'   │ 6   │ 'backlogs'            │ 'integer'                     │ 'NO'     │ '0'                              │ null    │
+│ 77      │ 'StudentProfile'   │ 7   │ 'phone'               │ 'text'                        │ 'YES'    │ null                             │ null    │
+│ 78      │ 'StudentProfile'   │ 8   │ 'skills'              │ 'ARRAY'                       │ 'YES'    │ null                             │ null    │
+│ 79      │ 'StudentProfile'   │ 9   │ 'resumeUrl'           │ 'text'                        │ 'YES'    │ null                             │ null    │
+│ 80      │ 'StudentProfile'   │ 10  │ 'isActive'            │ 'boolean'                     │ 'NO'     │ 'true'                           │ null    │
+│ 81      │ 'StudentProfile'   │ 11  │ 'createdAt'           │ 'timestamp without time zone' │ 'NO'     │ 'CURRENT_TIMESTAMP'              │ null    │
+│ 82      │ 'StudentProfile'   │ 12  │ 'updatedAt'           │ 'timestamp without time zone' │ 'NO'     │ null                             │ null    │
+│ 83      │ 'Training'         │ 1   │ 'id'                  │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 84      │ 'Training'         │ 2   │ 'title'               │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 85      │ 'Training'         │ 3   │ 'description'         │ 'text'                        │ 'YES'    │ "''::text"                       │ null    │
+│ 86      │ 'Training'         │ 4   │ 'instructor'          │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 87      │ 'Training'         │ 5   │ 'startDate'           │ 'timestamp without time zone' │ 'NO'     │ null                             │ null    │
+│ 88      │ 'Training'         │ 6   │ 'endDate'             │ 'timestamp without time zone' │ 'NO'     │ null                             │ null    │
+│ 89      │ 'Training'         │ 7   │ 'duration'            │ 'text'                        │ 'YES'    │ null                             │ null    │
+│ 90      │ 'Training'         │ 8   │ 'mode'                │ 'USER-DEFINED'                │ 'NO'     │ null                             │ null    │
+│ 91      │ 'Training'         │ 9   │ 'maxStudents'         │ 'integer'                     │ 'NO'     │ null                             │ null    │
+│ 92      │ 'Training'         │ 10  │ 'status'              │ 'USER-DEFINED'                │ 'NO'     │ `'UPCOMING'::"TrainingStatus"`   │ null    │
+│ 93      │ 'Training'         │ 11  │ 'createdAt'           │ 'timestamp without time zone' │ 'NO'     │ 'CURRENT_TIMESTAMP'              │ null    │
+│ 94      │ 'Training'         │ 12  │ 'updatedAt'           │ 'timestamp without time zone' │ 'NO'     │ null                             │ null    │
+│ 95      │ 'User'             │ 1   │ 'id'                  │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 96      │ 'User'             │ 2   │ 'email'               │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 97      │ 'User'             │ 3   │ 'passwordHash'        │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 98      │ 'User'             │ 4   │ 'name'                │ 'text'                        │ 'NO'     │ null                             │ null    │
+│ 99      │ 'User'             │ 5   │ 'role'                │ 'USER-DEFINED'                │ 'NO'     │ `'STUDENT'::"UserRole"`          │ null    │
+│ 100     │ 'User'             │ 6   │ 'createdAt'           │ 'timestamp without time zone' │ 'NO'     │ 'CURRENT_TIMESTAMP'              │ null    │
+│ 101     │ 'User'             │ 7   │ 'updatedAt'           │ 'timestamp without time zone' │ 'NO'     │ null                             │ null    │
+└─────────┴────────────────────┴─────┴───────────────────────┴───────────────────────────────┴──────────┴──────────────────────────────────┴─────────┘
+
+=== CONSTRAINTS & INDEXES — schema "public" ===
+┌─────────┬───────────────────────────┬────────────────────────────────────────┬──────┬───────────────────────────────────────────────────────────────────────────────────┐
+│ (index) │ relation                  │ name                                   │ type │ definition                                                                        │
+├─────────┼───────────────────────────┼────────────────────────────────────────┼──────┼───────────────────────────────────────────────────────────────────────────────────┤
+│ 0       │ 'public.admins'           │ 'admins_pkey'                          │ 'p'  │ 'PRIMARY KEY (id)'                                                                │
+│ 1       │ 'public.admins'           │ 'admins_email_key'                     │ 'u'  │ 'UNIQUE (email)'                                                                  │
+│ 2       │ 'public.applications'     │ 'applications_drive_id_fkey'           │ 'f'  │ 'FOREIGN KEY (drive_id) REFERENCES public.placement_drives(id) ON DELETE CASCADE' │
+│ 3       │ 'public.applications'     │ 'applications_student_id_fkey'         │ 'f'  │ 'FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE'       │
+│ 4       │ 'public.applications'     │ 'applications_pkey'                    │ 'p'  │ 'PRIMARY KEY (id)'                                                                │
+│ 5       │ 'public.applications'     │ 'applications_student_id_drive_id_key' │ 'u'  │ 'UNIQUE (student_id, drive_id)'                                                   │
+│ 6       │ 'public.companies'        │ 'companies_pkey'                       │ 'p'  │ 'PRIMARY KEY (id)'                                                                │
+│ 7       │ 'public.interviews'       │ 'interviews_drive_id_fkey'             │ 'f'  │ 'FOREIGN KEY (drive_id) REFERENCES public.placement_drives(id) ON DELETE CASCADE' │
+│ 8       │ 'public.interviews'       │ 'interviews_student_id_fkey'           │ 'f'  │ 'FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE'       │
+│ 9       │ 'public.interviews'       │ 'interviews_pkey'                      │ 'p'  │ 'PRIMARY KEY (id)'                                                                │
+│ 10      │ 'public.notifications'    │ 'notifications_pkey'                   │ 'p'  │ 'PRIMARY KEY (id)'                                                                │
+│ 11      │ 'public.placement_drives' │ 'placement_drives_company_id_fkey'     │ 'f'  │ 'FOREIGN KEY (company_id) REFERENCES public.companies(id) ON DELETE SET NULL'     │
+│ 12      │ 'public.placement_drives' │ 'placement_drives_pkey'                │ 'p'  │ 'PRIMARY KEY (id)'                                                                │
+│ 13      │ 'public.students'         │ 'students_auth_user_id_fkey'           │ 'f'  │ 'FOREIGN KEY (auth_user_id) REFERENCES auth.users(id) ON DELETE CASCADE'          │
+│ 14      │ 'public.students'         │ 'students_pkey'                        │ 'p'  │ 'PRIMARY KEY (id)'                                                                │
+│ 15      │ 'public.students'         │ 'students_email_key'                   │ 'u'  │ 'UNIQUE (email)'                                                                  │
+│ 16      │ 'public.trainings'        │ 'trainings_pkey'                       │ 'p'  │ 'PRIMARY KEY (id)'                                                                │
+└─────────┴───────────────────────────┴────────────────────────────────────────┴──────┴───────────────────────────────────────────────────────────────────────────────────┘
+┌─────────┬────────────────────┬────────────────────────────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ (index) │ tablename          │ indexname                              │ indexdef                                                                                                                                                                                                                          │
+├─────────┼────────────────────┼────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ 0       │ 'admins'           │ 'admins_email_key'                     │ 'CREATE UNIQUE INDEX admins_email_key ON public.admins USING btree (email)'                                                                                                                                                       │
+│ 1       │ 'admins'           │ 'admins_pkey'                          │ 'CREATE UNIQUE INDEX admins_pkey ON public.admins USING btree (id)'                                                                                                                                                               │
+│ 2       │ 'applications'     │ 'applications_pkey'                    │ 'CREATE UNIQUE INDEX applications_pkey ON public.applications USING btree (id)'                                                                                                                                                   │
+│ 3       │ 'applications'     │ 'applications_student_id_drive_id_key' │ 'CREATE UNIQUE INDEX applications_student_id_drive_id_key ON public.applications USING btree (student_id, drive_id)'                                                                                                              │
+│ 4       │ 'companies'        │ 'companies_pkey'                       │ 'CREATE UNIQUE INDEX companies_pkey ON public.companies USING btree (id)'                                                                                                                                                         │
+│ 5       │ 'interviews'       │ 'interviews_pkey'                      │ 'CREATE UNIQUE INDEX interviews_pkey ON public.interviews USING btree (id)'                                                                                                                                                       │
+│ 6       │ 'notifications'    │ 'notifications_pkey'                   │ 'CREATE UNIQUE INDEX notifications_pkey ON public.notifications USING btree (id)'                                                                                                                                                 │
+│ 7       │ 'placement_drives' │ 'placement_drives_pkey'                │ 'CREATE UNIQUE INDEX placement_drives_pkey ON public.placement_drives USING btree (id)'                                                                                                                                           │
+│ 8       │ 'students'         │ 'students_auth_user_id_uidx'           │ 'CREATE UNIQUE INDEX students_auth_user_id_uidx ON public.students USING btree (auth_user_id) WHERE (auth_user_id IS NOT NULL)'                                                                                                   │
+│ 9       │ 'students'         │ 'students_email_key'                   │ 'CREATE UNIQUE INDEX students_email_key ON public.students USING btree (email)'                                                                                                                                                   │
+│ 10      │ 'students'         │ 'students_pkey'                        │ 'CREATE UNIQUE INDEX students_pkey ON public.students USING btree (id)'                                                                                                                                                           │
+│ 11      │ 'students'         │ 'students_registration_number_uidx'    │ "CREATE UNIQUE INDEX students_registration_number_uidx ON public.students USING btree (lower(btrim((registration_number)::text))) WHERE ((registration_number IS NOT NULL) AND (btrim((registration_number)::text) <> ''::text))" │
+│ 12      │ 'trainings'        │ 'trainings_pkey'                       │ 'CREATE UNIQUE INDEX trainings_pkey ON public.trainings USING btree (id)'                                                                                                                                                         │
+└─────────┴────────────────────┴────────────────────────────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+=== CONSTRAINTS & INDEXES — schema "recruitx" ===
+┌─────────┬──────────────────────┬──────────────────────────────────────────────────┬──────┬───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ (index) │ relation             │ name                                             │ type │ definition                                                                                                                                        │
+├─────────┼──────────────────────┼──────────────────────────────────────────────────┼──────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ 0       │ '_prisma_migrations' │ '_prisma_migrations_pkey'                        │ 'p'  │ 'PRIMARY KEY (id)'                                                                                                                                │
+│ 1       │ '"Application"'      │ 'Application_driveId_fkey'                       │ 'f'  │ 'FOREIGN KEY ("driveId") REFERENCES "PlacementDrive"(id) ON UPDATE CASCADE ON DELETE RESTRICT'                                                    │
+│ 2       │ '"Application"'      │ 'Application_studentId_fkey'                     │ 'f'  │ 'FOREIGN KEY ("studentId") REFERENCES "StudentProfile"(id) ON UPDATE CASCADE ON DELETE RESTRICT'                                                  │
+│ 3       │ '"Application"'      │ 'Application_pkey'                               │ 'p'  │ 'PRIMARY KEY (id)'                                                                                                                                │
+│ 4       │ '"Company"'          │ 'Company_pkey'                                   │ 'p'  │ 'PRIMARY KEY (id)'                                                                                                                                │
+│ 5       │ '"Enrollment"'       │ 'Enrollment_studentId_fkey'                      │ 'f'  │ 'FOREIGN KEY ("studentId") REFERENCES "StudentProfile"(id) ON UPDATE CASCADE ON DELETE RESTRICT'                                                  │
+│ 6       │ '"Enrollment"'       │ 'Enrollment_trainingId_fkey'                     │ 'f'  │ 'FOREIGN KEY ("trainingId") REFERENCES "Training"(id) ON UPDATE CASCADE ON DELETE RESTRICT'                                                       │
+│ 7       │ '"Enrollment"'       │ 'Enrollment_pkey'                                │ 'p'  │ 'PRIMARY KEY (id)'                                                                                                                                │
+│ 8       │ '"Interview"'        │ 'Interview_applicationId_studentId_driveId_fkey' │ 'f'  │ 'FOREIGN KEY ("applicationId", "studentId", "driveId") REFERENCES "Application"(id, "studentId", "driveId") ON UPDATE CASCADE ON DELETE RESTRICT' │
+│ 9       │ '"Interview"'        │ 'Interview_pkey'                                 │ 'p'  │ 'PRIMARY KEY (id)'                                                                                                                                │
+│ 10      │ '"Notification"'     │ 'Notification_userId_fkey'                       │ 'f'  │ 'FOREIGN KEY ("userId") REFERENCES "User"(id) ON UPDATE CASCADE ON DELETE RESTRICT'                                                               │
+│ 11      │ '"Notification"'     │ 'Notification_pkey'                              │ 'p'  │ 'PRIMARY KEY (id)'                                                                                                                                │
+│ 12      │ '"PlacementDrive"'   │ 'PlacementDrive_companyId_fkey'                  │ 'f'  │ 'FOREIGN KEY ("companyId") REFERENCES "Company"(id) ON UPDATE CASCADE ON DELETE RESTRICT'                                                         │
+│ 13      │ '"PlacementDrive"'   │ 'PlacementDrive_pkey'                            │ 'p'  │ 'PRIMARY KEY (id)'                                                                                                                                │
+│ 14      │ '"RecruiterProfile"' │ 'RecruiterProfile_companyId_fkey'                │ 'f'  │ 'FOREIGN KEY ("companyId") REFERENCES "Company"(id) ON UPDATE CASCADE ON DELETE RESTRICT'                                                         │
+│ 15      │ '"RecruiterProfile"' │ 'RecruiterProfile_userId_fkey'                   │ 'f'  │ 'FOREIGN KEY ("userId") REFERENCES "User"(id) ON UPDATE CASCADE ON DELETE RESTRICT'                                                               │
+│ 16      │ '"RecruiterProfile"' │ 'RecruiterProfile_pkey'                          │ 'p'  │ 'PRIMARY KEY (id)'                                                                                                                                │
+│ 17      │ '"Result"'           │ 'Result_applicationId_fkey'                      │ 'f'  │ 'FOREIGN KEY ("applicationId") REFERENCES "Application"(id) ON UPDATE CASCADE ON DELETE RESTRICT'                                                 │
+│ 18      │ '"Result"'           │ 'Result_pkey'                                    │ 'p'  │ 'PRIMARY KEY (id)'                                                                                                                                │
+│ 19      │ '"StudentProfile"'   │ 'StudentProfile_userId_fkey'                     │ 'f'  │ 'FOREIGN KEY ("userId") REFERENCES "User"(id) ON UPDATE CASCADE ON DELETE RESTRICT'                                                               │
+│ 20      │ '"StudentProfile"'   │ 'StudentProfile_pkey'                            │ 'p'  │ 'PRIMARY KEY (id)'                                                                                                                                │
+│ 21      │ '"Training"'         │ 'Training_pkey'                                  │ 'p'  │ 'PRIMARY KEY (id)'                                                                                                                                │
+│ 22      │ '"User"'             │ 'User_pkey'                                      │ 'p'  │ 'PRIMARY KEY (id)'                                                                                                                                │
+└─────────┴──────────────────────┴──────────────────────────────────────────────────┴──────┴───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+┌─────────┬──────────────────────┬────────────────────────────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ (index) │ tablename            │ indexname                              │ indexdef                                                                                                                        │
+├─────────┼──────────────────────┼────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ 0       │ 'Application'        │ 'Application_driveId_idx'              │ 'CREATE INDEX "Application_driveId_idx" ON recruitx."Application" USING btree ("driveId")'                                      │
+│ 1       │ 'Application'        │ 'Application_driveId_status_idx'       │ 'CREATE INDEX "Application_driveId_status_idx" ON recruitx."Application" USING btree ("driveId", status)'                       │
+│ 2       │ 'Application'        │ 'Application_id_studentId_driveId_key' │ 'CREATE UNIQUE INDEX "Application_id_studentId_driveId_key" ON recruitx."Application" USING btree (id, "studentId", "driveId")' │
+│ 3       │ 'Application'        │ 'Application_pkey'                     │ 'CREATE UNIQUE INDEX "Application_pkey" ON recruitx."Application" USING btree (id)'                                             │
+│ 4       │ 'Application'        │ 'Application_status_idx'               │ 'CREATE INDEX "Application_status_idx" ON recruitx."Application" USING btree (status)'                                          │
+│ 5       │ 'Application'        │ 'Application_studentId_driveId_key'    │ 'CREATE UNIQUE INDEX "Application_studentId_driveId_key" ON recruitx."Application" USING btree ("studentId", "driveId")'        │
+│ 6       │ 'Application'        │ 'Application_studentId_idx'            │ 'CREATE INDEX "Application_studentId_idx" ON recruitx."Application" USING btree ("studentId")'                                  │
+│ 7       │ 'Company'            │ 'Company_industry_idx'                 │ 'CREATE INDEX "Company_industry_idx" ON recruitx."Company" USING btree (industry)'                                              │
+│ 8       │ 'Company'            │ 'Company_name_idx'                     │ 'CREATE INDEX "Company_name_idx" ON recruitx."Company" USING btree (name)'                                                      │
+│ 9       │ 'Company'            │ 'Company_pkey'                         │ 'CREATE UNIQUE INDEX "Company_pkey" ON recruitx."Company" USING btree (id)'                                                     │
+│ 10      │ 'Enrollment'         │ 'Enrollment_pkey'                      │ 'CREATE UNIQUE INDEX "Enrollment_pkey" ON recruitx."Enrollment" USING btree (id)'                                               │
+│ 11      │ 'Enrollment'         │ 'Enrollment_studentId_idx'             │ 'CREATE INDEX "Enrollment_studentId_idx" ON recruitx."Enrollment" USING btree ("studentId")'                                    │
+│ 12      │ 'Enrollment'         │ 'Enrollment_studentId_trainingId_key'  │ 'CREATE UNIQUE INDEX "Enrollment_studentId_trainingId_key" ON recruitx."Enrollment" USING btree ("studentId", "trainingId")'    │
+│ 13      │ 'Enrollment'         │ 'Enrollment_trainingId_idx'            │ 'CREATE INDEX "Enrollment_trainingId_idx" ON recruitx."Enrollment" USING btree ("trainingId")'                                  │
+│ 14      │ 'Interview'          │ 'Interview_applicationId_idx'          │ 'CREATE INDEX "Interview_applicationId_idx" ON recruitx."Interview" USING btree ("applicationId")'                              │
+│ 15      │ 'Interview'          │ 'Interview_driveId_idx'                │ 'CREATE INDEX "Interview_driveId_idx" ON recruitx."Interview" USING btree ("driveId")'                                          │
+│ 16      │ 'Interview'          │ 'Interview_driveId_status_idx'         │ 'CREATE INDEX "Interview_driveId_status_idx" ON recruitx."Interview" USING btree ("driveId", status)'                           │
+│ 17      │ 'Interview'          │ 'Interview_pkey'                       │ 'CREATE UNIQUE INDEX "Interview_pkey" ON recruitx."Interview" USING btree (id)'                                                 │
+│ 18      │ 'Interview'          │ 'Interview_round_idx'                  │ 'CREATE INDEX "Interview_round_idx" ON recruitx."Interview" USING btree (round)'                                                │
+│ 19      │ 'Interview'          │ 'Interview_status_idx'                 │ 'CREATE INDEX "Interview_status_idx" ON recruitx."Interview" USING btree (status)'                                              │
+│ 20      │ 'Interview'          │ 'Interview_studentId_idx'              │ 'CREATE INDEX "Interview_studentId_idx" ON recruitx."Interview" USING btree ("studentId")'                                      │
+│ 21      │ 'Notification'       │ 'Notification_pkey'                    │ 'CREATE UNIQUE INDEX "Notification_pkey" ON recruitx."Notification" USING btree (id)'                                           │
+│ 22      │ 'Notification'       │ 'Notification_read_idx'                │ 'CREATE INDEX "Notification_read_idx" ON recruitx."Notification" USING btree (read)'                                            │
+│ 23      │ 'Notification'       │ 'Notification_type_idx'                │ 'CREATE INDEX "Notification_type_idx" ON recruitx."Notification" USING btree (type)'                                            │
+│ 24      │ 'Notification'       │ 'Notification_userId_idx'              │ 'CREATE INDEX "Notification_userId_idx" ON recruitx."Notification" USING btree ("userId")'                                      │
+│ 25      │ 'PlacementDrive'     │ 'PlacementDrive_companyId_idx'         │ 'CREATE INDEX "PlacementDrive_companyId_idx" ON recruitx."PlacementDrive" USING btree ("companyId")'                            │
+│ 26      │ 'PlacementDrive'     │ 'PlacementDrive_graduationYear_idx'    │ 'CREATE INDEX "PlacementDrive_graduationYear_idx" ON recruitx."PlacementDrive" USING btree ("graduationYear")'                  │
+│ 27      │ 'PlacementDrive'     │ 'PlacementDrive_pkey'                  │ 'CREATE UNIQUE INDEX "PlacementDrive_pkey" ON recruitx."PlacementDrive" USING btree (id)'                                       │
+│ 28      │ 'PlacementDrive'     │ 'PlacementDrive_status_idx'            │ 'CREATE INDEX "PlacementDrive_status_idx" ON recruitx."PlacementDrive" USING btree (status)'                                    │
+│ 29      │ 'RecruiterProfile'   │ 'RecruiterProfile_companyId_idx'       │ 'CREATE INDEX "RecruiterProfile_companyId_idx" ON recruitx."RecruiterProfile" USING btree ("companyId")'                        │
+│ 30      │ 'RecruiterProfile'   │ 'RecruiterProfile_pkey'                │ 'CREATE UNIQUE INDEX "RecruiterProfile_pkey" ON recruitx."RecruiterProfile" USING btree (id)'                                   │
+│ 31      │ 'RecruiterProfile'   │ 'RecruiterProfile_userId_idx'          │ 'CREATE INDEX "RecruiterProfile_userId_idx" ON recruitx."RecruiterProfile" USING btree ("userId")'                              │
+│ 32      │ 'RecruiterProfile'   │ 'RecruiterProfile_userId_key'          │ 'CREATE UNIQUE INDEX "RecruiterProfile_userId_key" ON recruitx."RecruiterProfile" USING btree ("userId")'                       │
+│ 33      │ 'Result'             │ 'Result_applicationId_idx'             │ 'CREATE INDEX "Result_applicationId_idx" ON recruitx."Result" USING btree ("applicationId")'                                    │
+│ 34      │ 'Result'             │ 'Result_applicationId_key'             │ 'CREATE UNIQUE INDEX "Result_applicationId_key" ON recruitx."Result" USING btree ("applicationId")'                             │
+│ 35      │ 'Result'             │ 'Result_pkey'                          │ 'CREATE UNIQUE INDEX "Result_pkey" ON recruitx."Result" USING btree (id)'                                                       │
+│ 36      │ 'Result'             │ 'Result_status_idx'                    │ 'CREATE INDEX "Result_status_idx" ON recruitx."Result" USING btree (status)'                                                    │
+│ 37      │ 'StudentProfile'     │ 'StudentProfile_branch_idx'            │ 'CREATE INDEX "StudentProfile_branch_idx" ON recruitx."StudentProfile" USING btree (branch)'                                    │
+│ 38      │ 'StudentProfile'     │ 'StudentProfile_graduationYear_idx'    │ 'CREATE INDEX "StudentProfile_graduationYear_idx" ON recruitx."StudentProfile" USING btree ("graduationYear")'                  │
+│ 39      │ 'StudentProfile'     │ 'StudentProfile_isActive_idx'          │ 'CREATE INDEX "StudentProfile_isActive_idx" ON recruitx."StudentProfile" USING btree ("isActive")'                              │
+│ 40      │ 'StudentProfile'     │ 'StudentProfile_pkey'                  │ 'CREATE UNIQUE INDEX "StudentProfile_pkey" ON recruitx."StudentProfile" USING btree (id)'                                       │
+│ 41      │ 'StudentProfile'     │ 'StudentProfile_userId_idx'            │ 'CREATE INDEX "StudentProfile_userId_idx" ON recruitx."StudentProfile" USING btree ("userId")'                                  │
+│ 42      │ 'StudentProfile'     │ 'StudentProfile_userId_key'            │ 'CREATE UNIQUE INDEX "StudentProfile_userId_key" ON recruitx."StudentProfile" USING btree ("userId")'                           │
+│ 43      │ 'Training'           │ 'Training_mode_idx'                    │ 'CREATE INDEX "Training_mode_idx" ON recruitx."Training" USING btree (mode)'                                                    │
+│ 44      │ 'Training'           │ 'Training_pkey'                        │ 'CREATE UNIQUE INDEX "Training_pkey" ON recruitx."Training" USING btree (id)'                                                   │
+│ 45      │ 'Training'           │ 'Training_status_idx'                  │ 'CREATE INDEX "Training_status_idx" ON recruitx."Training" USING btree (status)'                                                │
+│ 46      │ 'User'               │ 'User_email_idx'                       │ 'CREATE INDEX "User_email_idx" ON recruitx."User" USING btree (email)'                                                          │
+│ 47      │ 'User'               │ 'User_email_key'                       │ 'CREATE UNIQUE INDEX "User_email_key" ON recruitx."User" USING btree (email)'                                                   │
+│ 48      │ 'User'               │ 'User_pkey'                            │ 'CREATE UNIQUE INDEX "User_pkey" ON recruitx."User" USING btree (id)'                                                           │
+│ 49      │ 'User'               │ 'User_role_idx'                        │ 'CREATE INDEX "User_role_idx" ON recruitx."User" USING btree (role)'                                                            │
+│ 50      │ '_prisma_migrations' │ '_prisma_migrations_pkey'              │ 'CREATE UNIQUE INDEX _prisma_migrations_pkey ON recruitx._prisma_migrations USING btree (id)'                                   │
+└─────────┴──────────────────────┴────────────────────────────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+=== ENUM TYPES ===
+┌─────────┬────────────┬──────────────────────────────┬──────────────────────────────┬─────┐
+│ (index) │ schema     │ enum_name                    │ value                        │ ord │
+├─────────┼────────────┼──────────────────────────────┼──────────────────────────────┼─────┤
+│ 0       │ 'auth'     │ 'aal_level'                  │ 'aal1'                       │ 1   │
+│ 1       │ 'auth'     │ 'aal_level'                  │ 'aal2'                       │ 2   │
+│ 2       │ 'auth'     │ 'aal_level'                  │ 'aal3'                       │ 3   │
+│ 3       │ 'auth'     │ 'code_challenge_method'      │ 's256'                       │ 1   │
+│ 4       │ 'auth'     │ 'code_challenge_method'      │ 'plain'                      │ 2   │
+│ 5       │ 'auth'     │ 'factor_status'              │ 'unverified'                 │ 1   │
+│ 6       │ 'auth'     │ 'factor_status'              │ 'verified'                   │ 2   │
+│ 7       │ 'auth'     │ 'factor_type'                │ 'totp'                       │ 1   │
+│ 8       │ 'auth'     │ 'factor_type'                │ 'webauthn'                   │ 2   │
+│ 9       │ 'auth'     │ 'factor_type'                │ 'phone'                      │ 3   │
+│ 10      │ 'auth'     │ 'factor_type'                │ 'recovery_code'              │ 4   │
+│ 11      │ 'auth'     │ 'oauth_authorization_status' │ 'pending'                    │ 1   │
+│ 12      │ 'auth'     │ 'oauth_authorization_status' │ 'approved'                   │ 2   │
+│ 13      │ 'auth'     │ 'oauth_authorization_status' │ 'denied'                     │ 3   │
+│ 14      │ 'auth'     │ 'oauth_authorization_status' │ 'expired'                    │ 4   │
+│ 15      │ 'auth'     │ 'oauth_client_type'          │ 'public'                     │ 1   │
+│ 16      │ 'auth'     │ 'oauth_client_type'          │ 'confidential'               │ 2   │
+│ 17      │ 'auth'     │ 'oauth_registration_type'    │ 'dynamic'                    │ 1   │
+│ 18      │ 'auth'     │ 'oauth_registration_type'    │ 'manual'                     │ 2   │
+│ 19      │ 'auth'     │ 'oauth_response_type'        │ 'code'                       │ 1   │
+│ 20      │ 'auth'     │ 'one_time_token_type'        │ 'confirmation_token'         │ 1   │
+│ 21      │ 'auth'     │ 'one_time_token_type'        │ 'reauthentication_token'     │ 2   │
+│ 22      │ 'auth'     │ 'one_time_token_type'        │ 'recovery_token'             │ 3   │
+│ 23      │ 'auth'     │ 'one_time_token_type'        │ 'email_change_token_new'     │ 4   │
+│ 24      │ 'auth'     │ 'one_time_token_type'        │ 'email_change_token_current' │ 5   │
+│ 25      │ 'auth'     │ 'one_time_token_type'        │ 'phone_change_token'         │ 6   │
+│ 26      │ 'realtime' │ 'action'                     │ 'INSERT'                     │ 1   │
+│ 27      │ 'realtime' │ 'action'                     │ 'UPDATE'                     │ 2   │
+│ 28      │ 'realtime' │ 'action'                     │ 'DELETE'                     │ 3   │
+│ 29      │ 'realtime' │ 'action'                     │ 'TRUNCATE'                   │ 4   │
+│ 30      │ 'realtime' │ 'action'                     │ 'ERROR'                      │ 5   │
+│ 31      │ 'realtime' │ 'equality_op'                │ 'eq'                         │ 1   │
+│ 32      │ 'realtime' │ 'equality_op'                │ 'neq'                        │ 2   │
+│ 33      │ 'realtime' │ 'equality_op'                │ 'lt'                         │ 3   │
+│ 34      │ 'realtime' │ 'equality_op'                │ 'lte'                        │ 4   │
+│ 35      │ 'realtime' │ 'equality_op'                │ 'gt'                         │ 5   │
+│ 36      │ 'realtime' │ 'equality_op'                │ 'gte'                        │ 6   │
+│ 37      │ 'realtime' │ 'equality_op'                │ 'in'                         │ 7   │
+│ 38      │ 'realtime' │ 'equality_op'                │ 'like'                       │ 8   │
+│ 39      │ 'realtime' │ 'equality_op'                │ 'ilike'                      │ 9   │
+│ 40      │ 'realtime' │ 'equality_op'                │ 'is'                         │ 10  │
+│ 41      │ 'realtime' │ 'equality_op'                │ 'match'                      │ 11  │
+│ 42      │ 'realtime' │ 'equality_op'                │ 'imatch'                     │ 12  │
+│ 43      │ 'realtime' │ 'equality_op'                │ 'isdistinct'                 │ 13  │
+│ 44      │ 'recruitx' │ 'ApplicationStatus'          │ 'APPLIED'                    │ 1   │
+│ 45      │ 'recruitx' │ 'ApplicationStatus'          │ 'SHORTLISTED'                │ 2   │
+│ 46      │ 'recruitx' │ 'ApplicationStatus'          │ 'APTITUDE'                   │ 3   │
+│ 47      │ 'recruitx' │ 'ApplicationStatus'          │ 'TECHNICAL_INTERVIEW'        │ 4   │
+│ 48      │ 'recruitx' │ 'ApplicationStatus'          │ 'HR_INTERVIEW'               │ 5   │
+│ 49      │ 'recruitx' │ 'ApplicationStatus'          │ 'SELECTED'                   │ 6   │
+│ 50      │ 'recruitx' │ 'ApplicationStatus'          │ 'REJECTED'                   │ 7   │
+│ 51      │ 'recruitx' │ 'ApplicationStatus'          │ 'WAITLISTED'                 │ 8   │
+│ 52      │ 'recruitx' │ 'DriveStatus'                │ 'DRAFT'                      │ 1   │
+│ 53      │ 'recruitx' │ 'DriveStatus'                │ 'ACTIVE'                     │ 2   │
+│ 54      │ 'recruitx' │ 'DriveStatus'                │ 'CLOSED'                     │ 3   │
+│ 55      │ 'recruitx' │ 'DriveStatus'                │ 'CANCELLED'                  │ 4   │
+│ 56      │ 'recruitx' │ 'FinalResultStatus'          │ 'SELECTED'                   │ 1   │
+│ 57      │ 'recruitx' │ 'FinalResultStatus'          │ 'REJECTED'                   │ 2   │
+│ 58      │ 'recruitx' │ 'FinalResultStatus'          │ 'WAITLISTED'                 │ 3   │
+│ 59      │ 'recruitx' │ 'InterviewMode'              │ 'ONLINE'                     │ 1   │
+│ 60      │ 'recruitx' │ 'InterviewMode'              │ 'OFFLINE'                    │ 2   │
+│ 61      │ 'recruitx' │ 'InterviewResult'            │ 'PASSED'                     │ 1   │
+│ 62      │ 'recruitx' │ 'InterviewResult'            │ 'FAILED'                     │ 2   │
+│ 63      │ 'recruitx' │ 'InterviewResult'            │ 'PENDING'                    │ 3   │
+│ 64      │ 'recruitx' │ 'InterviewRound'             │ 'APTITUDE'                   │ 1   │
+│ 65      │ 'recruitx' │ 'InterviewRound'             │ 'TECHNICAL_INTERVIEW'        │ 2   │
+│ 66      │ 'recruitx' │ 'InterviewRound'             │ 'HR_INTERVIEW'               │ 3   │
+│ 67      │ 'recruitx' │ 'InterviewRound'             │ 'GROUP_DISCUSSION'           │ 4   │
+│ 68      │ 'recruitx' │ 'InterviewStatus'            │ 'SCHEDULED'                  │ 1   │
+│ 69      │ 'recruitx' │ 'InterviewStatus'            │ 'COMPLETED'                  │ 2   │
+│ 70      │ 'recruitx' │ 'InterviewStatus'            │ 'CANCELLED'                  │ 3   │
+│ 71      │ 'recruitx' │ 'NotificationType'           │ 'GENERAL'                    │ 1   │
+│ 72      │ 'recruitx' │ 'NotificationType'           │ 'DRIVE_ANNOUNCEMENT'         │ 2   │
+│ 73      │ 'recruitx' │ 'NotificationType'           │ 'INTERVIEW_SCHEDULED'        │ 3   │
+│ 74      │ 'recruitx' │ 'NotificationType'           │ 'APPLICATION_STATUS'         │ 4   │
+│ 75      │ 'recruitx' │ 'NotificationType'           │ 'SHORTLISTED'                │ 5   │
+│ 76      │ 'recruitx' │ 'NotificationType'           │ 'REJECTED'                   │ 6   │
+│ 77      │ 'recruitx' │ 'NotificationType'           │ 'INTERVIEW_RESULT'           │ 7   │
+│ 78      │ 'recruitx' │ 'TrainingMode'               │ 'ONLINE'                     │ 1   │
+│ 79      │ 'recruitx' │ 'TrainingMode'               │ 'OFFLINE'                    │ 2   │
+│ 80      │ 'recruitx' │ 'TrainingMode'               │ 'HYBRID'                     │ 3   │
+│ 81      │ 'recruitx' │ 'TrainingStatus'             │ 'UPCOMING'                   │ 1   │
+│ 82      │ 'recruitx' │ 'TrainingStatus'             │ 'ACTIVE'                     │ 2   │
+│ 83      │ 'recruitx' │ 'TrainingStatus'             │ 'COMPLETED'                  │ 3   │
+│ 84      │ 'recruitx' │ 'TrainingStatus'             │ 'CANCELLED'                  │ 4   │
+│ 85      │ 'recruitx' │ 'UserRole'                   │ 'ADMIN'                      │ 1   │
+│ 86      │ 'recruitx' │ 'UserRole'                   │ 'STUDENT'                    │ 2   │
+│ 87      │ 'recruitx' │ 'UserRole'                   │ 'RECRUITER'                  │ 3   │
+│ 88      │ 'storage'  │ 'buckettype'                 │ 'STANDARD'                   │ 1   │
+│ 89      │ 'storage'  │ 'buckettype'                 │ 'ANALYTICS'                  │ 2   │
+│ 90      │ 'storage'  │ 'buckettype'                 │ 'VECTOR'                     │ 3   │
+└─────────┴────────────┴──────────────────────────────┴──────────────────────────────┴─────┘
+
+=== _prisma_migrations — schema "public" ===
+exists check: ERROR — 
+does not exist
+
+=== _prisma_migrations — schema "recruitx" ===
+exists check: ERROR — 
+does not exist
+
+=== TRIGGERS ===
+┌─────────┬────────────┬────────────────┬──────────────────────────────────────┬────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ (index) │ schema     │ table_name     │ trigger_name                         │ definition                                                                                                                                                                                                                                     │
+├─────────┼────────────┼────────────────┼──────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ 0       │ 'auth'     │ 'users'        │ 'on_auth_student_created'            │ 'CREATE TRIGGER on_auth_student_created AFTER INSERT ON auth.users FOR EACH ROW EXECUTE FUNCTION public.create_student_profile_for_auth_user()'                                                                                                │
+│ 1       │ 'realtime' │ 'subscription' │ 'tr_check_filters'                   │ 'CREATE TRIGGER tr_check_filters BEFORE INSERT OR UPDATE ON realtime.subscription FOR EACH ROW EXECUTE FUNCTION realtime.subscription_check_filters()'                                                                                         │
+│ 2       │ 'storage'  │ 'buckets'      │ 'enforce_bucket_name_length_trigger' │ 'CREATE TRIGGER enforce_bucket_name_length_trigger BEFORE INSERT OR UPDATE OF name ON storage.buckets FOR EACH ROW EXECUTE FUNCTION storage.enforce_bucket_name_length()'                                                                      │
+│ 3       │ 'storage'  │ 'buckets'      │ 'protect_bucket_control_insert'      │ "CREATE TRIGGER protect_bucket_control_insert BEFORE INSERT ON storage.buckets FOR EACH ROW EXECUTE FUNCTION storage.protect_bucket_control_columns('service_role')"                                                                           │
+│ 4       │ 'storage'  │ 'buckets'      │ 'protect_bucket_control_update'      │ 'CREATE TRIGGER protect_bucket_control_update BEFORE UPDATE OF lifecycle_configuration, lifecycle_configuration_generation ON storage.buckets FOR EACH ROW EXECUTE FUNCTION storage.protect_bucket_control_columns()'                          │
+│ 5       │ 'storage'  │ 'buckets'      │ 'protect_bucket_control_update_role' │ "CREATE TRIGGER protect_bucket_control_update_role AFTER UPDATE OF lifecycle_configuration, lifecycle_configuration_generation ON storage.buckets FOR EACH ROW EXECUTE FUNCTION storage.enforce_bucket_lifecycle_service_role('service_role')" │
+│ 6       │ 'storage'  │ 'buckets'      │ 'protect_buckets_delete'             │ 'CREATE TRIGGER protect_buckets_delete BEFORE DELETE ON storage.buckets FOR EACH STATEMENT EXECUTE FUNCTION storage.protect_delete()'                                                                                                          │
+│ 7       │ 'storage'  │ 'objects'      │ 'protect_objects_delete'             │ 'CREATE TRIGGER protect_objects_delete BEFORE DELETE ON storage.objects FOR EACH STATEMENT EXECUTE FUNCTION storage.protect_delete()'                                                                                                          │
+│ 8       │ 'storage'  │ 'objects'      │ 'update_objects_updated_at'          │ 'CREATE TRIGGER update_objects_updated_at BEFORE UPDATE ON storage.objects FOR EACH ROW EXECUTE FUNCTION storage.update_updated_at_column()'                                                                                                   │
+└─────────┴────────────┴────────────────┴──────────────────────────────────────┴────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+=== TRIGGER FN — create_student_profile_for_auth_user ===
+CREATE OR REPLACE FUNCTION public.create_student_profile_for_auth_user()
+ RETURNS trigger
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO ''
+AS $function$
+DECLARE
+  linked_student_id character varying;
+  registration_number_value character varying := NULLIF(BTRIM(NEW.raw_user_meta_data ->> 'registration_number'), '');
+BEGIN
+  -- Prefer linking an existing roster row by Auth ID, email, or registration
+  -- number. This avoids creating a duplicate student when signup uses a
+  -- personal email instead of the email already stored by the placement team.
+  SELECT student.id INTO linked_student_id
+  FROM public.students AS student
+  WHERE (student.auth_user_id IS NULL OR student.auth_user_id = NEW.id)
+    AND (
+      student.auth_user_id = NEW.id
+      OR LOWER(student.email) = LOWER(NEW.email)
+      OR (
+        registration_number_value IS NOT NULL
+        AND LOWER(BTRIM(student.registration_number)) = LOWER(BTRIM(registration_number_value))
+      )
+    )
+  ORDER BY CASE
+    WHEN student.auth_user_id = NEW.id THEN 1
+    WHEN LOWER(student.email) = LOWER(NEW.email) THEN 2
+    ELSE 3
+  END
+  LIMIT 1
+  FOR UPDATE;
+
+  IF linked_student_id IS NOT NULL THEN
+    UPDATE public.students
+    SET auth_user_id = NEW.id,
+        password = NULL,
+        registration_number = COALESCE(registration_number, registration_number_value),
+        updated_at = NOW()
+    WHERE id = linked_student_id
+      AND (auth_user_id IS NULL OR auth_user_id = NEW.id);
+
+    IF NOT FOUND THEN
+      RAISE EXCEPTION 'The matching student profile is already linked to another Auth account.';
+    END IF;
+  ELSE
+    INSERT INTO public.students (
+      id,
+      auth_user_id,
+      name,
+      email,
+      password,
+      role,
+      registration_number,
+      cgpa,
+      backlogs,
+      skills,
+      is_active
+    ) VALUES (
+      NEW.id::text,
+      NEW.id,
+      COALESCE(NULLIF(BTRIM(NEW.raw_user_meta_data ->> 'name'), ''), NEW.email),
+      LOWER(NEW.email),
+      NULL,
+      'student',
+      registration_number_value,
+      0,
+      0,
+      '[]'::jsonb,
+      TRUE
+    )
+    ON CONFLICT (email) DO UPDATE
+      SET auth_user_id = COALESCE(public.students.auth_user_id, EXCLUDED.auth_user_id),
+          password = NULL,
+          updated_at = NOW()
+      WHERE public.students.auth_user_id IS NULL
+         OR public.students.auth_user_id = EXCLUDED.auth_user_id
+    RETURNING id INTO linked_student_id;
+  END IF;
+
+  IF linked_student_id IS NULL THEN
+    RAISE EXCEPTION 'This email is already linked to another student account.';
+  END IF;
+
+  RETURN NEW;
+END;
+$function$
+
+
+=== RLS — enabled tables (non-system schemas) ===
+┌─────────┬───────────┬──────────────────────────────┐
+│ (index) │ schema    │ table_name                   │
+├─────────┼───────────┼──────────────────────────────┤
+│ 0       │ 'auth'    │ 'audit_log_entries'          │
+│ 1       │ 'auth'    │ 'flow_state'                 │
+│ 2       │ 'auth'    │ 'identities'                 │
+│ 3       │ 'auth'    │ 'instances'                  │
+│ 4       │ 'auth'    │ 'mfa_amr_claims'             │
+│ 5       │ 'auth'    │ 'mfa_challenges'             │
+│ 6       │ 'auth'    │ 'mfa_factors'                │
+│ 7       │ 'auth'    │ 'one_time_tokens'            │
+│ 8       │ 'auth'    │ 'refresh_tokens'             │
+│ 9       │ 'auth'    │ 'saml_providers'             │
+│ 10      │ 'auth'    │ 'saml_relay_states'          │
+│ 11      │ 'auth'    │ 'schema_migrations'          │
+│ 12      │ 'auth'    │ 'sessions'                   │
+│ 13      │ 'auth'    │ 'sso_domains'                │
+│ 14      │ 'auth'    │ 'sso_providers'              │
+│ 15      │ 'auth'    │ 'users'                      │
+│ 16      │ 'public'  │ 'students'                   │
+│ 17      │ 'storage' │ 'buckets'                    │
+│ 18      │ 'storage' │ 'buckets_analytics'          │
+│ 19      │ 'storage' │ 'buckets_vectors'            │
+│ 20      │ 'storage' │ 'migrations'                 │
+│ 21      │ 'storage' │ 'objects'                    │
+│ 22      │ 'storage' │ 's3_multipart_uploads'       │
+│ 23      │ 'storage' │ 's3_multipart_uploads_parts' │
+│ 24      │ 'storage' │ 'vector_indexes'             │
+└─────────┴───────────┴──────────────────────────────┘
+
+=== RLS — policies ===
+┌─────────┬────────────┬────────────┬────────────────────────────────────────────────┬─────────────────────┬──────────┬────────────────────────────────────────────────┬────────────────────────────────────────────────┐
+│ (index) │ schemaname │ tablename  │ policyname                                     │ roles               │ cmd      │ qual                                           │ with_check                                     │
+├─────────┼────────────┼────────────┼────────────────────────────────────────────────┼─────────────────────┼──────────┼────────────────────────────────────────────────┼────────────────────────────────────────────────┤
+│ 0       │ 'public'   │ 'students' │ 'Students can read their own linked profile'   │ [ 'authenticated' ] │ 'SELECT' │ '(auth_user_id = ( SELECT auth.uid() AS uid))' │ null                                           │
+│ 1       │ 'public'   │ 'students' │ 'Students can update their own linked profile' │ [ 'authenticated' ] │ 'UPDATE' │ '(auth_user_id = ( SELECT auth.uid() AS uid))' │ '(auth_user_id = ( SELECT auth.uid() AS uid))' │
+└─────────┴────────────┴────────────┴────────────────────────────────────────────────┴─────────────────────┴──────────┴────────────────────────────────────────────────┴────────────────────────────────────────────────┘
+
+=== SUPABASE AUTH (counts only — no PII) ===
+┌─────────┬────────────┐
+│ (index) │ auth_users │
+├─────────┼────────────┤
+│ 0       │ 2          │
+└─────────┴────────────┘
+
+=== ROW COUNTS — schema "public" ===
+public.admins: 1 rows
+public.applications: 3 rows
+public.companies: 2 rows
+public.interviews: 1 rows
+public.notifications: 3 rows
+public.placement_drives: 3 rows
+public.students: 6 rows
+public.trainings: 2 rows
+
+=== ROW COUNTS — schema "recruitx" ===
+recruitx.Application: 0 rows
+recruitx.Company: 0 rows
+recruitx.Enrollment: 0 rows
+recruitx.Interview: 0 rows
+recruitx.Notification: 0 rows
+recruitx.PlacementDrive: 0 rows
+recruitx.RecruiterProfile: 0 rows
+recruitx.Result: 0 rows
+recruitx.StudentProfile: 0 rows
+recruitx.Training: 0 rows
+recruitx.User: 0 rows
+
+=== EXTENSIONS ===
+┌─────────┬──────────────────────┬────────────┐
+│ (index) │ extname              │ extversion │
+├─────────┼──────────────────────┼────────────┤
+│ 0       │ 'pg_stat_statements' │ '1.11'     │
+│ 1       │ 'pgcrypto'           │ '1.3'      │
+│ 2       │ 'plpgsql'            │ '1.0'      │
+│ 3       │ 'supabase_vault'     │ '0.3.1'    │
+│ 4       │ 'uuid-ossp'          │ '1.1'      │
+└─────────┴──────────────────────┴────────────┘
+
+Diagnosis complete (read-only).

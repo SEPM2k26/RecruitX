@@ -12,8 +12,10 @@ const { errorHandler, notFound } = require('./src/middleware/error.middleware');
 // Routes
 const adminAuthRoutes = require('./src/routes/admin.auth.routes');
 const studentAuthRoutes = require('./src/routes/student.auth.routes');
+const recruiterAuthRoutes = require('./src/routes/recruiter.auth.routes');
 const studentRoutes = require('./src/routes/student.routes');
 const adminRoutes = require('./src/routes/admin.routes');
+const recruiterRoutes = require('./src/routes/recruiter.routes');
 const sharedRoutes = require('./src/routes/shared.routes');
 
 const app = express();
@@ -66,9 +68,11 @@ app.get('/api/health', async (req, res) => {
 // ── API Routes ────────────────────────────────────────────────────────────────
 app.use('/api/auth/admin', adminAuthRoutes);
 app.use('/api/auth/student', studentAuthRoutes);
+app.use('/api/auth/recruiter', recruiterAuthRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/students', studentRoutes);
-app.use('/api', sharedRoutes); // shared: /api/drives, /api/trainings, etc.
+app.use('/api/recruiter', recruiterRoutes);
+app.use('/api', sharedRoutes);  // shared: /api/drives, /api/trainings, etc.
 
 // ── Error Handling ────────────────────────────────────────────────────────────
 app.use(notFound);

@@ -1,3 +1,16 @@
+// RecruitX Prisma schema — reconciled with the LIVE Supabase database.
+//
+// Architecture (Person 3, aligned with team contracts):
+//   * These models MAP ONTO the existing public.* tables via @@map/@map.
+//   * Do NOT rename those tables/columns: Person 1 (student portal, Supabase
+//     Auth trigger + RLS on public.students) and Person 2 (admin portal, pg
+//     queries against public.*) depend on them.
+//   * Status/role/mode values are plain varchar in the database, so they are
+//     modelled as String (NOT Prisma enums) to match reality.
+//   * Nullable-in-DB columns are optional here; reads never crash on NULLs.
+//   * Only ONE new table is additive: public.recruiters (recruiter auth +
+//     company isolation). Its DDL lives in the additive migration.
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -5,321 +18,217 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
+  // Migrate/DDL must bypass the pgbouncer transaction pooler.
   directUrl = env("DIRECT_URL")
 }
 
-// ═════════════════════════════════════════════════════════════════════════════
-// RecruitX — Prisma schema (PostgreSQL / Supabase)
-// Person 3 deliverable: shared database design.
-//
-// Status semantics deliberately preserve the existing mock values documented
-// in backend/src/config/db.js and the controller status constants. Prisma
-// enums use SCREAMING_SNAKE; the compatibility mapping to the mock's
-// PascalCase strings is reported in the Phase 2 Task 1 audit output.
-// ═════════════════════════════════════════════════════════════════════════════
-
 // ───────────────────────────────────────────────────────────────────────────
-// Enums
+// Models (table names map onto the existing public schema)
 // ───────────────────────────────────────────────────────────────────────────
 
-enum UserRole {
-  ADMIN
-  STUDENT
-  RECRUITER
-}
-
-// Application pipeline flow (mock STATUS_FLOW) plus WAITLISTED, which the
-// existing results controller can assign as a terminal application status.
-enum ApplicationStatus {
-  APPLIED
-  SHORTLISTED
-  APTITUDE
-  TECHNICAL_INTERVIEW
-  HR_INTERVIEW
-  SELECTED
-  REJECTED
-  WAITLISTED
-}
-
-enum FinalResultStatus {
-  SELECTED
-  REJECTED
-  WAITLISTED
-}
-
-// DRAFT is new (supports recruiter publish flow). Existing mock drives are
-// ACTIVE / CLOSED / CANCELLED and map unchanged.
-enum DriveStatus {
-  DRAFT
-  ACTIVE
-  CLOSED
-  CANCELLED
-}
-
-enum InterviewStatus {
-  SCHEDULED
-  COMPLETED
-  CANCELLED
-}
-
-enum InterviewResult {
-  PASSED
-  FAILED
-  PENDING
-}
-
-enum InterviewRound {
-  APTITUDE
-  TECHNICAL_INTERVIEW
-  HR_INTERVIEW
-  GROUP_DISCUSSION
-}
-
-enum InterviewMode {
-  ONLINE
-  OFFLINE
-}
-
-enum TrainingStatus {
-  UPCOMING
-  ACTIVE
-  COMPLETED
-  CANCELLED
-}
-
-enum TrainingMode {
-  ONLINE
-  OFFLINE
-  HYBRID
-}
-
-enum NotificationType {
-  GENERAL
-  DRIVE_ANNOUNCEMENT
-  INTERVIEW_SCHEDULED
-  APPLICATION_STATUS
-  SHORTLISTED
-  REJECTED
-  INTERVIEW_RESULT
-}
-
-// ───────────────────────────────────────────────────────────────────────────
-// Models
-// ───────────────────────────────────────────────────────────────────────────
-
-model User {
-  id            String          @id @default(uuid())
-  email         String          @unique
-  passwordHash  String
-  name          String
-  role          UserRole        @default(STUDENT)
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-
-  studentProfile StudentProfile?
-  recruiterProfile RecruiterProfile?
-  notifications  Notification[]
-
-  @@index([email])
-  @@index([role])
-}
-
-model StudentProfile {
-  id             String         @id @default(uuid())
-  userId         String         @unique
-  user           User           @relation(fields: [userId], references: [id])
-  cgpa           Decimal
-  branch         String
-  graduationYear Int
-  backlogs       Int            @default(0)
+model Student {
+  id             String    @id @db.VarChar(100)
+  name           String    @db.VarChar(255)
+  email          String    @unique @db.VarChar(255)
+  password       String?
+  role           String?   @default("student") @db.VarChar(50)
+  cgpa           Decimal?  @default(0) @db.Decimal(4, 2)
+  branch         String?
+  graduationYear Int?      @map("graduation_year")
+  backlogs       Int?      @default(0)
   phone          String?
-  skills         String[]
-  resumeUrl      String?
-  isActive       Boolean        @default(true)
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
+  skills         Json?     @default("[]")
+  resumeUrl      String?   @map("resume_url")
+  isActive       Boolean?  @default(true) @map("is_active")
+  createdAt      DateTime? @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt      DateTime? @default(now()) @map("updated_at") @db.Timestamptz
 
-  applications   Application[]
-  enrollments    Enrollment[]
+  // Roster linkage (Person 1): registration_number has a case-insensitive
+  // unique index in the database; modelled here as a plain field.
+  registrationNumber String? @map("registration_number") @db.VarChar(100)
 
-  @@index([userId])
+  // Social / resume metadata (Person 1 resume pipeline)
+  linkedinUrl       String?   @map("linkedin_url")
+  portfolioUrl      String?   @map("portfolio_url")
+  resumeFileName    String?   @map("resume_file_name")
+  resumeStoragePath String?   @map("resume_storage_path")
+  resumeMimeType    String?   @map("resume_mime_type")
+  resumeSize        BigInt?   @map("resume_size")
+  resumeUploadedAt  DateTime? @map("resume_uploaded_at") @db.Timestamptz
+
+  // Supabase Auth link (FK to auth.users exists in the database; its unique
+  // index is partial, so we do NOT claim @unique here — that would make
+  // Prisma expect a full unique index the database does not have).
+  authUserId String? @map("auth_user_id") @db.Uuid
+
+  applications Application[]
+  interviews   Interview[]
+
   @@index([branch])
   @@index([graduationYear])
   @@index([isActive])
+
+  @@map("students")
 }
 
 model Company {
-  id                String          @id @default(uuid())
-  name              String
-  industry          String?
-  website           String?
-  description       String?
-  contactEmail      String?
-  contactPhone      String?
-  location          String?
-  logoUrl           String?
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
+  id          String    @id @db.VarChar(100)
+  name        String    @db.VarChar(255)
+  industry    String?   @db.VarChar(100)
+  website     String?   @db.VarChar(255)
+  description String?
+  contactEmail String?  @map("contact_email") @db.VarChar(255)
+  contactPhone String?  @map("contact_phone") @db.VarChar(50)
+  location    String?   @db.VarChar(100)
+  logoUrl     String?   @map("logo_url")
+  createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime? @default(now()) @map("updated_at") @db.Timestamptz
 
-  drives              PlacementDrive[]
-  recruiterProfiles   RecruiterProfile[]
+  drives     PlacementDrive[]
+  recruiters Recruiter[]
 
   @@index([name])
-  @@index([industry])
+
+  @@map("companies")
 }
-
-model RecruiterProfile {
-  id                String   @id @default(uuid())
-  userId            String   @unique
-  user              User     @relation(fields: [userId], references: [id])
-  companyId         String
-  company           Company  @relation(fields: [companyId], references: [id])
-  jobTitle          String?
-  isPrimaryContact  Boolean  @default(false)
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-
-  @@index([userId])
-  @@index([companyId])
-}
-
 model PlacementDrive {
-  id                String         @id @default(uuid())
-  companyId         String
-  company           Company        @relation(fields: [companyId], references: [id])
-  jobRole           String
-  package           String
-  location          String
-  applicationDeadline DateTime
-  eligibleBranches  String[]
-  minCGPA           Decimal
-  maxBacklogs       Int            @default(0)
-  graduationYear    Int
-  description       String?
-  status            DriveStatus    @default(ACTIVE)
-  createdAt         DateTime       @default(now())
-  updatedAt         DateTime       @updatedAt
+  id        String  @id @db.VarChar(100)
+  companyId String? @map("company_id") @db.VarChar(100)
+  jobRole   String  @map("job_role") @db.VarChar(255)
+  // "package" holds human-readable values like "8 LPA" in the live data.
+  package   String? @db.VarChar(100)
+  location  String? @db.VarChar(100)
+  // Deadlines are stored as plain date strings (varchar) in the database.
+  applicationDeadline String?  @map("application_deadline") @db.VarChar(50)
+  eligibleBranches    Json?    @map("eligible_branches") @default("[]")
+  minCGPA             Decimal? @default(0) @map("min_cgpa") @db.Decimal(4, 2)
+  maxBacklogs         Int?     @default(0) @map("max_backlogs")
+  graduationYear      Int?     @map("graduation_year")
+  description         String?
+  status              String?  @default("active") @db.VarChar(50)
+  createdAt           DateTime? @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt           DateTime? @default(now()) @map("updated_at") @db.Timestamptz
 
+  company      Company?         @relation(fields: [companyId], references: [id], onDelete: SetNull)
   applications Application[]
+  interviews   Interview[]
 
   @@index([companyId])
   @@index([status])
   @@index([graduationYear])
+
+  @@map("placement_drives")
 }
 
 model Application {
-  id          String           @id @default(uuid())
-  studentId   String
-  driveId     String
-  status      ApplicationStatus @default(APPLIED)
-  resumeUrl   String?
-  appliedAt   DateTime        @default(now())
-  updatedAt   DateTime        @updatedAt
+  id        String  @id @db.VarChar(100)
+  studentId String? @map("student_id") @db.VarChar(100)
+  driveId   String? @map("drive_id") @db.VarChar(100)
+  // Live values: Applied | Shortlisted | Selected | Rejected | Waitlisted
+  status    String? @default("Applied") @db.VarChar(50)
+  resumeUrl String? @map("resume_url")
+  appliedAt DateTime? @default(now()) @map("applied_at") @db.Timestamptz
+  updatedAt DateTime? @default(now()) @map("updated_at") @db.Timestamptz
 
-  student     StudentProfile  @relation(fields: [studentId], references: [id])
-  drive       PlacementDrive   @relation(fields: [driveId], references: [id])
-  interviews  Interview[]
-  result      Result?
+  student     Student?         @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  drive       PlacementDrive?  @relation(fields: [driveId], references: [id], onDelete: Cascade)
+  // NOTE: interviews.application_id is a plain varchar in the database
+  // (no FK constraint), so there is intentionally no Prisma relation here.
+  // Query interviews by applicationId directly when needed.
 
-  // One application per student per drive.
+  // Mirrors applications_student_id_drive_id_key in the database.
   @@unique([studentId, driveId])
-  // Composite unique target enabling Interview's consistency FK below.
-  @@unique([id, studentId, driveId])
   @@index([studentId])
   @@index([driveId])
   @@index([status])
-}
+  // Composite index for recruiter hot queries: "my drive's applicants by status".
+  @@index([driveId, status])
 
-model Result {
-  id            String         @id @default(uuid())
-  applicationId String         @unique
-  application   Application    @relation(fields: [applicationId], references: [id])
-  status        FinalResultStatus
-  feedback      String?
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-
-  @@index([applicationId])
-  @@index([status])
+  @@map("applications")
 }
 
 model Interview {
-  id            String          @id @default(uuid())
-  applicationId String
-  studentId     String
-  driveId       String
-  round         InterviewRound
-  scheduledAt   DateTime
-  mode          InterviewMode
-  meetingLink   String?
+  id            String   @id @db.VarChar(100)
+  studentId     String?  @map("student_id") @db.VarChar(100)
+  driveId       String?  @map("drive_id") @db.VarChar(100)
+  // Plain varchar in the database — no FK constraint exists.
+  applicationId String?  @map("application_id") @db.VarChar(100)
+  round         String   @db.VarChar(100)
+  scheduledAt   DateTime? @map("scheduled_at") @db.Timestamptz
+  mode          String?  @default("online") @db.VarChar(50)
+  meetingLink   String?  @map("meeting_link")
   venue         String?
-  status        InterviewStatus @default(SCHEDULED)
-  result        InterviewResult?
+  status        String?  @default("scheduled") @db.VarChar(50)
+  result        String?
   feedback      String?
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
+  createdAt     DateTime? @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt     DateTime? @default(now()) @map("updated_at") @db.Timestamptz
 
-  // Composite foreign key to Application(id, studentId, driveId). This binds an
-  // interview to exactly one application AND guarantees the interview's student
-  // and drive can never silently disagree with that application (the tuple is
-  // unique on Application and enforced by the DB). studentId/driveId are kept
-  // as indexed scalars so "interviews for student/drive" queries can run
-  // directly without joining through Application.
-  application   Application @relation(fields: [applicationId, studentId, driveId], references: [id, studentId, driveId])
+  student Student?        @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  drive   PlacementDrive? @relation(fields: [driveId], references: [id], onDelete: Cascade)
 
-  @@index([applicationId])
   @@index([studentId])
   @@index([driveId])
   @@index([status])
-  @@index([round])
+
+  @@map("interviews")
 }
-
-model Training {
-  id          String       @id @default(uuid())
-  title       String
-  description String?      @default("")
-  instructor  String
-  startDate   DateTime
-  endDate     DateTime
-  duration    String?
-  mode        TrainingMode
-  maxStudents Int
-  status      TrainingStatus @default(UPCOMING)
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-
-  enrollments Enrollment[]
-
-  @@index([status])
-  @@index([mode])
-}
-
-model Enrollment {
-  id          String   @id @default(uuid())
-  studentId   String
-  trainingId  String
-  enrolledAt  DateTime @default(now())
-
-  student StudentProfile @relation(fields: [studentId], references: [id])
-  training Training     @relation(fields: [trainingId], references: [id])
-
-  // One enrollment per student per training.
-  @@unique([studentId, trainingId])
-  @@index([studentId])
-  @@index([trainingId])
-}
-
 model Notification {
-  id        String      @id @default(uuid())
-  userId    String
-  user      User        @relation(fields: [userId], references: [id])
-  type      NotificationType
-  message   String
-  read      Boolean     @default(false)
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  id      String @id @db.VarChar(100)
+  // user_id references either a student id or a recruiter id (no DB FK).
+  userId  String? @map("user_id") @db.VarChar(100)
+  type    String? @default("general") @db.VarChar(100)
+  message String
+  read    Boolean @default(false)
+  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamptz
 
   @@index([userId])
   @@index([read])
-  @@index([type])
+
+  @@map("notifications")
+}
+
+model Training {
+  id        String  @id @db.VarChar(100)
+  title     String  @db.VarChar(255)
+  description String?
+  instructor String? @db.VarChar(255)
+  // Dates are stored as plain strings (varchar) in the database.
+  startDate String? @map("start_date") @db.VarChar(50)
+  endDate   String? @map("end_date") @db.VarChar(50)
+  duration  String? @db.VarChar(100)
+  mode      String? @default("online") @db.VarChar(50)
+  maxStudents Int?  @default(50) @map("max_students")
+  status    String? @default("upcoming") @db.VarChar(50)
+  // JSON array of student ids (matches existing admin/student portal usage).
+  enrolledStudents Json? @map("enrolled_students") @default("[]")
+  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime? @default(now()) @map("updated_at") @db.Timestamptz
+
+  @@map("trainings")
+}
+
+// The ONLY new table (additive migration). Recruiters authenticate with
+// bcrypt + JWT exactly like admins do (public.admins pattern); Supabase Auth
+// remains student-only per team contract. Company linkage gives every
+// recruiter scoped access to their own drives/applicants only.
+model Recruiter {
+  id               String   @id @db.VarChar(100)
+  name             String   @db.VarChar(255)
+  email            String   @unique @db.VarChar(255)
+  password         String
+  role             String?  @default("recruiter") @db.VarChar(50)
+  companyId        String   @map("company_id") @db.VarChar(100)
+  jobTitle         String?  @map("job_title") @db.VarChar(255)
+  isPrimaryContact Boolean  @default(false) @map("is_primary_contact")
+  isActive         Boolean  @default(true) @map("is_active")
+  createdAt        DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt        DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([companyId])
+  @@index([isActive])
+
+  @@map("recruiters")
 }
